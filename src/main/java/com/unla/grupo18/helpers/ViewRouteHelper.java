@@ -2,26 +2,21 @@ package com.unla.grupo18.helpers;
 
 public class ViewRouteHelper {
 	/**** Views ****/
-	// HOME
+	//HOME
 	public final static String INDEX = "home/index";
-	public final static String ABOUT = "home/about";
 
-	// PERFIL
-	public final static String PERFIL_INDEX = "perfil/index";
+	//DEGREE
+	public final static String DEGREE_INDEX = "degree/index";
+	public final static String DEGREE_FORM = "degree/form";
+	public final static String DEGREE_NEW = "degree/new";
 
-	// USUARIO
-	public final static String USUARIO_INDEX = "usuario/index";
 
-	// USER
-	public final static String USER_LOGIN = "user/login";
+	//USER
+	public final static String USER_LOGIN = "usuario/login";
 	public final static String USER_LOGOUT = "user/logout";
-
-	// ADMIN
-	public final static String ADMIN_INDEX = "admin/index";
 
 	/**** Redirects ****/
 	public final static String ROUTE = "/index";
 	public final static String DEGREE_ROOT = "/degrees/";
 	public final static String PERSON_ROOT = "/person";
-
 }

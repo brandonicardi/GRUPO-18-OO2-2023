@@ -13,9 +13,7 @@ public class HomeController {
 
 	@GetMapping("/index")
 	public String index() {
-
 		return ViewRouteHelper.INDEX;
-
 	}
 
 	// Permite el funcionamiento de los botones (navbar)

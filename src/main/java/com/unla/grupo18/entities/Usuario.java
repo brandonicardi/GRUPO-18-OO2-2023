@@ -62,8 +62,11 @@ public class Usuario {
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="usuario")
 	private Set<UsuarioRol> usuarioRol = new HashSet<>();
 	
-	public Usuario( String nombreusuario, String clave, String nombre, String apellido, Long dni, String email,
-			boolean enabled, Set<UsuarioRol> usuarioRol) {
+	
+
+
+	public Usuario(String nombreusuario, String clave, String nombre, String apellido, Long dni, String email,
+			boolean enabled, LocalDateTime fechaCreacion, LocalDateTime fechaMod) {
 		this.nombreusuario = nombreusuario;
 		this.clave = clave;
 		this.nombre = nombre;
@@ -71,12 +74,22 @@ public class Usuario {
 		this.dni = dni;
 		this.email = email;
 		this.enabled = enabled;
-		this.usuarioRol = usuarioRol;
+		this.fechaCreacion = fechaCreacion;
+		this.fechaMod = fechaMod;
 	}
-
-
-	public void setClave(String clave) {
-		this.clave = DigestUtils.md5DigestAsHex(clave.getBytes());
+	
+	public Usuario(String nombreusuario, String clave, String nombre, String apellido, Long dni, String email,
+			boolean enabled, LocalDateTime fechaCreacion, LocalDateTime fechaMod, Set<UsuarioRol> usuarioRol) {
+		this.nombreusuario = nombreusuario;
+		this.clave = clave;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.dni = dni;
+		this.email = email;
+		this.enabled = enabled;
+		this.fechaCreacion = fechaCreacion;
+		this.fechaMod = fechaMod;
+		this.usuarioRol = usuarioRol;
 	}
 
 
