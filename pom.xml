@@ -99,8 +99,20 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
+		
+		<!-- DEPENDENCIAS LOMBOK P/ GET-SET-CONSTRUCTOR -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<scope>provided</scope>
+		</dependency>
 
 
+		<dependency>
+			<groupId>com.example</groupId>
+			<artifactId>ejemplos_video</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 
 	<build>
