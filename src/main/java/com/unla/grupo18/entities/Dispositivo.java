@@ -30,7 +30,7 @@ import lombok.Setter;
 @Table(name = "dispositivo")
 public abstract class Dispositivo {
 
-	// ATRIBUTOS
+	// ================== ATRIBUTOS ================== 
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,7 +58,8 @@ public abstract class Dispositivo {
     @JoinColumn(name = "idEdificio", nullable = false)
 	protected Edificio edificio;
 
-	// CONSTRUCTOR SIN ID
+	// ================== CONSTRUCTOR SIN ID ==================
+
 	public Dispositivo(String nombreDispositivo, LocalDate fechaCreacion, LocalDate fechaModificacion,
 			LocalDate fechaBaja, boolean isBaja, Edificio edificio) {
 		super();
@@ -70,7 +71,8 @@ public abstract class Dispositivo {
 		this.edificio = edificio;
 	}
 
-	// CONSTRUCTOR CON TODOS LOS PARAMETROS
+	// ================== CONSTRUCTOR CON TODOS LOS PARAMETROS ==================
+	
 	public Dispositivo(int idDispositivo, String nombreDispositivo, LocalDate fechaCreacion,
 			LocalDate fechaModificacion, LocalDate fechaBaja, boolean isBaja, Edificio edificio) {
 		super();
