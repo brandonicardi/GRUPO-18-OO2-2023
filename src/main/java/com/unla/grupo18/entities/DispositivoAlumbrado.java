@@ -23,7 +23,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Table(name = "dispositivo_luces")
 @PrimaryKeyJoinColumn(referencedColumnName="idDispositivo") 
-public class DisLucesAuto extends Dispositivo {	
+public class DispositivoAlumbrado extends Dispositivo {	
 	
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "aula_id")
@@ -49,7 +49,7 @@ public class DisLucesAuto extends Dispositivo {
 	@Column(name="estado")
 	boolean estado; // Por defecto indica si // true
 
-	public DisLucesAuto(int idDispositivo, String nombreDispositivo, LocalDate fechaCreacion,
+	public DispositivoAlumbrado(int idDispositivo, String nombreDispositivo, LocalDate fechaCreacion,
 			LocalDate fechaModificacion, LocalDate fechaBaja, boolean estaActivo, Edificio edificio, Aula aula,
 			LocalTime horadeEncendido, LocalTime horadeApagado, boolean detectorPresencia, boolean accionarCortina,
 			LocalTime horaActual, boolean estado) {
@@ -63,7 +63,7 @@ public class DisLucesAuto extends Dispositivo {
 		this.estado = estado;
 	}
 
-	public DisLucesAuto(String nombreDispositivo, LocalDate fechaCreacion, LocalDate fechaModificacion,
+	public DispositivoAlumbrado(String nombreDispositivo, LocalDate fechaCreacion, LocalDate fechaModificacion,
 			LocalDate fechaBaja, boolean estaActivo, Edificio edificio, Aula aula, LocalTime horadeEncendido,
 			LocalTime horadeApagado, boolean detectorPresencia, boolean accionarCortina, LocalTime horaActual,
 			boolean estado) {
@@ -77,7 +77,7 @@ public class DisLucesAuto extends Dispositivo {
 		this.estado = estado;
 	}
 
-	public DisLucesAuto(int idDispositivo, String nombreDispositivo, LocalDate fechaCreacion,
+	public DispositivoAlumbrado(int idDispositivo, String nombreDispositivo, LocalDate fechaCreacion,
 			LocalDate fechaModificacion, LocalDate fechaBaja, boolean estaActivo, Aula aula, LocalTime horadeEncendido,
 			LocalTime horadeApagado, boolean detectorPresencia, boolean accionarCortina, LocalTime horaActual,
 			boolean estado) {
@@ -92,7 +92,7 @@ public class DisLucesAuto extends Dispositivo {
 	}
 
 
-	public DisLucesAuto(String nombreDispositivo, LocalDate fechaCreacion, LocalDate fechaModificacion,
+	public DispositivoAlumbrado(String nombreDispositivo, LocalDate fechaCreacion, LocalDate fechaModificacion,
 			LocalDate fechaBaja, boolean estaActivo, Edificio edificio) {
 		super(nombreDispositivo, fechaCreacion, fechaModificacion, fechaBaja, estaActivo, edificio);
 	}
