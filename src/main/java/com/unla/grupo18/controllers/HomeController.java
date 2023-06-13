@@ -19,7 +19,6 @@ public class HomeController {
 	// Permite el funcionamiento de los botones (navbar)
 	@GetMapping("")
 	public RedirectView home() {
-
 		return new RedirectView("/index");
 
 	}

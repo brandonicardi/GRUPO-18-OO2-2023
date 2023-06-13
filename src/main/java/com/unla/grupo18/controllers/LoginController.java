@@ -4,12 +4,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 
 import com.unla.grupo18.helpers.ViewRouteHelper;
 
 
 @Controller
-public class UsuarioController {
+public class LoginController {
 
 	@GetMapping("/login")
 	public String login(Model model,
@@ -20,11 +22,15 @@ public class UsuarioController {
 		return ViewRouteHelper.USER_LOGIN;
 	}
 
+	
+	// Si se cierra la sesion el usuario vuelve al login index
 	@GetMapping("/logout")
-	public String logout(Model model) {
-		return ViewRouteHelper.USER_LOGOUT;
+	public String logout(RedirectAttributes redirectAttrs) {
+		redirectAttrs.addFlashAttribute("mensaje", "Sesión cerrada con exito!").addFlashAttribute("clase", "success");
+		return ViewRouteHelper.USER_LOGIN;
 	}
 
+	// Si el inicio de sesion es correcto el usuario es direccionado al index.
 	@GetMapping("/loginsuccess")
 	public String loginCheck() {
 		return "redirect:/index";
