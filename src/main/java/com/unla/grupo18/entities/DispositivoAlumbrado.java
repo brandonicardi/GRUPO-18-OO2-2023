@@ -21,7 +21,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "dispositivo_luces")
+@Table(name = "dispositivo_alumbrado")
 @PrimaryKeyJoinColumn(referencedColumnName="idDispositivo") 
 public class DispositivoAlumbrado extends Dispositivo {	
 	
