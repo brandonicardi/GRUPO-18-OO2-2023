@@ -13,6 +13,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrimaryKeyJoinColumn;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,14 +22,11 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "dispositivo_alumbrado")
 @PrimaryKeyJoinColumn(referencedColumnName="idDispositivo") 
 public class DispositivoAlumbrado extends Dispositivo {	
-	
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "aula_id")
-    private Aula aula;
-	
+
 	@Column(name="horadeencendido")
 	@CreationTimestamp
 	private LocalTime horadeEncendido;
@@ -49,26 +47,23 @@ public class DispositivoAlumbrado extends Dispositivo {
 	@Column(name="estado")
 	boolean estado; // Por defecto indica si // true
 
+	public DispositivoAlumbrado(String nombreDispositivo, LocalDate fechaCreacion, LocalDate fechaModificacion,
+			LocalDate fechaBaja, boolean isBaja, Edificio edificio, LocalTime horadeEncendido, LocalTime horadeApagado,
+			boolean detectorPresencia, boolean accionarCortina, LocalTime horaActual, boolean estado) {
+		super(nombreDispositivo, fechaCreacion, fechaModificacion, fechaBaja, isBaja, edificio);
+		this.horadeEncendido = horadeEncendido;
+		this.horadeApagado = horadeApagado;
+		this.detectorPresencia = detectorPresencia;
+		this.accionarCortina = accionarCortina;
+		this.horaActual = horaActual;
+		this.estado = estado;
+	}
+
 	public DispositivoAlumbrado(int idDispositivo, String nombreDispositivo, LocalDate fechaCreacion,
-			LocalDate fechaModificacion, LocalDate fechaBaja, boolean estaActivo, Edificio edificio, Aula aula,
+			LocalDate fechaModificacion, LocalDate fechaBaja, boolean isBaja, Edificio edificio,
 			LocalTime horadeEncendido, LocalTime horadeApagado, boolean detectorPresencia, boolean accionarCortina,
 			LocalTime horaActual, boolean estado) {
-		super(idDispositivo, nombreDispositivo, fechaCreacion, fechaModificacion, fechaBaja, estaActivo, edificio);
-		this.aula = aula;
-		this.horadeEncendido = horadeEncendido;
-		this.horadeApagado = horadeApagado;
-		this.detectorPresencia = detectorPresencia;
-		this.accionarCortina = accionarCortina;
-		this.horaActual = horaActual;
-		this.estado = estado;
-	}
-
-	public DispositivoAlumbrado(String nombreDispositivo, LocalDate fechaCreacion, LocalDate fechaModificacion,
-			LocalDate fechaBaja, boolean estaActivo, Edificio edificio, Aula aula, LocalTime horadeEncendido,
-			LocalTime horadeApagado, boolean detectorPresencia, boolean accionarCortina, LocalTime horaActual,
-			boolean estado) {
-		super(nombreDispositivo, fechaCreacion, fechaModificacion, fechaBaja, estaActivo, edificio);
-		this.aula = aula;
+		super(idDispositivo, nombreDispositivo, fechaCreacion, fechaModificacion, fechaBaja, isBaja, edificio);
 		this.horadeEncendido = horadeEncendido;
 		this.horadeApagado = horadeApagado;
 		this.detectorPresencia = detectorPresencia;
@@ -78,11 +73,10 @@ public class DispositivoAlumbrado extends Dispositivo {
 	}
 
 	public DispositivoAlumbrado(int idDispositivo, String nombreDispositivo, LocalDate fechaCreacion,
-			LocalDate fechaModificacion, LocalDate fechaBaja, boolean estaActivo, Aula aula, LocalTime horadeEncendido,
+			LocalDate fechaModificacion, LocalDate fechaBaja, boolean isBaja, LocalTime horadeEncendido,
 			LocalTime horadeApagado, boolean detectorPresencia, boolean accionarCortina, LocalTime horaActual,
 			boolean estado) {
-		super(idDispositivo, nombreDispositivo, fechaCreacion, fechaModificacion, fechaBaja, estaActivo);
-		this.aula = aula;
+		super(idDispositivo, nombreDispositivo, fechaCreacion, fechaModificacion, fechaBaja, isBaja);
 		this.horadeEncendido = horadeEncendido;
 		this.horadeApagado = horadeApagado;
 		this.detectorPresencia = detectorPresencia;
@@ -90,28 +84,6 @@ public class DispositivoAlumbrado extends Dispositivo {
 		this.horaActual = horaActual;
 		this.estado = estado;
 	}
-
-
-	public DispositivoAlumbrado(String nombreDispositivo, LocalDate fechaCreacion, LocalDate fechaModificacion,
-			LocalDate fechaBaja, boolean estaActivo, Edificio edificio) {
-		super(nombreDispositivo, fechaCreacion, fechaModificacion, fechaBaja, estaActivo, edificio);
-	}
-
-	@Override
-	public String toString() {
-		return "DisLucesAuto [aula=" + aula + ", horadeEncendido=" + horadeEncendido + ", horadeApagado="
-				+ horadeApagado + ", detectorPresencia=" + detectorPresencia + ", accionarCortina=" + accionarCortina
-				+ ", horaActual=" + horaActual + ", estado=" + estado + "]";
-	}
-	
-	
-
-	
-	
-	
-	
-	
-	
 	
 	
 }

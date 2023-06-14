@@ -13,7 +13,4 @@ public interface IDispositivoRepository extends JpaRepository<Dispositivo, Seria
 	public Dispositivo findByNombreDispositivo(@Param("nombreDispositivo") String nombreDispositivo);
 
 	public Dispositivo findByIdDispositivo(@Param("idDispositivo") int idDispositivo);
-	
-
-	
 }
