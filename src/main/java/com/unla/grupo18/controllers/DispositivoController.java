@@ -1,30 +1,30 @@
 package com.unla.grupo18.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.access.prepost.PreAuthorize;
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
-import com.unla.grupo18.services.implementation.DispositivoService;
+import com.unla.grupo18.services.implementation.DispositivoAlumbradoService;
+import com.unla.grupo18.entities.DispositivoAlumbrado;
 import com.unla.grupo18.helpers.ViewRouteHelper;
 
 @Controller
-@PreAuthorize("hasAuthority('administrador')")
-@RequestMapping("/admin")
+@RequestMapping("/")
 public class DispositivoController {
 
-	@Qualifier("dispositivoService")
-	@Autowired
-	private DispositivoService dispositivoService;
+	private final DispositivoAlumbradoService dispositivoService;
 
-	@GetMapping("dispositivos")
-	public ModelAndView index() {
+	public DispositivoController(DispositivoAlumbradoService dispositivoService) {
+		this.dispositivoService = dispositivoService;
+	}
 
-		ModelAndView mAV = new ModelAndView(ViewRouteHelper.ADMIN_DISPOSITIVO);
-		mAV.addObject("dispositivos", dispositivoService.getAll());
-		return mAV;
+	@GetMapping("/dispositivo")
+	public String deviceList(Model model) {
+		List<DispositivoAlumbrado> dispositivos = dispositivoService.getAllActiveDispositivos();
+		model.addAttribute("dispositivos", dispositivos);
+		return ViewRouteHelper.LISTA_DISP_ALUMBRADO;
 	}
 
 }

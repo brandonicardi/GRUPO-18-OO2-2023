@@ -3,6 +3,8 @@ package com.unla.grupo18.entities;
 import java.util.Objects;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -29,33 +31,34 @@ public class Edificio {
 	// ATRIBUTOS
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idEdificio; 
+	private int id; 
 
-	@Column(name = "edificio")
-	private String edificio;
+	@Column(name = "nombre")
+	private String nombre;
 	
-	//Bidireccional
-	@OneToMany(mappedBy = "edificio", fetch = FetchType.LAZY) //trae una sola Aula
+	// Bidireccional
+	@JsonManagedReference
+	@OneToMany(mappedBy = "edificio", fetch = FetchType.LAZY) // Trae una sola Aula
 	private Set<Aula> aulas;
 
 	// CONSTRUCTOR CON ATRIBUTOS 
-	public Edificio(int idEdificio, String edificio, Set<Aula> aulas) {
+	public Edificio(int id, String nombre, Set<Aula> aulas) {
 		super();
-		this.idEdificio = idEdificio;
-		this.edificio = edificio;
+		this.id = id;
+		this.nombre = nombre;
 		this.aulas = aulas;
 	}
 	
 	@Override
 	public String toString() {
-		return "idEdificio: " + idEdificio 
-				+ "\nNombreEdificio: " + edificio 
+		return "idEdificio: " + id 
+				+ "\nNombreEdificio: " + id 
 				+ "\naulas: " + aulas;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(edificio, idEdificio);
+		return Objects.hash(nombre, id);
 	}	
 	
 }

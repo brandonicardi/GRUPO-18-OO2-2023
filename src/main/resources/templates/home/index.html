@@ -21,7 +21,7 @@
 		<!-- Navigation-->
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 			<div class="container px-5">
-				<a class="navbar-brand" href="">UNLa - Grupo 18</a>
+				<a class="navbar-brand" href="">UNLa - GRUPO 18</a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
 					data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
 					aria-expanded="false" aria-label="Toggle navigation"><span
@@ -30,19 +30,6 @@
 					<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 						<li class="nav-item"><a class="nav-link" th:href="@{/index}">INICIO</a></li>
 						<li class="nav-item"><a class="nav-link" href="about.html">SOBRE NOSOTROS</a></li>
-						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" id="navbarDropdownBlog" href="#" role="button"
-								data-bs-toggle="dropdown" aria-expanded="false">PANEL DE CONTROL</a>
-							<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
-								<li>
-									<a class="dropdown-item" th:href="@{'/admin/dispositivos'}">Administrar
-										dispositivos</a>
-								</li>
-								<li>
-									<a class="dropdown-item">Metricas de dispositivos</a>
-								</li>
-							</ul>
-						</li>
 						<li class="nav-item"><a class="nav-link" th:href="@{/logout}">CERRAR SESIÓN</a></li>
 					</ul>
 				</div>
@@ -101,8 +88,8 @@
         <img class="card-img-top" src="https://dummyimage.com/600x350/adb5bd/495057" alt="..." />
         <div class="card-body p-4">
           <div class="badge bg-primary bg-gradient rounded-pill mb-2">Media</div>
-          <a class="text-decoration-none link-dark stretched-link" href="#!">
-            <h5 class="card-title mb-3">Alumbrado</h5>
+          <a class="text-decoration-none link-dark stretched-link" th:href="@{'/dispositivo/alumbrado'}">
+            <h5 class="card-title mb-3">Alumbrado inteligente</h5>
           </a>
           <p class="card-text mb-0">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
         </div>

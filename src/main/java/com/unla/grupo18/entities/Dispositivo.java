@@ -10,6 +10,8 @@ import jakarta.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -54,6 +56,7 @@ public abstract class Dispositivo {
 	@Column(name="isBaja")
 	protected boolean isBaja;
 	
+	@JsonBackReference
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idEdificio", nullable = false)
 	protected Edificio edificio;
@@ -106,7 +109,6 @@ public abstract class Dispositivo {
 				+ "\nfechaBaja: " + fechaBaja 
 				+ "\nisBaja: " + isBaja;
 	}
-	
 	
 	
 	
