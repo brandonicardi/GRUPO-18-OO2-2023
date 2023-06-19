@@ -21,11 +21,10 @@
 		<section class="pt-4 content">
 			<div class="container px-lg-5">
 				<div class="row gx-lg-5">
-					<h1>Listado de Dispositivos para Editar</h1>
+					<h1>Lista de dispositivos disponibles para editar:</h1>
 					<ul>
-						<!-- Itera sobre los dispositivos y muestra cada uno con su ID y Nombre -->
 						<li th:each="dispositivo : ${dispositivos}"><a
-							th:href="@{/dispositivo/alumbrado/editar/{id}(id=${dispositivo.idDispositivo})}">
+							th:href="@{/dispositivo/alumbrado/modificar/{id}(id=${dispositivo.idDispositivo})}">
 								ID <span th:text="${dispositivo.idDispositivo}"></span>: <span
 								th:text="${dispositivo.nombreDispositivo}"></span>
 						</a></li>

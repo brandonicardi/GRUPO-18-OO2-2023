@@ -11,6 +11,6 @@ import com.unla.grupo18.entities.DispositivoAlumbrado;
 @Repository("dispositivoAlumbradoRepository")
 public interface IDispositivoAlumbradoRepository extends JpaRepository<DispositivoAlumbrado, Integer> {
 	
-	@Query("SELECT d FROM DispositivoAlumbrado d WHERE d.estado = false")
+	@Query("SELECT d FROM DispositivoAlumbrado d WHERE d.isBaja = false")
 	List<DispositivoAlumbrado> findByTipoAndActivoIsTrue();
 }
