@@ -20,13 +20,7 @@ import lombok.Setter;
 public class MetricaRegador extends Metrica {
 	private float humedadMedida;
 	
-	public MetricaRegador() {
-	}
 
-	public MetricaRegador(Dispositivo dispositivo, LocalDateTime fechaHora ,float humedadMedida) {
-		super();
-		this.humedadMedida = humedadMedida;
-	}
 	
 	
 }
