@@ -1,6 +1,6 @@
 package com.unla.grupo18.entities;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -32,8 +32,8 @@ public class DispositivoEstacionamiento extends Dispositivo{
 	
 
 	
-	public DispositivoEstacionamiento(String nombreDispositivo, LocalDate fechaCreacion, LocalDate fechaModificacion,
-			LocalDate fechaBaja, boolean isBaja, Edificio edificio) {
+	public DispositivoEstacionamiento(String nombreDispositivo, LocalDateTime fechaCreacion, LocalDateTime fechaModificacion,
+			LocalDateTime fechaBaja, boolean isBaja, Edificio edificio) {
 		super(nombreDispositivo, fechaCreacion, fechaModificacion, fechaBaja, isBaja, edificio);
 	
 		 this.listaEspacios = new HashSet();

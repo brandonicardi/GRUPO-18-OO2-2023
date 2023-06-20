@@ -48,5 +48,9 @@ public class Aula {
 		this.edificio = edificio;
 	}
 	
+	@Override
+	public String toString() {
+		return "Numero de aula: " + numero + " - ID de Aula: " + idAula;
+	}
 	
 }

@@ -27,4 +27,14 @@ public class ViewRouteHelper {
 	public final static String nuevoDispositivo = "dispositivo/estacionamiento/formularioEsta";
 	public final static String Mostrar_Esta = "dispositivo/estacionamiento/mostrarEsta";
 
+	// Vustar Acondicionar Ambiente
+	public final static String MENU_ACONDICIONAR = "dispositivo/acondicionar";
+	public final static String CREAR_AMBIENTE = "dispositivo/acondicionar/crearDispositivoAcondicionar";
+	public final static String NUEVO_AMBIENTE = "dispositivo/acondicionar/nuevoDispositivoAcondicionar";
+	public final static String LISTA_ACONDICIONAR = "dispositivo/acondicionar/listadoAcondicionar";
+	public final static String VACIO_AMBIENTE = "dispositivo/acondicionar/vacio";
+	public final static String ACTUALIZAR_AMBIENTE = "dispositivo/acondicionar/modificarDispositivoAcondicionar";
+	public final static String FORMULARIO_AMBIENTE = "dispositivo/acondicionar/formularioModificarAcondicionar";
+	public final static String ELIMINAR_AMBIENTE = "dispositivo/acondicionar/eliminarDispositivoAcondicionar";
+
 }

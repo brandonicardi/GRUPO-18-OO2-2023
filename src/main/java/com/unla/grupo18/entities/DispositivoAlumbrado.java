@@ -1,6 +1,7 @@
 package com.unla.grupo18.entities;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import jakarta.persistence.Column;
@@ -42,8 +43,8 @@ public class DispositivoAlumbrado extends Dispositivo {
     @JoinColumn(name = "aula_id")
     private Aula aula;
 
-	public DispositivoAlumbrado(String nombreDispositivo, LocalDate fechaCreacion, LocalDate fechaModificacion,
-			LocalDate fechaBaja, boolean isBaja, Edificio edificio, LocalTime horadeEncendido, LocalTime horadeApagado,
+	public DispositivoAlumbrado(String nombreDispositivo, LocalDateTime fechaCreacion, LocalDateTime fechaModificacion,
+			LocalDateTime fechaBaja, boolean isBaja, Edificio edificio, LocalTime horadeEncendido, LocalTime horadeApagado,
 			boolean estado, Aula aula) {
 		super(nombreDispositivo, fechaCreacion, fechaModificacion, fechaBaja, isBaja, edificio);
 		this.horadeEncendido = horadeEncendido;

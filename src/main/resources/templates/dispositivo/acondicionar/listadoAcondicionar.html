@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+	<title>DISPOSITIVO DE ACONDICIONAR AMBIENTE</title>
+	<!-- Favicon-->
+	<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+	<!-- Bootstrap icons-->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+	<!-- Core theme CSS (includes Bootstrap)-->
+	<link href="../../css/styles.css" rel="stylesheet" />
+</head>
+
+<body>
+	<div class="wrapper">
+		<!-- Page Content-->
+		<section class="pt-4 content">
+			<div class="container px-lg-5">
+				<!-- Page Features-->
+				<div class="row gx-lg-5">
+					
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						<li class="nav-item"><a class="nav-link"
+							th:href="@{/}">Volver al
+								INICIO</a></li>
+					</ul>
+					
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						<li class="nav-item"><a class="nav-link"
+							th:href="@{/dispositivo/acondicionar}">Volver a
+								opciones</a></li>
+					</ul>
+					<h1>Listado de dispositivos de Acondicionar Ambiente</h1>
+					<div class="table-responsive">
+						<table class="table">
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>Nombre</th>
+									<th>Edificio</th>
+									<th>Aula</th>
+									<th>Estado</th>
+									<th class="col-md-3">Acciones</th>
+									<!-- Columna para los botones -->
+								</tr>
+							</thead>
+							<tbody>
+								<!-- Itera sobre los dispositivos y muestra cada uno en una fila -->
+								<tr th:each="dispositivoAcondicionar : ${dispositivos}">
+									<td th:text="${dispositivoAcondicionar.idDispositivo}"></td>
+									<td th:text="${dispositivoAcondicionar.nombreDispositivo}"></td>
+									<td th:text="${dispositivoAcondicionar.edificio.nombre}"></td>
+									<td th:text="${dispositivoAcondicionar.aula}"></td>
+									<td th:text="${dispositivoAcondicionar.isBaja}"></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Bootstrap core JS-->
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+		<!-- Core theme JS-->
+		<script src="js/scripts.js"></script>
+</body>
+
+</html>
