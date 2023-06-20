@@ -26,5 +26,15 @@ public class ViewRouteHelper {
 	public final static String MENU_DISP_Estacionamiento = "dispositivo/estacionamiento";
 	public final static String nuevoDispositivo = "dispositivo/estacionamiento/formularioEsta";
 	public final static String Mostrar_Esta = "dispositivo/estacionamiento/mostrarEsta";
+	
+	//Vistas Cuidado de Espacio Verde
+	public final static String MENU_DISP_REGADOR = "dispositivo/regador";
+	public final static String CREAR_DISP_REGADOR = "dispositivo/regador/crearDispositivo";
+	public final static String NUEVO_DISP_REGADOR = "dispositivo/regador/nuevoDispositivoAlumbrado";
+	public final static String ELIMINAR_DISP_REGADOR = "dispositivo/regador/eliminarDispositivo";
+	public final static String MODIFICAR_DISP_REGADOR = "dispositivo/regador/modificarDispositivo";
+	public final static String MODIFICAR_DISP_REGADOR_FORM = "dispositivo/regador/modificarDispositivoForm";
+	public final static String LISTA_DISP_REGADOR = "dispositivo/regador/listaDispositivos";
+	public final static String NO_EXISTE_DISPOSITIVO_REGADOR = "dispositivo/regador/noExisteDispositivo";
 
 }

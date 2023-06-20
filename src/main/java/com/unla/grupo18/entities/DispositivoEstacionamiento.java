@@ -42,7 +42,6 @@ public class DispositivoEstacionamiento extends Dispositivo{
 
 
 	public DispositivoEstacionamiento() {
-		super();
 	}
 
 	
