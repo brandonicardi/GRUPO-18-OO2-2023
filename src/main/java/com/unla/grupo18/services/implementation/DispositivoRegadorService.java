@@ -2,6 +2,8 @@ package com.unla.grupo18.services.implementation;
 
 import java.util.List;
 
+
+
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.ui.ModelMap;
 import com.unla.grupo18.entities.DispositivoRegador;
 import com.unla.grupo18.models.DispositivoRegadorModel;
 import com.unla.grupo18.repositories.IDispositivoRegadorRepository;
+
 
 @Service
 public class DispositivoRegadorService {
@@ -34,7 +37,7 @@ public class DispositivoRegadorService {
 
 	//Baja
 	public void delete(int id) {
-			DispositivoRegador dispositivo = this.getDispositivoById(id);
+			DispositivoRegador dispositivo = dispositivoRegadorRepository.findById(id).orElse(null);
 			dispositivo.setEstaPrendido(false);
 			dispositivo.setBaja(true);
 			dispositivoRegadorRepository.save(dispositivo);
