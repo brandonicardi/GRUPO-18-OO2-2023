@@ -9,6 +9,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -41,16 +42,16 @@ public abstract class Dispositivo {
 	@Column(name="nombreDispositivo")
 	protected String nombreDispositivo;
 	
-	@Column(name="fechaCreacion")
+	@Column(name="fechaCreacion", updatable=false)
 	@CreationTimestamp
 	protected LocalDateTime fechaCreacion;
 	
 	@Column(name="fechaModificacion")
-	@CreationTimestamp
+	@UpdateTimestamp
 	protected LocalDateTime fechaModificacion;
 	
 	@Column(name="fechaBaja")
-	@CreationTimestamp
+	@UpdateTimestamp
 	protected LocalDateTime fechaBaja;
 	
 	@Column(name="isBaja")

@@ -22,7 +22,13 @@
 		<!-- Responsive navbar-->
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 			<div class="container px-lg-5">
-				<a class="navbar-brand" th:href="@{/}">Inicio</a>
+				
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						<li class="nav-item"><a class="nav-link"
+							th:href="@{/}">Volver al
+								INICIO</a></li>
+					</ul>
+					
 				<button class="navbar-toggler" type="button"
 					data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
 					aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -54,7 +60,7 @@
 						th:action="@{/dispositivo/acondicionar/actualizar/{idDispositivo}/guardar(idDispositivo=*{idDispositivo})}"
 						th:object="${dispositivoAcondicionar}" method="post">
 						<p>
-							Nombre: <input type="text" th:field="*{nombreDispositivo}" />
+							Nombre: <input type="text" id="nombre" th:field="*{nombreDispositivo}" />
 						</p>
 						
 						<label for="edificioId">Edificio:</label>
@@ -73,7 +79,7 @@
 						
 						<input type="hidden" id="edificioIdInput" name="edificioId" />
 						<input type="submit" id="btnSubmit" value="Guardar" />
-						<!--<input type="submit" value="Guardar" /> -->
+						
 					</form>
 				</div>
 		<script>

@@ -13,9 +13,8 @@ public interface IDispositivoAcondicionarAmbienteRepository extends JpaRepositor
 
 	// Traer todos los dispositivos
 	public abstract List<DispositivoAcondicionarAmbiente> findAll();
-	// traer por nombre
-	public abstract DispositivoAcondicionarAmbiente findBynombreDispositivo(String nombreDispositivo);
-	//  traer por ID
+
+	// Traer un unico Dispositivo Acondicionar Ambiente por ID
 	public abstract DispositivoAcondicionarAmbiente findByidDispositivo(int idDispositivo);
 	
 }

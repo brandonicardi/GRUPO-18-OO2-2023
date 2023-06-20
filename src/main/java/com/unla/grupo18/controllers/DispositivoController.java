@@ -6,9 +6,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import com.unla.grupo18.services.implementation.DispositivoAlumbradoService;
+
 import com.unla.grupo18.entities.DispositivoAlumbrado;
 import com.unla.grupo18.helpers.ViewRouteHelper;
+import com.unla.grupo18.services.DispositivoAlumbradoService;
 
 @Controller
 @RequestMapping("/")

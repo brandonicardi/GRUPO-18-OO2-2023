@@ -25,9 +25,17 @@
 					
 					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 						<li class="nav-item"><a class="nav-link"
+							th:href="@{/}">Volver al
+								INICIO</a></li>
+					</ul>
+					
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						<li class="nav-item"><a class="nav-link"
 							th:href="@{/dispositivo/acondicionar}">Volver a
 								opciones</a></li>
 					</ul>
+					
+					
 					
 					<h1>Formulario de Alta</h1>
 					<form th:action="@{nuevoDispositivoAcondicionar}" th:object="${dispositivoAmbiente}" method="post">

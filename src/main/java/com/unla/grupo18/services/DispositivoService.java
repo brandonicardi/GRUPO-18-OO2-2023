@@ -1,4 +1,4 @@
-package com.unla.grupo18.services.implementation;
+package com.unla.grupo18.services;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

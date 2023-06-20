@@ -22,9 +22,9 @@ import com.unla.grupo18.entities.Aula;
 import com.unla.grupo18.entities.DispositivoAlumbrado;
 import com.unla.grupo18.entities.Edificio;
 import com.unla.grupo18.helpers.ViewRouteHelper;
-import com.unla.grupo18.services.implementation.AulaService;
-import com.unla.grupo18.services.implementation.DispositivoAlumbradoService;
-import com.unla.grupo18.services.implementation.EdificioService;
+import com.unla.grupo18.services.AulaService;
+import com.unla.grupo18.services.DispositivoAlumbradoService;
+import com.unla.grupo18.services.EdificioService;
 
 import jakarta.validation.Valid;
 
