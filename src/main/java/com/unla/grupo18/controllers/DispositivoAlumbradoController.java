@@ -44,8 +44,7 @@ public class DispositivoAlumbradoController {
 	@GetMapping("/alumbrado")
 	public String dispositivoAlumbradoInteligente(Model model) {
 		model.addAttribute("dispositivoAlumbrado", new DispositivoAlumbrado());
-		model.addAttribute("edificios", edificioService.obtenerTodosLosEdificios()); // Obtener todos los edificios y
-																						// pasarlos al modelo
+		model.addAttribute("edificios", edificioService.obtenerTodosLosEdificios());
 		return ViewRouteHelper.MENU_DISP_ALUMBRADO;
 	}
 
@@ -53,8 +52,7 @@ public class DispositivoAlumbradoController {
 	@GetMapping("/alumbrado/crear")
 	public String crearDispositivoAlumbrado(Model model) {
 		model.addAttribute("dispositivoAlumbrado", new DispositivoAlumbrado());
-		model.addAttribute("edificios", edificioService.obtenerTodosLosEdificios()); // Obtener todos los edificios y
-																						// pasarlos al modelo
+		model.addAttribute("edificios", edificioService.obtenerTodosLosEdificios());
 		model.addAttribute("aulas", aulaService.obtenerTodasLasAulas());
 		return ViewRouteHelper.CREAR_DISP_ALUMBRADO;
 	}
@@ -85,13 +83,11 @@ public class DispositivoAlumbradoController {
 	// ELIMINAR
 	@GetMapping("/alumbrado/eliminar")
 	public String eliminarDispositivoAlumbrado(Model model) {
-		List<DispositivoAlumbrado> dispositivos = dispositivoAlumbradoService.getAllActiveDispositivos(); // Obtener la
-																											// lista de
-		// dispositivos
+		List<DispositivoAlumbrado> dispositivos = dispositivoAlumbradoService.getAllActiveDispositivos();
 		if (dispositivos.size() == 0) {
 			return ViewRouteHelper.NO_EXISTE_DISPOSITIVO;
 		}
-		model.addAttribute("dispositivos", dispositivos); // Pasar la lista al modelo
+		model.addAttribute("dispositivos", dispositivos);
 		return ViewRouteHelper.ELIMINAR_DISP_ALUMBRADO;
 	}
 
@@ -108,9 +104,7 @@ public class DispositivoAlumbradoController {
 	// MODIFICAR
 	@GetMapping("/alumbrado/modificar")
 	public String modificarDispositivoAlumbrado(Model model) {
-		List<DispositivoAlumbrado> dispositivos = dispositivoAlumbradoService.getAllActiveDispositivos(); // Obtener la
-																											// lista de
-		// dispositivos
+		List<DispositivoAlumbrado> dispositivos = dispositivoAlumbradoService.getAllActiveDispositivos();
 		if (dispositivos.size() == 0) {
 			return ViewRouteHelper.NO_EXISTE_DISPOSITIVO;
 		}
@@ -121,17 +115,15 @@ public class DispositivoAlumbradoController {
 	// MODIFICAR - Formulario
 	@GetMapping("/alumbrado/modificar/{id}")
 	public String modificarDispositivoAlumbrado(@PathVariable int id, Model model) {
-		DispositivoAlumbrado dispositivo = dispositivoAlumbradoService.getDispositivoById(id); // Obtener el dispositivo
-																								// por ID
-		model.addAttribute("dispositivoAlumbrado", dispositivo); // Pasar el dispositivo al modelo
+		DispositivoAlumbrado dispositivo = dispositivoAlumbradoService.getDispositivoById(id);
+		model.addAttribute("dispositivoAlumbrado", dispositivo);
 		return ViewRouteHelper.MODIFICAR_DISP_ALUMBRADO_FORM;
 	}
 
 	// Lista plana
 	@GetMapping("/alumbrado/lista")
 	public String listaDeDispositivoAlumbrado(Model model) {
-		List<DispositivoAlumbrado> dispositivos = dispositivoAlumbradoService.getAllActiveDispositivos(); // obtener //
-																											// activos
+		List<DispositivoAlumbrado> dispositivos = dispositivoAlumbradoService.getAllActiveDispositivos();
 		if (dispositivos.size() == 0) {
 			return ViewRouteHelper.NO_EXISTE_DISPOSITIVO;
 		}

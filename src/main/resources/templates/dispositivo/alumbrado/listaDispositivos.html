@@ -22,7 +22,7 @@
 			<div class="container px-lg-5">
 				<!-- Page Features-->
 				<div class="row gx-lg-5">
-					<h1>Listado de dispositivos de Alumbrado activos</h1>
+					<h1>Lista de dispositivos de Alumbrado INTELIGENTE</h1>
 					<div class="table-responsive">
 						<table class="table">
 							<thead>
@@ -43,6 +43,10 @@
 									<td th:text="${dispositivo.nombreDispositivo}"></td>
 									<td th:text="${dispositivo.edificio.nombre}"></td>
 									<td th:text="${dispositivo.aula.numero}"></td>
+									<td>
+										<span th:if="${!dispositivo.isBaja}">En funcionamiento</span>
+										<span th:if="${dispositivo.isBaja}" th:text="${dispositivo.isBaja}"></span>
+									</td>
 								</tr>
 							</tbody>
 						</table>

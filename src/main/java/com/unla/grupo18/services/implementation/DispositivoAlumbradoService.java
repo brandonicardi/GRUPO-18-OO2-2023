@@ -40,7 +40,6 @@ public class DispositivoAlumbradoService {
         dispositivoExistente.setNombreDispositivo(dispositivo.getNombreDispositivo());
         dispositivoExistente.setEdificio(dispositivo.getEdificio());
         dispositivoExistente.setFechaModificacion(LocalDate.now());
-        
         // Guardar el sensor actualizado en la base de datos
         return dispositivoAlumbradoRepository.save(dispositivoExistente);
     }
@@ -59,7 +58,8 @@ public class DispositivoAlumbradoService {
 
     public void deleteDispositivo(Integer dispositivoId) {
     	DispositivoAlumbrado dispositivo = this.getDispositivoById(dispositivoId);
-    	dispositivo.setEstado(false);
+    	dispositivo.setBaja(true);
+    	dispositivo.setFechaBaja(LocalDate.now());
     	this.saveDispositivo(dispositivo);
     }
 }

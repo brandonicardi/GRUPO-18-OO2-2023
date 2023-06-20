@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
 
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -46,14 +47,13 @@ public abstract class Dispositivo {
 	protected LocalDate fechaCreacion;
 	
 	@Column(name="fechaModificacion")
-	@CreationTimestamp
 	protected LocalDate fechaModificacion;
 	
 	@Column(name="fechaBaja")
-	@CreationTimestamp
 	protected LocalDate fechaBaja;
 	
 	@Column(name="isBaja")
+	@ColumnDefault("false")
 	protected boolean isBaja;
 	
 	@JsonBackReference
@@ -110,13 +110,5 @@ public abstract class Dispositivo {
 				+ "\nfechaBaja: " + fechaBaja 
 				+ "\nisBaja: " + isBaja;
 	}
-	
-	
-	
-	
-	
-    
-	    
-	
 	
 }
