@@ -44,7 +44,7 @@ public class DispositivoAlumbradoController {
 	@GetMapping("/alumbrado")
 	public String dispositivoAlumbradoInteligente(Model model) {
 		model.addAttribute("dispositivoAlumbrado", new DispositivoAlumbrado());
-		model.addAttribute("edificios", edificioService.obtenerTodosLosEdificios()); // Obtener todos los edificios y
+		//model.addAttribute("edificios", edificioService.obtenerTodosLosEdificios()); // Obtener todos los edificios y
 																						// pasarlos al modelo
 		return ViewRouteHelper.MENU_DISP_ALUMBRADO;
 	}

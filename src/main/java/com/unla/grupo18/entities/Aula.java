@@ -1,6 +1,5 @@
 package com.unla.grupo18.entities;
 
-import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -47,6 +46,14 @@ public class Aula {
 		this.numero = numero;
 		this.edificio = edificio;
 	}
+
+
+	@Override
+	public String toString() {
+		return "Numero de aula: " + numero + " - ID de Aula: " + idAula;
+	}
+	
+	
 	
 	
 }

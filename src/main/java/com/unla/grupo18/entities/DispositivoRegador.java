@@ -1,6 +1,7 @@
 package com.unla.grupo18.entities;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.PrimaryKeyJoinColumn;
@@ -27,8 +28,8 @@ public class DispositivoRegador extends Dispositivo {
 	@Column(name="estaPrendido")
 	private boolean estaPrendido;
 	
-	public DispositivoRegador(int idDispositivo, String nombreDispositivo, LocalDate fechaCreacion,
-			LocalDate fechaModificacion, LocalDate fechaBaja, boolean isBaja, float humedadActual,
+	public DispositivoRegador(int idDispositivo, String nombreDispositivo, LocalDateTime fechaCreacion,
+			LocalDateTime fechaModificacion, LocalDateTime fechaBaja, boolean isBaja, float humedadActual,
 			float humedadActivarRegador) {
 		super(idDispositivo, nombreDispositivo, fechaCreacion, fechaModificacion, fechaBaja, isBaja);
 		this.humedadActual = humedadActual;

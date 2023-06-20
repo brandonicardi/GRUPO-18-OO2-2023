@@ -24,5 +24,21 @@ public class DispositivoModel {
     protected boolean isBaja;
     protected Edificio edificio;
     
+    // CONSTRUCTOR MANUAL, ACONDICIONAR AMBIENTE NO TOMA LA NOTACION LOMBOK
+	public DispositivoModel(String nombreDispositivo, LocalDate fechaCreacion,
+			LocalDate fechaModificacion, LocalDate fechaBaja, boolean isBaja, Edificio edificio) {
+		super();
+		this.nombreDispositivo = nombreDispositivo;
+		this.fechaCreacion = fechaCreacion;
+		this.fechaModificacion = fechaModificacion;
+		this.fechaBaja = fechaBaja;
+		this.isBaja = isBaja;
+		this.edificio = edificio;
+	}
+
+
+    
+	
+    
     
 }

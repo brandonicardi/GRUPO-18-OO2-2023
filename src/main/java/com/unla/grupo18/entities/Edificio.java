@@ -51,9 +51,7 @@ public class Edificio {
 	
 	@Override
 	public String toString() {
-		return "idEdificio: " + id 
-				+ "\nNombreEdificio: " + id 
-				+ "\naulas: " + aulas;
+		return nombre + " - id: " + id;
 	}
 
 	@Override
