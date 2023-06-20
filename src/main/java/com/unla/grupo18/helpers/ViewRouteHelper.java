@@ -20,5 +20,11 @@ public class ViewRouteHelper {
 	public final static String MODIFICAR_DISP_ALUMBRADO_FORM = "dispositivo/alumbrado/modificarDispositivoForm";
 	public final static String LISTA_DISP_ALUMBRADO = "dispositivo/alumbrado/listaDispositivos";
 	public final static String NO_EXISTE_DISPOSITIVO = "dispositivo/alumbrado/noExisteDispositivo";
+	
+	//estacionamiento
+	
+	public final static String MENU_DISP_Estacionamiento = "dispositivo/estacionamiento";
+	public final static String nuevoDispositivo = "dispositivo/estacionamiento/formularioEsta";
+	public final static String Mostrar_Esta = "dispositivo/estacionamiento/mostrarEsta";
 
 }

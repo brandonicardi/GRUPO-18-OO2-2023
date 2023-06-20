@@ -76,6 +76,7 @@ public abstract class Dispositivo {
 
 	// ================== CONSTRUCTOR CON TODOS LOS PARAMETROS ==================
 	
+	
 	public Dispositivo(int idDispositivo, String nombreDispositivo, LocalDate fechaCreacion,
 			LocalDate fechaModificacion, LocalDate fechaBaja, boolean isBaja, Edificio edificio) {
 		super();
