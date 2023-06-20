@@ -2,6 +2,7 @@ package com.unla.grupo18.controllers;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
@@ -13,9 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
-import com.unla.grupo18.entities.DispositivoRegador;
 import com.unla.grupo18.entities.Edificio;
 import com.unla.grupo18.helpers.ViewRouteHelper;
 import com.unla.grupo18.models.DispositivoRegadorModel;
@@ -70,7 +69,7 @@ public class DispositivoRegadorController {
 	//Read
 	@GetMapping("/lista")
 	public String listaDeDispositivoRegador(Model model) {
-		List<DispositivoRegador> dispositivos = dispositivoRegadorService.getAllActive();
+		List<DispositivoRegadorModel> dispositivos = dispositivoRegadorService.getAllActive();
 		
 		if (dispositivos.size() == 0) {
 			return ViewRouteHelper.NO_EXISTE_DISPOSITIVO_REGADOR;
@@ -85,7 +84,7 @@ public class DispositivoRegadorController {
 	//Update
 	@GetMapping("/modificar")
 	public String modificarDispositivoRegador(Model model) {
-		List<DispositivoRegador> dispositivos = dispositivoRegadorService.getAllActive();
+		List<DispositivoRegadorModel> dispositivos = dispositivoRegadorService.getAllActive();
 		
 		if (dispositivos.size() == 0) {
 			return ViewRouteHelper.NO_EXISTE_DISPOSITIVO_REGADOR;
@@ -98,7 +97,7 @@ public class DispositivoRegadorController {
 	
 	@GetMapping("modificar/{id}")
 	public String modificarDispositivoRegador(@PathVariable int id, Model model) {
-		DispositivoRegador dispositivo = dispositivoRegadorService.getDispositivoById(id);
+		DispositivoRegadorModel dispositivo = dispositivoRegadorService.getDispositivoById(id);
 		model.addAttribute("dispositivoRegador", dispositivo);
 		
 		return ViewRouteHelper.MODIFICAR_DISP_REGADOR_FORM;

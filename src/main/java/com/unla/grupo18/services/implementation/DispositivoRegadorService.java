@@ -3,9 +3,11 @@ package com.unla.grupo18.services.implementation;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.ModelMap;
 
 import com.unla.grupo18.entities.DispositivoRegador;
 import com.unla.grupo18.models.DispositivoRegadorModel;
@@ -40,27 +42,40 @@ public class DispositivoRegadorService {
 	
 	
 	//Traer
-	public DispositivoRegador getDispositivoById(int id) {
-		return dispositivoRegadorRepository.findById(id).orElse(null);
+	public DispositivoRegadorModel getDispositivoById(int id) {
+		DispositivoRegador dispositivo = dispositivoRegadorRepository.findById(id).orElse(null);
+		return modelMapper.map(dispositivo, DispositivoRegadorModel.class);
 	}
 	
-	public List<DispositivoRegador> getAll(){
-		return dispositivoRegadorRepository.findAll();
+	public List<DispositivoRegadorModel> getAll(){
+		List<DispositivoRegador> dispositivos = dispositivoRegadorRepository.findAll();
+		return mapList(dispositivos, DispositivoRegadorModel.class);
 	}
 	
-	public List<DispositivoRegador> getAllActive(){
-		return dispositivoRegadorRepository.findByIsBaja(false);
+	public List<DispositivoRegadorModel> getAllActive(){
+		List<DispositivoRegador> dispositivos = dispositivoRegadorRepository.findByIsBaja(false);
+		return mapList(dispositivos, DispositivoRegadorModel.class);
 	}
 	
-	public List<DispositivoRegador> getAllInactive(){
-		return dispositivoRegadorRepository.findByIsBaja(true);
+	public List<DispositivoRegadorModel> getAllInactive(){
+		List<DispositivoRegador> dispositivos = dispositivoRegadorRepository.findByIsBaja(true);
+		return mapList(dispositivos, DispositivoRegadorModel.class);
 	}
 	
-	public List<DispositivoRegador> getAllPrendido(){
-		return dispositivoRegadorRepository.findByEstaPrendido(true);
+	public List<DispositivoRegadorModel> getAllPrendido(){
+		List<DispositivoRegador> dispositivos = dispositivoRegadorRepository.findByEstaPrendido(true);
+		return mapList(dispositivos, DispositivoRegadorModel.class);
 	}
 	
-	public List<DispositivoRegador> getAllApagado(){
-		return dispositivoRegadorRepository.findByEstaPrendido(false);
+	public List<DispositivoRegadorModel> getAllApagado(){
+		List<DispositivoRegador> dispositivos = dispositivoRegadorRepository.findByEstaPrendido(false);
+		return mapList(dispositivos, DispositivoRegadorModel.class);
+	}
+	
+	//Metodo auxiliar para transformar lista de una entidad en otra
+	private <T, U> List<U> mapList(List<T> sourceList, Class<U> destinationClass) {
+	    ModelMapper modelMapper = new ModelMapper();
+	    java.lang.reflect.Type targetListType = new TypeToken<List<U>>() {}.getType();
+	    return modelMapper.map(sourceList, targetListType);
 	}
 }
