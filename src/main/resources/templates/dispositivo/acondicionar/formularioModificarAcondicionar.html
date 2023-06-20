@@ -63,6 +63,14 @@
 							Nombre: <input type="text" id="nombre" th:field="*{nombreDispositivo}" />
 						</p>
 						
+						<p>
+							Activar Frio en Temperatura:<input type="text" id="frio" th:field="*{temperaturaActivarFrio}" />
+						</p>
+						
+						<p>
+							Activar Calor en Temperatura:<input type="text" id="frio" th:field="*{temperaturaActivarCalor}" />
+						</p>
+						
 						<label for="edificioId">Edificio:</label>
 						<select id="edificioId" name="edificio.id" th:onchange="cargarAulas()">
 							<option value="">Seleccionar Edificio</option>

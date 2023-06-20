@@ -27,9 +27,11 @@ public class DispositivoAcondicionarAmbiente extends Dispositivo {
 	@JoinColumn(name = "aula_id")
 	private Aula aula;
 	
+	/*
 	// (Se toma de la medicion del Dispositivo, compara para determinar el comportamiento de nuestro disp.
 	@Column(name="temperaturaActual")
 	private float temperaturaActual;
+	*/
 	
 	//(Para comparar con temperatura actual, siendo este mayor, debe enfriar)
 	@Column(name="temperaturaActivarFrio")
@@ -56,10 +58,10 @@ public class DispositivoAcondicionarAmbiente extends Dispositivo {
 	// ==================  CONSTRUCTOR  ==================
 	public DispositivoAcondicionarAmbiente(String nombreDispositivo, LocalDateTime fechaCreacion,
 			LocalDateTime fechaModificacion, LocalDateTime fechaBaja, boolean isBaja, Edificio edificio,
-			Aula aula, float temperaturaActual, float temperaturaActivarFrio, float temperaturaActivarCalor) {
+			Aula aula,float temperaturaActivarFrio, float temperaturaActivarCalor) {
 		super(nombreDispositivo, fechaCreacion, fechaModificacion, fechaBaja, isBaja, edificio);
 		this.aula = aula;
-		this.temperaturaActual = temperaturaActual;
+		//this.temperaturaActual = temperaturaActual;
 		this.temperaturaActivarFrio = temperaturaActivarFrio;
 		this.temperaturaActivarCalor = temperaturaActivarCalor;
 		this.sensorPresencia = false;
@@ -67,7 +69,19 @@ public class DispositivoAcondicionarAmbiente extends Dispositivo {
 		this.modoAire = "apagado";
 	}
 
+	@Override
+	public String toString() {
+		return "DispositivoAcondicionarAmbiente [aula=" + aula +  
+				"\ntemperaturaActivarFrio=" + temperaturaActivarFrio + 
+				"\ntemperaturaActivarCalor="+ temperaturaActivarCalor + 
+				"\nsensorPresencia=" + sensorPresencia + 
+				"\nestado=" + estado + 
+				"\nmodoAire=" + modoAire+
+				"\n";
+	}
+
 	// ==================  to String ==================
+	/*
 	@Override
 	public String toString() {
 		return "DispositivoAcondicionarAmbiente [aula=" + aula + 
@@ -79,6 +93,9 @@ public class DispositivoAcondicionarAmbiente extends Dispositivo {
 				"\nmodoAire=" + modoAire+
 				"\n";
 	}
+	*/
+	
+	
 	
 	
 	

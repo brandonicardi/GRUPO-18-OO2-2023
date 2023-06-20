@@ -74,12 +74,12 @@ public class DispositivoAcondicionarAmbienteController {
 
 	// >> 
 	@PostMapping("/acondicionar/nuevoDispositivoAcondicionar")
-	public ModelAndView nuevoDispositivoAcondicionar(@Valid @ModelAttribute("dispositivoAcondicionar") DispositivoAcondicionarAmbiente dispositivo, @RequestParam("edificioId") int edificioId, @RequestParam("aulaId") int aulaId) {
+	public ModelAndView nuevoDispositivoAcondicionar(@Valid @ModelAttribute("dispositivoAmbiente") DispositivoAcondicionarAmbiente dispositivo, @RequestParam("edificioId") int edificioId, @RequestParam("aulaId") int aulaId) {
 
 		// Instanciamos Edificio y Aula, buscandolos de la BD por su respectivo ID
 		Edificio edificio = edificioService.findById(edificioId);
 		Aula aula = aulaService.findById(aulaId);
-
+		
 		// Seteamos Edificio y Aula
 		dispositivo.setEdificio(edificio);
 		dispositivo.setAula(aula);

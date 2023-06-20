@@ -43,7 +43,9 @@
 									<th>Nombre</th>
 									<th>Edificio</th>
 									<th>Aula</th>
-									<th>Estado</th>
+									<th>Activa Frio en: </th>
+									<th>Activa Calor en: </th>
+									<th>Baja</th>
 									<th class="col-md-3">Acciones</th>
 									<!-- Columna para los botones -->
 								</tr>
@@ -55,6 +57,8 @@
 									<td th:text="${dispositivoAcondicionar.nombreDispositivo}"></td>
 									<td th:text="${dispositivoAcondicionar.edificio.nombre}"></td>
 									<td th:text="${dispositivoAcondicionar.aula}"></td>
+									<td th:text="${dispositivoAcondicionar.temperaturaActivarFrio}"></td>
+									<td th:text="${dispositivoAcondicionar.temperaturaActivarCalor}"></td>
 									<td th:text="${dispositivoAcondicionar.isBaja}"></td>
 								</tr>
 							</tbody>
