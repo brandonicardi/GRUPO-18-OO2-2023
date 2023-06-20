@@ -56,7 +56,7 @@ public class DispositivoAcondicionarAmbienteService implements IDispositivoAcond
 	//	================== Implementa baja logica isBaja = false ==================  
 	public void borrarDispositivo(int idDispositivo) {
 		DispositivoAcondicionarAmbiente nuevoDispositivo = dispositivoAcondicionarAmbienteRepository.findByidDispositivo(idDispositivo);
-		nuevoDispositivo.setBaja(false);
+		nuevoDispositivo.setBaja(true);
 		nuevoDispositivo.setFechaBaja(LocalDateTime.now());
 		this.insertOrUpdate(nuevoDispositivo);
 	}

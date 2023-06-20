@@ -51,7 +51,6 @@ public abstract class Dispositivo {
 	protected LocalDateTime fechaModificacion;
 	
 	@Column(name="fechaBaja")
-	@UpdateTimestamp
 	protected LocalDateTime fechaBaja;
 	
 	@Column(name="isBaja")
