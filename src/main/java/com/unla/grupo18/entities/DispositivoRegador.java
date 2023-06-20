@@ -1,6 +1,9 @@
 package com.unla.grupo18.entities;
 
+<<<<<<< HEAD
 import java.time.LocalDate;
+=======
+>>>>>>> 71b60c890949393078c0346b1f6fdce76c8112f7
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;

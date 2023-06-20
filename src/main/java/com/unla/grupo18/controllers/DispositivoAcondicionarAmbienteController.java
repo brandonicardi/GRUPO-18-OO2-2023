@@ -3,7 +3,11 @@ package com.unla.grupo18.controllers;
 // Java
 import java.util.List;
 import java.util.Set;
+<<<<<<< HEAD
 
+=======
+import java.time.LocalDateTime;
+>>>>>>> 71b60c890949393078c0346b1f6fdce76c8112f7
 // OTROS
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -28,9 +32,15 @@ import com.unla.grupo18.entities.DispositivoAcondicionarAmbiente;
 import com.unla.grupo18.entities.DispositivoAlumbrado;
 import com.unla.grupo18.entities.Edificio;
 import com.unla.grupo18.helpers.ViewRouteHelper;
+<<<<<<< HEAD
 import com.unla.grupo18.services.AulaService;
 import com.unla.grupo18.services.EdificioService;
 import com.unla.grupo18.services.IDispositivoAcondicionarAmbienteService;
+=======
+import com.unla.grupo18.services.IDispositivoAcondicionarAmbienteService;
+import com.unla.grupo18.services.implementation.AulaService;
+import com.unla.grupo18.services.implementation.EdificioService;
+>>>>>>> 71b60c890949393078c0346b1f6fdce76c8112f7
 
 // Valid
 import jakarta.validation.Valid;
@@ -159,8 +169,13 @@ public class DispositivoAcondicionarAmbienteController {
 		// Al dispositivo que nos devuelve la vista, seteamos su respectiva ID
 		dispositivo.setIdDispositivo(idDispositivo);
 		// Seteamos el nombre del Dispositivo
+<<<<<<< HEAD
 		dispositivo.setNombreDispositivo(dispositivo.getNombreDispositivo());
 
+=======
+		//dispositivo.setNombreDispositivo(dispositivo.getNombreDispositivo());
+		dispositivo.setFechaModificacion(LocalDateTime.now());
+>>>>>>> 71b60c890949393078c0346b1f6fdce76c8112f7
 		// Traemos Edificio y Aulas por ID y los guardamos en variable auxiliar
 		Edificio edificio = edificioService.findById(edificioId);
 		Aula aula = aulaService.findById(aulaId);

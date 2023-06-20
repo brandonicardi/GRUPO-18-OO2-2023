@@ -21,6 +21,15 @@ public class ViewRouteHelper {
 	public final static String LISTA_DISP_ALUMBRADO = "dispositivo/alumbrado/listaDispositivos";
 	public final static String NO_EXISTE_DISPOSITIVO = "dispositivo/alumbrado/noExisteDispositivo";
 	
+<<<<<<< HEAD
+=======
+	//estacionamiento
+	
+	public final static String MENU_DISP_Estacionamiento = "dispositivo/estacionamiento";
+	public final static String nuevoDispositivo = "dispositivo/estacionamiento/formularioEsta";
+	public final static String Mostrar_Esta = "dispositivo/estacionamiento/mostrarEsta";
+
+>>>>>>> 71b60c890949393078c0346b1f6fdce76c8112f7
 	// Vustar Acondicionar Ambiente
 	public final static String MENU_ACONDICIONAR = "dispositivo/acondicionar";
 	public final static String CREAR_AMBIENTE = "dispositivo/acondicionar/crearDispositivoAcondicionar";
@@ -30,4 +39,8 @@ public class ViewRouteHelper {
 	public final static String ACTUALIZAR_AMBIENTE = "dispositivo/acondicionar/modificarDispositivoAcondicionar";
 	public final static String FORMULARIO_AMBIENTE = "dispositivo/acondicionar/formularioModificarAcondicionar";
 	public final static String ELIMINAR_AMBIENTE = "dispositivo/acondicionar/eliminarDispositivoAcondicionar";
+<<<<<<< HEAD
+=======
+
+>>>>>>> 71b60c890949393078c0346b1f6fdce76c8112f7
 }

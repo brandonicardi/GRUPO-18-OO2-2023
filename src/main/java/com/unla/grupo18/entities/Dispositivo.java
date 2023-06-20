@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
 
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -47,13 +48,17 @@ public abstract class Dispositivo {
 	protected LocalDateTime fechaCreacion;
 	
 	@Column(name="fechaModificacion")
+<<<<<<< HEAD
 	@UpdateTimestamp
+=======
+>>>>>>> 71b60c890949393078c0346b1f6fdce76c8112f7
 	protected LocalDateTime fechaModificacion;
 	
 	@Column(name="fechaBaja")
 	protected LocalDateTime fechaBaja;
 	
 	@Column(name="isBaja")
+	@ColumnDefault("false")
 	protected boolean isBaja;
 	
 	@JsonBackReference
@@ -76,6 +81,10 @@ public abstract class Dispositivo {
 
 	// ================== CONSTRUCTOR CON TODOS LOS PARAMETROS ==================
 	
+<<<<<<< HEAD
+=======
+	
+>>>>>>> 71b60c890949393078c0346b1f6fdce76c8112f7
 	public Dispositivo(int idDispositivo, String nombreDispositivo, LocalDateTime fechaCreacion,
 			LocalDateTime fechaModificacion, LocalDateTime fechaBaja, boolean isBaja, Edificio edificio) {
 		super();
@@ -111,6 +120,7 @@ public abstract class Dispositivo {
 				+ "\nfechaBaja: " + fechaBaja 
 				+ "\nisBaja: " + isBaja;
 	}
+<<<<<<< HEAD
 
 	
 	
@@ -118,5 +128,7 @@ public abstract class Dispositivo {
     
 	    
 	
+=======
+>>>>>>> 71b60c890949393078c0346b1f6fdce76c8112f7
 	
 }

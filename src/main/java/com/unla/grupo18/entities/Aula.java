@@ -55,5 +55,9 @@ public class Aula {
 	
 	
 	
+	@Override
+	public String toString() {
+		return "Numero de aula: " + numero + " - ID de Aula: " + idAula;
+	}
 	
 }
