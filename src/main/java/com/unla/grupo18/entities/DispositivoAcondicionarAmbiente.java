@@ -26,13 +26,7 @@ public class DispositivoAcondicionarAmbiente extends Dispositivo {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "aula_id")
 	private Aula aula;
-	
-	/*
-	// (Se toma de la medicion del Dispositivo, compara para determinar el comportamiento de nuestro disp.
-	@Column(name="temperaturaActual")
-	private float temperaturaActual;
-	*/
-	
+		
 	//(Para comparar con temperatura actual, siendo este mayor, debe enfriar)
 	@Column(name="temperaturaActivarFrio")
 	private float temperaturaActivarFrio;

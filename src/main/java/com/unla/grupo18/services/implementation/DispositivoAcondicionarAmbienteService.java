@@ -58,6 +58,7 @@ public class DispositivoAcondicionarAmbienteService implements IDispositivoAcond
 		DispositivoAcondicionarAmbiente nuevoDispositivo = dispositivoAcondicionarAmbienteRepository.findByidDispositivo(idDispositivo);
 		nuevoDispositivo.setBaja(true);
 		nuevoDispositivo.setFechaBaja(LocalDateTime.now());
+		nuevoDispositivo.setModoAire("Apagado");
 		this.insertOrUpdate(nuevoDispositivo);
 	}
 	

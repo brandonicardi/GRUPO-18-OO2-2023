@@ -81,6 +81,8 @@ public class DispositivoAcondicionarAmbienteController {
 		Aula aula = aulaService.findById(aulaId);
 		
 		// Seteamos Edificio y Aula
+		dispositivo.setModoAire("Apagado");
+
 		dispositivo.setEdificio(edificio);
 		dispositivo.setAula(aula);
 
@@ -154,7 +156,7 @@ public class DispositivoAcondicionarAmbienteController {
 
 	// >> GUARDAR DISPOSITIVO AL ACTUALIZAR SUS NUEVOS ATRIBUTOS
 	@PostMapping("/acondicionar/actualizar/{idDispositivo}/guardar")
-	public ModelAndView guardarSensorAcondicionar(@PathVariable int idDispositivo, @ModelAttribute("dispositivo") DispositivoAcondicionarAmbiente dispositivo,@RequestParam("edificioId") int edificioId, @RequestParam("aulaId") int aulaId ) {
+	public ModelAndView guardarDispositivoAcondicionar(@PathVariable int idDispositivo, @ModelAttribute("dispositivo") DispositivoAcondicionarAmbiente dispositivo,@RequestParam("edificioId") int edificioId, @RequestParam("aulaId") int aulaId ) {
 
 		// Al dispositivo que nos devuelve la vista, seteamos su respectiva ID
 		dispositivo.setIdDispositivo(idDispositivo);
