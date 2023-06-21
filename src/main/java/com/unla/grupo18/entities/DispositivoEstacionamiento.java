@@ -1,5 +1,7 @@
 package com.unla.grupo18.entities;
 
+import java.time.LocalDateTime;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,34 +20,32 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
+
 @Table(name = "dispositivo_estacionamiento")
+
 @PrimaryKeyJoinColumn(referencedColumnName = "idDispositivo")
 
-public class DispositivoEstacionamiento {
-	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected int idEstacionamiento;
+public class DispositivoEstacionamiento extends Dispositivo{
+	
 	@Column(name = "listaDeEspacios")
 	private Set<Integer> listaEspacios;
+	
 
-	public DispositivoEstacionamiento(Set<Integer> listaEspacios) {
-		super();
-		this.listaEspacios = new HashSet();
+	
+	public DispositivoEstacionamiento(String nombreDispositivo, LocalDateTime fechaCreacion, LocalDateTime fechaModificacion,
+			LocalDateTime fechaBaja, boolean isBaja, Edificio edificio) {
+		super(nombreDispositivo, fechaCreacion, fechaModificacion, fechaBaja, isBaja, edificio);
+	
+		 this.listaEspacios = new HashSet();
 	}
 
-	public Set<Integer> getListaEspacios() {
-		return listaEspacios;
+
+
+	public DispositivoEstacionamiento() {
 	}
 
-	public void setListaEspacios(Set<Integer> listaEspacios) {
-		this.listaEspacios = listaEspacios;
-	}
+	
 
-	@Override
-	public String toString() {
-		return "DispositivoEstacionamiento [listaEspacios=" + listaEspacios + "]";
-	}
+
 
 }

@@ -19,4 +19,5 @@ public interface IEdificioRepository extends JpaRepository<Edificio, Serializabl
 	@Query("SELECT e FROM Edificio e")
 	public List<Edificio> obtenerTodosLosEdificios();
 	
+	
 }

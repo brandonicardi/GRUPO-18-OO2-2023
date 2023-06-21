@@ -1,12 +1,12 @@
 package com.unla.grupo18.entities;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-
-import org.hibernate.annotations.CreationTimestamp;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -18,92 +18,83 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Table(name = "dispositivoAcondicionarAmbiente")
-@PrimaryKeyJoinColumn(referencedColumnName="idDispositivo", name= "id_dispositivoAcondicionarAmbiente") 
+@PrimaryKeyJoinColumn(referencedColumnName="idDispositivo")
 public class DispositivoAcondicionarAmbiente extends Dispositivo {
 
 	// ================== ATRIBUTOS ================== 
 	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "aula_id")
+	private Aula aula;
+		
+	//(Para comparar con temperatura actual, siendo este mayor, debe enfriar)
 	@Column(name="temperaturaActivarFrio")
 	private float temperaturaActivarFrio;
 	
+	// (Para comparar con temperatura actual, siendo este menor, debe calefaccionar)
 	@Column(name="temperaturaActivarCalor")
-	float temperaturaActivarCalor;
-	
-	@Column(name="temperaturaActual")
-	float temperaturaActual;
-	
+	private float temperaturaActivarCalor;
+
+	// (Por defecto false - Si hay personas en el lugar)
+	@Column(name="sensorPresencia")
+	private boolean sensorPresencia;
+
+	// (Por defecto false, indica si el aire está encendido o no)
 	@Column(name="estado")
-	boolean estado; // Por defecto false, indica si el aire está encendido
+	private boolean estado; // 
 	
+	// (Por defecto Apagado) 
+	// (Nos indica la siguientes 3 leyendas: // Apagado - Frio - Calor)
+	// (Alternata su valor si se activo frio o calor o nunca encendio)
 	@Column(name="modoAire")
-	String modoAire; // Apagado - Frio - Calor
+	private String modoAire; 
 	
-	@Column(name="fechaActivacion")
-	@CreationTimestamp
-	LocalDate fechaActivacion;
-
-	@Column(name="horaActivacion")
-	@CreationTimestamp
-	LocalTime horaActivacion;
-	
-	// ================== CONSTRUCTOR CON ID ==================
-	
-	public DispositivoAcondicionarAmbiente(int idDispositivo, String nombreDispositivo, LocalDate fechaCreacion,
-			LocalDate fechaModificacion, LocalDate fechaBaja, boolean isBaja, Edificio edificio,
-			float temperaturaActivarFrio, float temperaturaActivarCalor, float temperaturaActual,
-			LocalDate fechaActivacion, LocalTime horaActivacion ) {
-		super(idDispositivo, nombreDispositivo, fechaCreacion, fechaModificacion, fechaBaja, isBaja, edificio);
-		this.temperaturaActivarFrio = temperaturaActivarFrio;
-		this.temperaturaActivarCalor = temperaturaActivarCalor;
-		this.temperaturaActual = temperaturaActual;
-		this.estado = false;		// Por defecto falso indicando que el aire esta apagado
-		this.modoAire = "apagado";	// Indica un String si esta funciona Frio-Calor
-		this.fechaActivacion = fechaActivacion;
-		this.horaActivacion = horaActivacion;
-	}
-
-	// ================== CONSTRUCTOR SIN ID ==================
-	public DispositivoAcondicionarAmbiente(String nombreDispositivo, LocalDate fechaCreacion,
-			LocalDate fechaModificacion, LocalDate fechaBaja, boolean isBaja, Edificio edificio,
-			float temperaturaActivarFrio, float temperaturaActivarCalor, float temperaturaActual,
-			LocalDate fechaActivacion, LocalTime horaActivacion) {
+	// ==================  CONSTRUCTOR  ==================
+	public DispositivoAcondicionarAmbiente(String nombreDispositivo, LocalDateTime fechaCreacion,
+			LocalDateTime fechaModificacion, LocalDateTime fechaBaja, boolean isBaja, Edificio edificio,
+			Aula aula,float temperaturaActivarFrio, float temperaturaActivarCalor) {
 		super(nombreDispositivo, fechaCreacion, fechaModificacion, fechaBaja, isBaja, edificio);
+		this.aula = aula;
+		//this.temperaturaActual = temperaturaActual;
 		this.temperaturaActivarFrio = temperaturaActivarFrio;
 		this.temperaturaActivarCalor = temperaturaActivarCalor;
-		this.temperaturaActual = temperaturaActual;
-		this.estado = false;		// Por defecto falso indicando que el aire esta apagado
-		this.modoAire = "apagado";	// Indica un String si esta funciona Frio-Calor
-		this.fechaActivacion = fechaActivacion;
-		this.horaActivacion = horaActivacion;
-	} 
-	
-	// ================== METODOS ==================
-	
-	// pre: temperaturaActivarFrio y temperaturaActual son del tipo float
-	//post: estado pasa a true si temperaturaActual > temperaturaActivarFrio (osea manda señal para prender Aire)
-	//		Retorna un int, siendo éste el modoAire
-	int activarFrio(float temperaturaActivarFrio, float temperaturaActual) {
-		int funcionando = 0; // 0 false - 1 true
-		if(temperaturaActual > temperaturaActivarFrio ) {
-			estado = true;
-			modoAire = "Frio";
-			funcionando = 1;
-		}
-		return funcionando;
+		this.sensorPresencia = false;
+		this.estado = false;
+		this.modoAire = "apagado";
 	}
 
-	// pre: temperaturaActivarCalor y temperaturaActual son del tipo float
-	//post: estado pasa a true si temperaturaActual < temperaturaActivarCalor (osea manda señal para prender Aire)
-	//		Retorna un int, siendo éste el modoAire
-	int activarCalor(float temperaturaActivarCalor, float temperaturaActual) {
-		int funcionando = 0; // 0 false - 1 true
-		if(temperaturaActual > temperaturaActivarFrio ) {
-			estado = true;
-			modoAire = "Calor";
-			funcionando = 1;
-		}
-		return funcionando;
+	@Override
+	public String toString() {
+		return "DispositivoAcondicionarAmbiente [aula=" + aula +  
+				"\ntemperaturaActivarFrio=" + temperaturaActivarFrio + 
+				"\ntemperaturaActivarCalor="+ temperaturaActivarCalor + 
+				"\nsensorPresencia=" + sensorPresencia + 
+				"\nestado=" + estado + 
+				"\nmodoAire=" + modoAire+
+				"\n";
 	}
-		
+
+	// ==================  to String ==================
+	/*
+	@Override
+	public String toString() {
+		return "DispositivoAcondicionarAmbiente [aula=" + aula + 
+				"\ntemperaturaActual=" + temperaturaActual + 
+				"\ntemperaturaActivarFrio=" + temperaturaActivarFrio + 
+				"\ntemperaturaActivarCalor="+ temperaturaActivarCalor + 
+				"\nsensorPresencia=" + sensorPresencia + 
+				"\nestado=" + estado + 
+				"\nmodoAire=" + modoAire+
+				"\n";
+	}
+	*/
+	
+	
+	
+	
+	
+	
+
+
 	
 }

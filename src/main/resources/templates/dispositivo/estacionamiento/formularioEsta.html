@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario de Dispositivo</title>
+</head>
+<body>
+    <h1>Formularioo de Dispositivo</h1>
+    <form action="#"  th:action="@{/dispositivo/estacionamiento/create}" method="post" th:object="${dispositivoEstacionamiento}">
+        <label for="nombreDispositivo">Nombre:</label>
+        <input type="text"  name="nombre" th:field="*{nombreDispositivo}" />
+        <!--label for="edificioId">Edificio:</label>
+						<select id="edificioId" name="edificio.id" >
+							<option value="">Seleccionar Edificio</option>
+							<option th:each="edificio : ${edificios}" th:value="${edificio.id}"
+								th:text="${edificio.nombre}"></option>
+						</select-->
+                        <select name="edificioId"
+                                            class="form-select form-select-lg mb-1"
+                                            aria-label=".form-select-lg example">
+                                            <option selected></option>
+                                            <option th:each="edificio : ${edificios}"
+                                                th:value="${edificio.id}"
+                                                th:text="${edificio.nombre}"></option>
+
+				
+						<input type="hidden" id="edificioIdInput" name="edificioId" />
+						
+        <br/>
+        <input type="submit" value="Crear Dispositivo" />
+    </form>
+</body>
+</html>

@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 	<meta name="description" content="" />
 	<meta name="author" content="" />
-	<title>DISPOSITIVO DE ALUMBRADO INTELIGENTE</title>
+	<title>DISPOSITIVO DE CUIDADO DE ESPACIO VERDE</title>
 	<!-- Favicon-->
 	<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 	<!-- Bootstrap icons-->
@@ -20,13 +20,20 @@
 		<!-- Page Content-->
 		<section class="pt-4 content">
 			<div class="container px-lg-5">
-				<!-- Page Features-->
 				<div class="row gx-lg-5">
-					<h1>No existe ningun dispositivo de alumbrado inteligente.</h1>					
+					<h1>Listado de Dispositivos para Editar</h1>
+					<ul>
+						<!-- Itera sobre los dispositivos y muestra cada uno con su ID y Nombre -->
+						<li th:each="dispositivo : ${dispositivos}"><a
+							th:href="@{/dispositivo/regador/modificar/{id}(id=${dispositivo.idDispositivo})}">
+								ID <span th:text="${dispositivo.idDispositivo}"></span>: <span
+								th:text="${dispositivo.nombreDispositivo}"></span>
+						</a></li>
+					</ul>
 				</div>
 			</div>
 		</section>
+
 </body>
 
 </html>
-

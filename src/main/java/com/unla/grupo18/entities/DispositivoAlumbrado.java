@@ -1,11 +1,9 @@
 package com.unla.grupo18.entities;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.List;
-import java.util.ArrayList;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -15,7 +13,6 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -46,8 +43,8 @@ public class DispositivoAlumbrado extends Dispositivo {
     @JoinColumn(name = "aula_id")
     private Aula aula;
 
-	public DispositivoAlumbrado(String nombreDispositivo, LocalDate fechaCreacion, LocalDate fechaModificacion,
-			LocalDate fechaBaja, boolean isBaja, Edificio edificio, LocalTime horadeEncendido, LocalTime horadeApagado,
+	public DispositivoAlumbrado(String nombreDispositivo, LocalDateTime fechaCreacion, LocalDateTime fechaModificacion,
+			LocalDateTime fechaBaja, boolean isBaja, Edificio edificio, LocalTime horadeEncendido, LocalTime horadeApagado,
 			boolean estado, Aula aula) {
 		super(nombreDispositivo, fechaCreacion, fechaModificacion, fechaBaja, isBaja, edificio);
 		this.horadeEncendido = horadeEncendido;

@@ -1,6 +1,6 @@
 package com.unla.grupo18.entities;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
 
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -41,19 +42,18 @@ public abstract class Dispositivo {
 	@Column(name="nombreDispositivo")
 	protected String nombreDispositivo;
 	
-	@Column(name="fechaCreacion")
+	@Column(name="fechaCreacion", updatable=false)
 	@CreationTimestamp
-	protected LocalDate fechaCreacion;
+	protected LocalDateTime fechaCreacion;
 	
 	@Column(name="fechaModificacion")
-	@CreationTimestamp
-	protected LocalDate fechaModificacion;
+	protected LocalDateTime fechaModificacion;
 	
 	@Column(name="fechaBaja")
-	@CreationTimestamp
-	protected LocalDate fechaBaja;
+	protected LocalDateTime fechaBaja;
 	
 	@Column(name="isBaja")
+	@ColumnDefault("false")
 	protected boolean isBaja;
 	
 	@JsonBackReference
@@ -63,8 +63,8 @@ public abstract class Dispositivo {
 
 	// ================== CONSTRUCTOR SIN ID ==================
 
-	public Dispositivo(String nombreDispositivo, LocalDate fechaCreacion, LocalDate fechaModificacion,
-			LocalDate fechaBaja, boolean isBaja, Edificio edificio) {
+	public Dispositivo(String nombreDispositivo, LocalDateTime fechaCreacion, LocalDateTime fechaModificacion,
+			LocalDateTime fechaBaja, boolean isBaja, Edificio edificio) {
 		super();
 		this.nombreDispositivo = nombreDispositivo;
 		this.fechaCreacion = fechaCreacion;
@@ -76,8 +76,9 @@ public abstract class Dispositivo {
 
 	// ================== CONSTRUCTOR CON TODOS LOS PARAMETROS ==================
 	
-	public Dispositivo(int idDispositivo, String nombreDispositivo, LocalDate fechaCreacion,
-			LocalDate fechaModificacion, LocalDate fechaBaja, boolean isBaja, Edificio edificio) {
+	
+	public Dispositivo(int idDispositivo, String nombreDispositivo, LocalDateTime fechaCreacion,
+			LocalDateTime fechaModificacion, LocalDateTime fechaBaja, boolean isBaja, Edificio edificio) {
 		super();
 		this.idDispositivo = idDispositivo;
 		this.nombreDispositivo = nombreDispositivo;
@@ -89,8 +90,8 @@ public abstract class Dispositivo {
 	}
 
 	// CONSTRUCTOR SIN EDIFICIO
-	public Dispositivo(int idDispositivo, String nombreDispositivo, LocalDate fechaCreacion,
-			LocalDate fechaModificacion, LocalDate fechaBaja, boolean isBaja) {
+	public Dispositivo(int idDispositivo, String nombreDispositivo, LocalDateTime fechaCreacion,
+			LocalDateTime fechaModificacion, LocalDateTime fechaBaja, boolean isBaja) {
 		super();
 		this.idDispositivo = idDispositivo;
 		this.nombreDispositivo = nombreDispositivo;
@@ -109,13 +110,5 @@ public abstract class Dispositivo {
 				+ "\nfechaBaja: " + fechaBaja 
 				+ "\nisBaja: " + isBaja;
 	}
-	
-	
-	
-	
-	
-    
-	    
-	
 	
 }

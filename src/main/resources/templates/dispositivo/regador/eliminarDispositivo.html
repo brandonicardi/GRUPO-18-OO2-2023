@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 	<meta name="description" content="" />
 	<meta name="author" content="" />
-	<title>DISPOSITIVO DE ALUMBRADO INTELIGENTE</title>
+	<title>DISPOSITIVO DE CUIDADO DE ESPACIO VERDE</title>
 	<!-- Favicon-->
 	<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 	<!-- Bootstrap icons-->
@@ -17,20 +17,32 @@
 
 <body>
 	<div class="wrapper">
+
 		<!-- Page Content-->
 		<section class="pt-4 content">
 			<div class="container px-lg-5">
 				<!-- Page Features-->
 				<div class="row gx-lg-5">
-					<h1>Formulario de Edicion</h1>
-					<form action="#"
-						th:action="@{/dispositivo/alumbrado/modificar/{id}/guardar(id=*{id})}"
-						th:object="${dispositivoAlumbrado}" method="post">
-						<p>
-							Nombre: <input type="text" th:field="*{nombreDispositivo}" />
-						</p>
-						<input type="submit" value="Guardar" />
-					</form>
+					<script th:inline="javascript">
+					    function confirmarEliminacion(deviceId) {
+					        if (confirm('¿Estás seguro de que deseas eliminar este dispositivo?')) {
+					            fetch('/dispositivo/regador/eliminar/' + deviceId, { method: 'GET' })
+					                .then(function(response) {
+					                    window.location.href = '/dispositivo/dispositivoRegador';
+					                })
+					                .catch(function(error) {
+					                });
+					        }
+					    }
+					</script>
+
+					<h1>Eliminar dispositivo</h1>
+					<ul>
+						<li th:each="dispositivo : ${dispositivos}"><a href="#"
+							th:onclick="'javascript:confirmarEliminacion(\'' + ${dispositivo.idDispositivo} + '\')'">
+								<span th:text="${dispositivo.nombreDispositivo}"></span>
+						</a></li>
+					</ul>
 				</div>
 			</div>
 		</section>
@@ -43,3 +55,10 @@
 </body>
 
 </html>
+
+
+
+
+
+
+

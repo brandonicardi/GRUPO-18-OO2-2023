@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 	<meta name="description" content="" />
 	<meta name="author" content="" />
-	<title>DISPOSITIVO DE ALUMBRADO INTELIGENTE</title>
+	<title>DISPOSITIVO DE CUIDADO DE ESAPCIO VERDE</title>
 	<!-- Favicon-->
 	<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 	<!-- Bootstrap icons-->
@@ -22,17 +22,34 @@
 			<div class="container px-lg-5">
 				<!-- Page Features-->
 				<div class="row gx-lg-5">
-					<h1>Datos del dispositivo</h1>
-					<p>
-						Nombre: <span th:text="${dispositivoAlumbrado.nombreDispositivo}" />
-					</p>
-					<p>
-						Edificio: <span th:text="${dispositivoAlumbrado.edificio.nombre}" />
-					</p>
-					<p>
-						Aula: <span th:text="${dispositivoAlumbrado.aula.numero}" />
-					</p>
-
+					<h1>Listado de dispositivos de Regador</h1>
+					<div class="table-responsive">
+						<table class="table">
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>Nombre</th>
+									<th>Edificio</th>
+									<th>Zona</th>	
+									<th>Prendido</th>
+								
+									<th class="col-md-3">Acciones</th>
+									
+									<!-- Columna para los botones -->
+								</tr>
+							</thead>
+							<tbody>
+								<!-- Itera sobre los dispositivos y muestra cada uno en una fila -->
+								<tr th:each="dispositivo : ${dispositivos}">
+									<td th:text="${dispositivo.idDispositivo}"></td>
+									<td th:text="${dispositivo.nombreDispositivo}"></td>
+									<td th:text="${dispositivo.edificio.nombre}"></td>
+									<!--td th:text="${dispositivo.zona}"></td-->
+									<td th:text="${dispositivo.estaPrendido}"></td>	
+								</tr>
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 		</section>

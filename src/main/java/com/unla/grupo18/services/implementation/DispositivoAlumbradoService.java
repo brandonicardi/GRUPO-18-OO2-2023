@@ -1,6 +1,6 @@
 package com.unla.grupo18.services.implementation;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -39,7 +39,7 @@ public class DispositivoAlumbradoService {
         // Actualizar los campos del sensor existente con los nuevos valores
         dispositivoExistente.setNombreDispositivo(dispositivo.getNombreDispositivo());
         dispositivoExistente.setEdificio(dispositivo.getEdificio());
-        dispositivoExistente.setFechaModificacion(LocalDate.now());
+        dispositivoExistente.setFechaModificacion(LocalDateTime.now());
         
         // Guardar el sensor actualizado en la base de datos
         return dispositivoAlumbradoRepository.save(dispositivoExistente);
