@@ -34,11 +34,11 @@ public class DispositivoAcondicionarAmbiente extends Dispositivo {
 	// (Para comparar con temperatura actual, siendo este menor, debe calefaccionar)
 	@Column(name="temperaturaActivarCalor")
 	private float temperaturaActivarCalor;
-
-	// (Por defecto false - Si hay personas en el lugar)
+	/*
+	// (Por defecto false - Si hay personas en el lugar) --> Lo testeamos en metrica Ambiente (entities - model )
 	@Column(name="sensorPresencia")
 	private boolean sensorPresencia;
-
+	*/
 	// (Por defecto false, indica si el aire está encendido o no)
 	@Column(name="estado")
 	private boolean estado; // 
@@ -58,7 +58,7 @@ public class DispositivoAcondicionarAmbiente extends Dispositivo {
 		//this.temperaturaActual = temperaturaActual;
 		this.temperaturaActivarFrio = temperaturaActivarFrio;
 		this.temperaturaActivarCalor = temperaturaActivarCalor;
-		this.sensorPresencia = false;
+		//this.sensorPresencia = false;
 		this.estado = false;
 		this.modoAire = "apagado";
 	}
@@ -68,7 +68,7 @@ public class DispositivoAcondicionarAmbiente extends Dispositivo {
 		return "DispositivoAcondicionarAmbiente [aula=" + aula +  
 				"\ntemperaturaActivarFrio=" + temperaturaActivarFrio + 
 				"\ntemperaturaActivarCalor="+ temperaturaActivarCalor + 
-				"\nsensorPresencia=" + sensorPresencia + 
+				/*"\nsensorPresencia=" + sensorPresencia +*/ 
 				"\nestado=" + estado + 
 				"\nmodoAire=" + modoAire+
 				"\n";
