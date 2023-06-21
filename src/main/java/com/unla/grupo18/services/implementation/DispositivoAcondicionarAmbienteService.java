@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.unla.grupo18.repositories.IDispositivoAcondicionarAmbienteRepository;
 import com.unla.grupo18.services.IDispositivoAcondicionarAmbienteService;
 import com.unla.grupo18.entities.DispositivoAcondicionarAmbiente;
+import com.unla.grupo18.entities.MetricaAcondicionarAmbiente;
 import com.unla.grupo18.models.DispositivoAcondicionarAmbienteModel;
 
 @Service("dispositivoAcondicionarAmbienteService")
@@ -60,6 +61,11 @@ public class DispositivoAcondicionarAmbienteService implements IDispositivoAcond
 		nuevoDispositivo.setFechaBaja(LocalDateTime.now());
 		nuevoDispositivo.setModoAire("Apagado");
 		this.insertOrUpdate(nuevoDispositivo);
+	}
+	
+	//	================== Retorna Lista de Metricas ==================
+	public List<MetricaAcondicionarAmbiente> traerMetricas(){
+		return dispositivoAcondicionarAmbienteRepository.traerMetricasAmbiente();
 	}
 	
 	

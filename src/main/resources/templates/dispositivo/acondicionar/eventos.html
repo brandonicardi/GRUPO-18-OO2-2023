@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 	<meta name="description" content="" />
 	<meta name="author" content="" />
-	<title>DISPOSITIVO DE ACONDICIONAR AMBIENTE</title>
+	<title>EVENTO ACONDICIONAR AMBIENTE</title>
 	<!-- Favicon-->
 	<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 	<!-- Bootstrap icons-->
@@ -34,37 +34,36 @@
 							th:href="@{/dispositivo/acondicionar}">Volver a
 								opciones</a></li>
 					</ul>
-					<h1>Listado de dispositivos de Acondicionar Ambiente</h1>
+					<h1>Listado de Eventos del dispositivo de Acondicionar Ambiente</h1>
 					<div class="table-responsive">
 						<table class="table">
 							<thead>
 								<tr>
-									<th>ID</th>
-									<th>Nombre</th>
+									<th>IdMetrica</th>
+									<th>Dispositivo: </th>
 									<th>Edificio</th>
 									<th>Aula</th>
-									<th>Activa Frio en: </th>
-									<th>Activa Calor en: </th>
+									<th>Fecha/Hora de Evento</th>
+									<th>Temperatura Actual</th>
+									<th>Funcionamiento</th>
 									<th>Modo Aire: </th>
-									<th>Estado</th>
-									<th class="col-md-3">Acciones</th>
+									
+									
 									<!-- Columna para los botones -->
 								</tr>
 							</thead>
 							<tbody>
 								<!-- Itera sobre los dispositivos y muestra cada uno en una fila -->
-								<tr th:each="dispositivoAcondicionar : ${dispositivos}">
-									<td th:text="${dispositivoAcondicionar.idDispositivo}"></td>
-									<td th:text="${dispositivoAcondicionar.nombreDispositivo}"></td>
-									<td th:text="${dispositivoAcondicionar.edificio.nombre}"></td>
-									<td th:text="${dispositivoAcondicionar.aula}"></td>
-									<td th:text="${dispositivoAcondicionar.temperaturaActivarFrio}"></td>
-									<td th:text="${dispositivoAcondicionar.temperaturaActivarCalor}"></td>
-									<td th:text="${dispositivoAcondicionar.modoAire}"></td>
-									<td>
-										<span th:if="${!dispositivoAcondicionar.isBaja}">Activo</span>
-										<span th:if="${dispositivoAcondicionar.isBaja}">Inactivo</span>
-									</td>
+								<tr th:each="MetricaAcondicionarAmbiente: ${metricas}">
+									<td th:text="${MetricaAcondicionarAmbiente.idMetrica}"></td>
+									<td th:text="${MetricaAcondicionarAmbiente.dispositivo.nombreDispositivo}"></td>
+									<td th:text="${MetricaAcondicionarAmbiente.dispositivo.edificio.nombre}"></td>
+									<td th:text="${MetricaAcondicionarAmbiente.dispositivo.aula.numero}"></td>
+									<td th:text="${MetricaAcondicionarAmbiente.evento.fechahoraEvento}"></td>
+									<td th:text="${MetricaAcondicionarAmbiente.evento.temperaturaActual}"></td>
+									<td th:text="${MetricaAcondicionarAmbiente.dispositivo.estado}"></td>
+									<td th:text="${MetricaAcondicionarAmbiente.dispositivo.modoAire}"></td>
+								
 								</tr>
 							</tbody>
 						</table>

@@ -21,6 +21,9 @@ public class MetricaAcondicionarAmbiente extends Metrica{
 	// (Se toma de la medicion del Dispositivo, compara para determinar el comportamiento de nuestro disp.
 	@Column(name="temperaturaActual")
 	private float temperaturaActual;
-	
+
+	// (Por defecto false - Si hay personas en el lugar)
+	@Column(name="sensorPresencia")
+	private boolean sensorPresencia;
 
 }

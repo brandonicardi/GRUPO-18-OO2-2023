@@ -1,6 +1,7 @@
 package com.unla.grupo18.services;
 
 import com.unla.grupo18.entities.DispositivoAcondicionarAmbiente;
+import com.unla.grupo18.entities.MetricaAcondicionarAmbiente;
 import com.unla.grupo18.models.DispositivoAcondicionarAmbienteModel;
 import java.util.List;
 
@@ -27,4 +28,7 @@ public interface IDispositivoAcondicionarAmbienteService {
     //post: Aplica baja logica, setea el valor isBaja de Dispositivo a "false"
 	public void borrarDispositivo(int idDispositivo);
 	// ====================================================================================================
+	// pre: Sin argumentos
+	//post: Retorna una lista completa de metricas del dispositivo Acondicionar ambiente x HQL
+	public List<MetricaAcondicionarAmbiente> traerMetricas();
 }

@@ -46,5 +46,6 @@ public class ViewRouteHelper {
 	public final static String ACTUALIZAR_AMBIENTE = "dispositivo/acondicionar/modificarDispositivoAcondicionar";
 	public final static String FORMULARIO_AMBIENTE = "dispositivo/acondicionar/formularioModificarAcondicionar";
 	public final static String ELIMINAR_AMBIENTE = "dispositivo/acondicionar/eliminarDispositivoAcondicionar";
+	public final static String EVENTO_AMBIENTE = "dispositivo/acondicionar/eventos";
 
 }

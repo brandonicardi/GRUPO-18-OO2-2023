@@ -22,7 +22,7 @@ public class DispositivoAcondicionarAmbienteModel extends DispositivoModel{
 	private float temperaturaActual;
 	private float temperaturaActivarFrio;
 	private float temperaturaActivarCalor;
-	private boolean sensorPresencia;
+	// private boolean sensorPresencia; Se testea en Metrica, corregir en entities - modelo - 
 	private boolean estado; 
 	private String modoAire;
 	
@@ -31,7 +31,7 @@ public class DispositivoAcondicionarAmbienteModel extends DispositivoModel{
 	public String toString() {
 		return "DispositivoAcondicionarAmbienteModel [aula=" + aula + ", temperaturaActual=" + temperaturaActual
 				+ ", temperaturaActivarFrio=" + temperaturaActivarFrio + ", temperaturaActivarCalor="
-				+ temperaturaActivarCalor + ", sensorPresencia=" + sensorPresencia + ", estado=" + estado
+				+ temperaturaActivarCalor + /*", sensorPresencia=" + sensorPresencia + */", estado=" + estado
 				+ ", modoAire=" + modoAire + "]";
 	}
 	
