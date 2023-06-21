@@ -3,6 +3,7 @@ package com.unla.grupo18.controllers;
 import java.util.List;
 
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
@@ -33,6 +34,7 @@ public class DispositivoRegadorController {
 	@Autowired
 	private EdificioService edificioService;
 	
+	//Menu
 	@GetMapping("")
 	public String dispositivoEspacioVerde (Model model) {
 		model.addAttribute("dispositivoRegador", new DispositivoRegadorModel());

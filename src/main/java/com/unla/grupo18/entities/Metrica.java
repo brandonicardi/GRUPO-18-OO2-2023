@@ -11,6 +11,7 @@ import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -38,7 +39,9 @@ public abstract class Metrica {
 	
 	@Column(name="fechaHora")
 	private LocalDateTime fechaHoraMetrica;
-
+	
+	@OneToOne(mappedBy = "metrica")
+	private Evento evento;
 	
 	
 }
