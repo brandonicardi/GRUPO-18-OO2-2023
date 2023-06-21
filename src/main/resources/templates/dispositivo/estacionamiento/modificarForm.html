@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Modificar Dispositivo de Estacionamiento</title>
+</head>
+<body>
+    <h1>Modificar Dispositivo de Estacionamiento</h1>
+
+    <form action="/estacionamiento/modificarForm" method="post">
+        <input type="hidden" th:field="*{id}"/>
+
+        <label for="nombreDispositivo">Nombre del Dispositivo:</label>
+        <input type="text" id="nombreDispositivo" name="nombreDispositivo" th:value="*{nombreDispositivo}"/>
+
+        <!-- Otros campos del dispositivo de estacionamiento -->
+        <!-- ... -->
+
+        <button type="submit">Guardar Cambios</button>
+    </form>
+</body>
+</html>
