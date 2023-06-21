@@ -4,14 +4,18 @@ import java.util.List;
 
 
 
+
+
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 
 import com.unla.grupo18.entities.DispositivoRegador;
+import com.unla.grupo18.entities.MetricaRegador;
 import com.unla.grupo18.models.DispositivoRegadorModel;
 import com.unla.grupo18.repositories.IDispositivoRegadorRepository;
 
@@ -21,7 +25,7 @@ public class DispositivoRegadorService {
 	@Autowired
 	@Qualifier("dispositivoRegadorRepository")
 	private IDispositivoRegadorRepository dispositivoRegadorRepository;
-	
+
 	private ModelMapper modelMapper = new ModelMapper();
 
 	public DispositivoRegadorService(IDispositivoRegadorRepository dispositivoRegadorRepository) {
@@ -81,4 +85,47 @@ public class DispositivoRegadorService {
 	    java.lang.reflect.Type targetListType = new TypeToken<List<U>>() {}.getType();
 	    return modelMapper.map(sourceList, targetListType);
 	}
+	
+	//Traer metricas del dispositivo
+	public List<MetricaRegador> traerMetricas(){
+		return dispositivoRegadorRepository.traerMetricas();
+	}
+	
+	//Actualizar el estado del dispositivo y generar los eventos
+	public void generarEventos() {
+		List<MetricaRegador> metricas = this.traerMetricas();
+		DispositivoRegador d; //Dispositivo de la metrica
+		float humedadMedida; //Humedad registrada en la métrica
+		float humedadActual; //Humedad registrada en dispositivo
+		float humedadPrenderRegador; //Si la humedad es menor a esta se prende el regador
+		float humedadApagarRegador; //Si la humedad es mayor a esta se apaga el regador
+		boolean estaPrendido; //Registra si el regador esta prendido(true) o apagado(false)
+		
+		
+		for (MetricaRegador m : metricas) {
+			d = m.getDispositivo();
+			humedadMedida = m.getHumedadMedida();
+			humedadActual = d.getHumedadActual(); 
+			humedadApagarRegador = d.getHumedadApagarRegador();
+			humedadPrenderRegador = d.getHumedadPrenderRegador();
+			
+			
+			if (humedadMedida < humedadPrenderRegador && !estaPrendido) {
+				d.setEstaPrendido(true);
+				//generar evento(dispositivo, "Se prendio regador", metrica)
+			}
+			
+			if (humedadMedida > humedadApagarRegador && estaPrendido) {
+				d.setEstaPrendido(false);
+				//generar evento(dispositivo, "Se apago regador", metrica)
+			}
+		
+		}
+		
+	}
+	
+	
+	
+	
+	
 }

@@ -30,9 +30,11 @@
 									<th>ID</th>
 									<th>Nombre</th>
 									<th>Edificio</th>
-									<!--th>Aula</th-->
-									<th>Estado</th>
+									<th>Zona</th>	
+									<th>Prendido</th>
+								
 									<th class="col-md-3">Acciones</th>
+									
 									<!-- Columna para los botones -->
 								</tr>
 							</thead>
@@ -42,8 +44,8 @@
 									<td th:text="${dispositivo.idDispositivo}"></td>
 									<td th:text="${dispositivo.nombreDispositivo}"></td>
 									<td th:text="${dispositivo.edificio.nombre}"></td>
-									<td th:text="${dispositivo.estaPrendido}"></td>
-									<!--td th:text="${dispositivo.aula.numero}"></td-->
+									<!--td th:text="${dispositivo.zona}"></td-->
+									<td th:text="${dispositivo.estaPrendido}"></td>	
 								</tr>
 							</tbody>
 						</table>

@@ -30,7 +30,7 @@ public class ViewRouteHelper {
 	//Vistas Cuidado de Espacio Verde
 	public final static String MENU_DISP_REGADOR = "dispositivo/regador";
 	public final static String CREAR_DISP_REGADOR = "dispositivo/regador/crearDispositivo";
-	public final static String NUEVO_DISP_REGADOR = "dispositivo/regador/nuevoDispositivoAlumbrado";
+	public final static String NUEVO_DISP_REGADOR = "dispositivo/regador/nuevoDispositivoRegador";
 	public final static String ELIMINAR_DISP_REGADOR = "dispositivo/regador/eliminarDispositivo";
 	public final static String MODIFICAR_DISP_REGADOR = "dispositivo/regador/modificarDispositivo";
 	public final static String MODIFICAR_DISP_REGADOR_FORM = "dispositivo/regador/modificarDispositivoForm";

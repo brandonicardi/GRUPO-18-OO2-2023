@@ -18,9 +18,7 @@ import lombok.Setter;
 @Table(name = "metricaRegador")
 @PrimaryKeyJoinColumn(referencedColumnName="idMetrica")
 public class MetricaRegador extends Metrica {
+	
 	private float humedadMedida;
-	
-
-	
 	
 }

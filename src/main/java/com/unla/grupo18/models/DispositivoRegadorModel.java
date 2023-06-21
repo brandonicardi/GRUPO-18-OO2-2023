@@ -11,6 +11,5 @@ import lombok.Setter;
 @AllArgsConstructor
 public class DispositivoRegadorModel extends DispositivoModel {
 	private float humedadActual;
-	private float humedadActivarRegador;
 	private boolean estaPrendido;
 }

@@ -2,6 +2,7 @@ package com.unla.grupo18.entities;
 
 import java.time.LocalDateTime;
 
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Column;
@@ -11,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -38,6 +40,10 @@ public class Evento {
 	
 	@Column(name="fechahora")
 	private LocalDateTime fechahoraEvento;
+	
+	@OneToOne
+	@JoinColumn(name= "idMetrica")
+	private Metrica metrica;
 	
 	
 	
