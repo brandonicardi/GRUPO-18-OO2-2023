@@ -20,7 +20,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-
+@NoArgsConstructor
 @Table(name = "dispositivo_estacionamiento")
 
 @PrimaryKeyJoinColumn(referencedColumnName = "idDispositivo")

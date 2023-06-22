@@ -55,7 +55,8 @@ public class MetricaDispositivoAlumbradoService {
 
 		// Actualizar los campos de la métrica existente con los nuevos valores
 		existente.setSensorPresencia(metrica.isSensorPresencia());
-		existente.setHoraActual(metrica.getHoraActual());
+		existente.setFechaDeteccion(metrica.getFechaDeteccion());
+		existente.setHoraDeteccion(metrica.getHoraDeteccion());
 		existente.setFechaHoraMetrica(metrica.getFechaHoraMetrica());
 
 		// Guardar la métrica actualizada en la base de datos

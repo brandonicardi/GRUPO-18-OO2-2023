@@ -5,13 +5,10 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.unla.grupo18.entities.Aula;
 import com.unla.grupo18.entities.DispositivoAlumbrado;
@@ -94,6 +92,7 @@ public class DispositivoAlumbradoController {
 			return ViewRouteHelper.NO_EXISTE_DISPOSITIVO;
 		}
 		model.addAttribute("dispositivos", dispositivos);
+
 		return ViewRouteHelper.ELIMINAR_DISP_ALUMBRADO;
 	}
 
@@ -102,7 +101,7 @@ public class DispositivoAlumbradoController {
 		ModelAndView mV = new ModelAndView();
 		DispositivoAlumbrado dispositivo = dispositivoAlumbradoService.getDispositivoById(id);
 		dispositivoAlumbradoService.deleteDispositivo(id);
-		mV.setViewName(ViewRouteHelper.MENU_DISP_ALUMBRADO); // Cambia la vista de retorno según corresponda
+		mV.setViewName(ViewRouteHelper.ELIMINAR_DISP_ALUMBRADO); // Cambia la vista de retorno según corresponda
 		mV.addObject("dispositivoAlumbrado", dispositivo);
 		return mV;
 	}
@@ -124,6 +123,22 @@ public class DispositivoAlumbradoController {
 		DispositivoAlumbrado dispositivo = dispositivoAlumbradoService.getDispositivoById(id);
 		model.addAttribute("dispositivoAlumbrado", dispositivo);
 		return ViewRouteHelper.MODIFICAR_DISP_ALUMBRADO_FORM;
+	}
+	
+	// Guardar modificacion
+	@PostMapping("/alumbrado/modificar/{id}/guardar")
+	public ModelAndView saveDispositivoAlumbrado(@PathVariable int id,
+			@ModelAttribute("dispositivo") DispositivoAlumbrado dispositivo) {
+		// Guardar los cambios en el dispositivo en la base de datos
+		dispositivo.setIdDispositivo(id);
+		dispositivo.setFechaModificacion(dispositivoAlumbradoService.getDispositivoById(id).getFechaModificacion());
+		dispositivo.setMetricas(dispositivoAlumbradoService.getDispositivoById(id).getMetricas());
+		dispositivoAlumbradoService.saveDispositivo(dispositivo);
+
+		ModelAndView mV = new ModelAndView();
+		mV.setViewName(ViewRouteHelper.NUEVO_DISP_ALUMBRADO);
+		mV.addObject("dispositivoAlumbrado", dispositivo);
+		return mV;
 	}
 
 	// Lista plana

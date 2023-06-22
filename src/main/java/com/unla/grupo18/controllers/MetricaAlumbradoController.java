@@ -55,8 +55,8 @@ public class MetricaAlumbradoController {
 				LocalTime horaEncendido = dispositivoAlumbrado.getHoradeEncendido();
 				LocalTime horaApagado = dispositivoAlumbrado.getHoradeApagado();
 
-				if (metrica.isSensorPresencia() && metrica.getHoraActual().isAfter(horaEncendido)
-						&& metrica.getHoraActual().isBefore(horaApagado)) {
+				if (metrica.isSensorPresencia() && metrica.getHoraDeteccion().isAfter(horaEncendido)
+						&& metrica.getHoraDeteccion().isBefore(horaApagado)) {
 					dispositivoAlumbrado.setEstado(true);
 					Evento eventoPrenderLaLuz = new Evento(dispositivoAlumbrado, "Se prendió la luz",
 							metrica.getFechaHoraMetrica(), metrica);

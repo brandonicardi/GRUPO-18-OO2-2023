@@ -1,7 +1,10 @@
 package com.unla.grupo18.entities;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -20,7 +23,7 @@ import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 
 import jakarta.persistence.ManyToOne;
-
+import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -60,7 +63,10 @@ public abstract class Dispositivo {
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idEdificio", nullable = false)
 	protected Edificio edificio;
-
+	
+    @OneToMany(mappedBy = "dispositivo", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Metrica> metricas = new ArrayList<>();
+	
 	// ================== CONSTRUCTOR SIN ID ==================
 
 	public Dispositivo(String nombreDispositivo, LocalDateTime fechaCreacion, LocalDateTime fechaModificacion,

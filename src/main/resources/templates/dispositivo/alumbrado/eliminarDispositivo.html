@@ -42,6 +42,9 @@
 		</nav>
 		<!-- Page Content-->
 		<section class="pt-4 content">
+			    <div th:if="${flash.success}" class="alert alert-success">
+        <p th:text="${flash.success}"></p>
+    </div>
 			<div class="container px-lg-5">
 				<!-- Page Features-->
 				<div class="row gx-lg-5">

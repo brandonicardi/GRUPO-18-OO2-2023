@@ -1,5 +1,6 @@
 package com.unla.grupo18.entities;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
@@ -31,8 +32,11 @@ public class MetricaAlumbrado extends Metrica {
     @ColumnDefault("false")
     private boolean sensorPresencia;
 
-    @Column(name = "horaActual")
-    private LocalTime horaActual;
+    @Column(name = "fechaDeteccion")
+    private LocalDate fechaDeteccion;
+    
+    @Column(name = "horaDeteccion")
+    private LocalTime horaDeteccion;
 
     @ManyToOne
     @JoinColumn(name = "dispositivo_alumbrado_id")
