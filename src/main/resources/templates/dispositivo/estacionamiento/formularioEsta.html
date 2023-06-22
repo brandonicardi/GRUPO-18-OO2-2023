@@ -5,16 +5,28 @@
     <title>Formulario de Dispositivo</title>
 </head>
 <body>
-    <h1>Formularioo de Dispositivo</h1>
+    <h1>Formulario de Dispositivo</h1>
     <form action="#"  th:action="@{/dispositivo/estacionamiento/create}" method="post" th:object="${dispositivoEstacionamiento}">
+       <label for="estado">¿CUAL ES EL ESTADO DEL ESTACIONAMIENTO?</label>
+        <div>
+            <label>
+                <input type="radio" name="estado" value="true" th:checked="${dispositivoEstacionamiento.estado}" />
+                Ocupado
+            </label>
+            <label>
+                <input type="radio" name="estado" value="false" th:checked="${!dispositivoEstacionamiento.estado}" />
+                Libre
+            </label>
+        </div>
         <label for="nombreDispositivo">Nombre:</label>
-        <input type="text"  name="nombre" th:field="*{nombreDispositivo}" />
+        <input type="text"  name="nombre" th:field="*{nombreDispositivo}"  required/>
         <!--label for="edificioId">Edificio:</label>
 						<select id="edificioId" name="edificio.id" >
 							<option value="">Seleccionar Edificio</option>
 							<option th:each="edificio : ${edificios}" th:value="${edificio.id}"
 								th:text="${edificio.nombre}"></option>
 						</select-->
+                        <label for="edificio">edificio:</label>
                         <select name="edificioId"
                                             class="form-select form-select-lg mb-1"
                                             aria-label=".form-select-lg example">
@@ -24,7 +36,7 @@
                                                 th:text="${edificio.nombre}"></option>
 
 				
-						<input type="hidden" id="edificioIdInput" name="edificioId" />
+						<input type="hidden" id="id" name="edificioId" />
 						
         <br/>
         <input type="submit" value="Crear Dispositivo" />

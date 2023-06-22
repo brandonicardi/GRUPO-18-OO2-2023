@@ -25,20 +25,25 @@ import lombok.Setter;
 
 @PrimaryKeyJoinColumn(referencedColumnName = "idDispositivo")
 
+
 public class DispositivoEstacionamiento extends Dispositivo{
 	
-	@Column(name = "listaDeEspacios")
-	private Set<Integer> listaEspacios;
+	@Column(name = "estado")
+	private boolean estado;
 	
 
-	
-	public DispositivoEstacionamiento(String nombreDispositivo, LocalDateTime fechaCreacion, LocalDateTime fechaModificacion,
-			LocalDateTime fechaBaja, boolean isBaja, Edificio edificio) {
+//	public  DispositivoEstacionamiento () {}
+
+
+	public DispositivoEstacionamiento(String nombreDispositivo, LocalDateTime fechaCreacion,
+			LocalDateTime fechaModificacion, LocalDateTime fechaBaja, boolean isBaja, Edificio edificio,
+			boolean estado) {
 		super(nombreDispositivo, fechaCreacion, fechaModificacion, fechaBaja, isBaja, edificio);
-	
-		 this.listaEspacios = new HashSet();
+		this.estado = true;
 	}
 
+
+	
 	
 
 

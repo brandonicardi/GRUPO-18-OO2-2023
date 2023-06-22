@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 	<meta name="description" content="" />
 	<meta name="author" content="" />
-	<title>DISPOSITIVO DE Estacionamiento </title>
+	<title>DISPOSITIVO DE ESTACIONAMIENTO</title>
 	<!-- Favicon-->
 	<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 	<!-- Bootstrap icons-->
@@ -24,7 +24,7 @@
 					<h1>Lista de dispositivos disponibles para editar:</h1>
 					<ul>
 						<li th:each="dispositivo : ${dispositivos}"><a
-							th:href="@{/dispositivo/estacionamiento/modificar/{id}(id=${dispositivo.idDispositivo})}">
+							th:href="@{/dispositivo/estacionamiento/modificarForm/{id}(id=${dispositivo.idDispositivo})}">
 								ID <span th:text="${dispositivo.idDispositivo}"></span>: <span
 								th:text="${dispositivo.nombreDispositivo}"></span>
 						</a></li>

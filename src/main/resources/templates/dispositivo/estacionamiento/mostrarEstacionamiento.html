@@ -3,13 +3,13 @@
 <table>
     <tbody>
         <tr th:each="dispositivo : ${dispositivos}">
-            <td>ID: <span th:text="${dispositivo.idDispositivo}"></span></td>
-            <td>NOMBRE: <span th:text="${dispositivo.nombreDispositivo}"></span></td>
+            <td> ID: <span th:text="${dispositivo.idDispositivo}"></span></td>
+            <td> /NOMBRE: <span th:text="${dispositivo.nombreDispositivo}"></span></td>
 
-            <td>fechaCreacion: <span th:text="${dispositivo.fechaCreacion}"></span></td>
-            <td>Edificio ID: <span th:text="${dispositivo.edificio.id}"></span></td>
+            <td> /fechaCreacion: <span th:text="${dispositivo.fechaCreacion}"></span></td>
+            <td> /Edificio ID: <span th:text="${dispositivo.edificio.id}"></span></td>
           
-            <td>espacios: <span th:text="${dispositivo.listaEspacios}"></span></td>
+            <td> /ESTADO: <span th:text="${dispositivo.estado}"></span></td>
         </tr>
     </tbody>
 </table>
