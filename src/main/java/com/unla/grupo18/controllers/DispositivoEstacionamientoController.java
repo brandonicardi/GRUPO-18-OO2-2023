@@ -49,7 +49,7 @@ public class DispositivoEstacionamientoController {
 	// CREO NUEVOS DISPOSITIVOS Y IMPACTA EN LA BD
 	
 	@PostMapping("/estacionamiento/create")
-	public RedirectView nuevoDispositivoEstacionamiento(
+	public String nuevoDispositivoEstacionamiento(
 	        @Valid @ModelAttribute("dispositivoEstacionamiento") DispositivoEstacionamiento dispositivo,
 	        @RequestParam(value = "edificioId", required = false) int edificioId) {
 	     
@@ -59,7 +59,7 @@ public class DispositivoEstacionamientoController {
 	    
 
 	    dispositivoEstacionamientoService.saveDispositivo(dispositivo);
-	    return new RedirectView(ViewRouteHelper.Mostrar_Estacionamientos);
+	    return "/estacionmaiento/mostrarEstacionamiento/";
 	}
 	
 	
@@ -71,7 +71,7 @@ public class DispositivoEstacionamientoController {
 	public String eliminarDispositivoAlumbrado(Model model) {
 		List<DispositivoEstacionamiento> dispositivos = dispositivoEstacionamientoService.getAllDispositivos();
 		if (dispositivos.size() == 0) {
-			return ViewRouteHelper.NO_EXISTE_DISPOSITIVO;
+			return ViewRouteHelper.NO_EXISTE_DISPOSITIVO_ESTACIONAMIENTO;
 		}
 		model.addAttribute("dispositivos", dispositivos);
 		return ViewRouteHelper.eliminar;
@@ -97,54 +97,39 @@ public class DispositivoEstacionamientoController {
 	    List<DispositivoEstacionamiento> dispositivos = dispositivoEstacionamientoService.getAllDispositivos();
 
 	    if (dispositivos.isEmpty()) {
-	        return ViewRouteHelper.NO_EXISTE_DISPOSITIVO_REGADOR;
+	        return ViewRouteHelper.NO_EXISTE_DISPOSITIVO_ESTACIONAMIENTO;
 	    }
+	    ModelAndView mo = new ModelAndView(ViewRouteHelper.MODIFICAR_DISP_ESTACIONAMIENTO);
+	    //List<Edificio> edificios = edificioService.obtenerTodosLosEdificios();
+		//mo.addObject("edificios", edificios);
+	    model.addAttribute("dispositivos", dispositivos); // Agregar el objeto "dispositivo" al modelo
 
-	    model.addAttribute("dispositivos", dispositivos);
-	    model.addAttribute("dispositivo", new DispositivoEstacionamiento()); // Agregar el objeto "dispositivo" al modelo
-
-	    return ViewRouteHelper.MODIFICAR_DISP_Form_Estacionamiento;
+	    return ViewRouteHelper.MODIFICAR_DISP_ESTACIONAMIENTO;
 	}
+	
+	
+	
+	
 
 	@GetMapping("/estacionamiento/modificarForm/{id}")
-	public String modificarDispositivoRegador(@PathVariable int id, Model model) {
-	    DispositivoEstacionamiento dispositivo = dispositivoEstacionamientoService.getDispositivoById(id);
-	    model.addAttribute("dispositivos", dispositivoEstacionamientoService.getAllDispositivos());
-	    model.addAttribute("dispositivo", dispositivo);
-
+	public String modificarDispositivoEstacionamiento(@PathVariable int idDispositivo, Model model) {
+	    DispositivoEstacionamiento dispositivos = dispositivoEstacionamientoService.getDispositivoById(idDispositivo);
+	    model.addAttribute("dispositivos", dispositivos);
+	
+	    
+	    
 	    return ViewRouteHelper.MODIFICAR_DISP_Form_Estacionamiento;
 	}
 
 
-	
 
 	
 	
 	
 
-	/*
-	@GetMapping("/estacionamiento/modificarForm") 
-	public ModelAndView editar_e(Model model) {
-		ModelAndView mAV = new ModelAndView(ViewRouteHelper.MODIFICAR_DISP_Form_Estacionamiento);
-		List<DispositivoEstacionamiento> dispositivos = dispositivoEstacionamientoService.getAllDispositivos();
-		if (dispositivos.size() == 0) {
-			//return ViewRouteHelper.NO_EXISTE_DISPOSITIVO;
-		}
-		List<Edificio> edificios = edificioService.obtenerTodosLosEdificios();
-		model.addAttribute("dispositivos", dispositivos);
-		mAV.addObject("edificios", edificios);
-		
-		return mAV;
-	} 
 	
-	@PostMapping("/edit") 
-	public RedirectView edit_suss(@ModelAttribute("dispositivo") DispositivoEstacionamiento dispositivo, RedirectAttributes redirectAttributes) {
-	dispositivoEstacionamientoService.insertOrUpdate(dispositivo);
-		redirectAttributes.addFlashAttribute("dispo_editada", true);
-		return new RedirectView("/estacionamiento/mostrarEstacionamiento");
-	}
 	
-	*/
+	
 	
 	
 	

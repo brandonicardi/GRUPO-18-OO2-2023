@@ -60,7 +60,34 @@ public class DispositivoEstacionamientoService {
 			}
 		}
 	    
-//		================== Implementa baja logica isBaja = false ==================  
+	//Actualizar un registro existente
+	    public DispositivoEstacionamiento updateDispositivo(DispositivoEstacionamiento dispositivo) {
+	     
+	    	 DispositivoAlumbrado dispositivoExistente = this.getDispositivoById(dispositivo.getIdDispositivo());
+	      
+
+	        // Actualizar los campos del sensor existente con los nuevos valores
+	        dispositivoExistente.setNombreDispositivo(dispositivo.getNombreDispositivo());
+	        dispositivoExistente.setEdificio(dispositivo.getEdificio());
+	        dispositivoExistente.setFechaModificacion(LocalDateTime.now());
+	        
+	        // Guardar el sensor actualizado en la base de datos
+	        return dispositivoEstacionamientoRepository.save(dispositivoExistente);
+	    }
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+//		Implementa baja logica 
 		public void borrarDispositivo(int idDispositivo) {
 			DispositivoEstacionamiento nuevoDispositivo = dispositivoEstacionamientoRepository.findByidDispositivo(idDispositivo);
 			nuevoDispositivo.setBaja(true);
@@ -68,7 +95,12 @@ public class DispositivoEstacionamientoService {
 			this.insertOrUpdate(nuevoDispositivo);
 		}
 		
+		
+		
+		
+
 	    
+
 
 	 
 }

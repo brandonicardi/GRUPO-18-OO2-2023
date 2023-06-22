@@ -90,7 +90,7 @@ public class DispositivoRegadorService {
 	public List<MetricaRegador> traerMetricas(){
 		return dispositivoRegadorRepository.traerMetricas();
 	}
-	
+	/*
 	//Actualizar el estado del dispositivo y generar los eventos
 	public void generarEventos() {
 		List<MetricaRegador> metricas = this.traerMetricas();
@@ -122,7 +122,7 @@ public class DispositivoRegadorService {
 		
 		}
 		
-	}
+	}*/
 	
 	
 	
