@@ -39,11 +39,6 @@ public class DispositivoEstacionamiento extends Dispositivo{
 		 this.listaEspacios = new HashSet();
 	}
 
-
-
-	public DispositivoEstacionamiento() {
-	}
-
 	
 
 
