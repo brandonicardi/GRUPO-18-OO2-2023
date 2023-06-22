@@ -111,4 +111,5 @@ public abstract class Dispositivo {
 				+ "\nisBaja: " + isBaja;
 	}
 	
+	
 }

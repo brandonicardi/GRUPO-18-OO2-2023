@@ -82,7 +82,6 @@ public class DispositivoAcondicionarAmbienteController {
 		
 		// Seteamos Edificio y Aula
 		dispositivo.setModoAire("Apagado");
-
 		dispositivo.setEdificio(edificio);
 		dispositivo.setAula(aula);
 

@@ -46,9 +46,12 @@ public class DispositivoEstacionamiento extends Dispositivo{
 	
 	
 
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> 58fd6bff0398b72a723f35958626aef00524de9b
 	
 
 

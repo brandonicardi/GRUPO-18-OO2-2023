@@ -19,26 +19,22 @@ public class DispositivoAlumbradoService {
         this.dispositivoAlumbradoRepository = dispositivoAlumbradoRepository;
     }
 
-    //guardar nuevo registro
     public DispositivoAlumbrado saveDispositivo(DispositivoAlumbrado dispositivo) {
         return dispositivoAlumbradoRepository.save(dispositivo);
     }
     
- // Actualizar un registro existente
+    
     public DispositivoAlumbrado updateDispositivo(DispositivoAlumbrado dispositivo) {
         if (dispositivo.getIdDispositivo() == 0) {
             throw new IllegalArgumentException("El dispositivo debe tener un ID válido para ser modificado");
         }
 
-        // Verificar si el dispositivo existe en la base de datos
         DispositivoAlumbrado dispositivoExistente = this.getDispositivoById(dispositivo.getIdDispositivo());
         if (dispositivoExistente == null) {
             throw new IllegalArgumentException("No se encontró el dispositivo de alumbrado con ID: " + dispositivo.getIdDispositivo());
         }
 
-        // Actualizar los campos del sensor existente con los nuevos valores
         dispositivoExistente.setNombreDispositivo(dispositivo.getNombreDispositivo());
-        dispositivoExistente.setEdificio(dispositivo.getEdificio());
         dispositivoExistente.setFechaModificacion(LocalDateTime.now());
         
         // Guardar el sensor actualizado en la base de datos
@@ -59,7 +55,8 @@ public class DispositivoAlumbradoService {
 
     public void deleteDispositivo(Integer dispositivoId) {
     	DispositivoAlumbrado dispositivo = this.getDispositivoById(dispositivoId);
-    	dispositivo.setEstado(false);
+    	dispositivo.setBaja(true);
+    	dispositivo.setFechaBaja(LocalDateTime.now());
     	this.saveDispositivo(dispositivo);
     }
 }

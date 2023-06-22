@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.unla.grupo18.entities.Dispositivo;
 import com.unla.grupo18.entities.DispositivoAcondicionarAmbiente;
 import com.unla.grupo18.entities.Evento;
 import com.unla.grupo18.entities.MetricaAcondicionarAmbiente;
@@ -50,53 +51,62 @@ public class EventoService implements IEventoService{
 	public Evento findById(int id) {
 		return eventoRepository.findByidEvento(id);
 	}
+	
+	public List<Evento> getEventosPorDispositivo(Dispositivo dispositivo){
+		return eventoRepository.findByDispositivo(dispositivo);
+	}
+	
+    public Evento saveEvento(Evento evento) {
+        return eventoRepository.save(evento);
+    }
 
 	// TESTEO 
 	//
 	//Actualizar el estado del dispositivo y generar los eventos
-	public void generarEventosAcondicionarAmbiente() {
-		List<MetricaAcondicionarAmbiente> metricas = dispositivoAcondicionarAmbienteRepository.traerMetricasAmbiente();
-
-		DispositivoAcondicionarAmbiente d; //Dispositivo de la metrica
-		
-		float temperaturaActual; 		//Temperatura registrada en dispositivo
-		float temperaturaActivarFrio;	//Si temperatura actual es mayor a este, modoAire cambia a Frio
-		float temperaturaActivarCalor; 	//Si temperatura actual es menor a este, modoAire cambia a Calor
-		boolean sensorPresencia;		//Metrica registra si hay persona o no
-		boolean estado; 				//Dispositivo si esta Encendido (true) o Apagado(false)
-		String modoAire;  		//Nos indica la siguientes 3 leyendas: // Apagado - Frio - Calor
-
-
-		for (MetricaAcondicionarAmbiente m : metricas) {
-			if(m.getDispositivo() instanceof DispositivoAcondicionarAmbiente) {
-				d = (DispositivoAcondicionarAmbiente)m.getDispositivo();
-				temperaturaActual = m.getTemperaturaActual();
-				temperaturaActivarFrio = d.getTemperaturaActivarFrio(); 
-				temperaturaActivarCalor = d.getTemperaturaActivarCalor();
-				sensorPresencia = m.isSensorPresencia();
-				estado = d.isEstado();
-
-				if ( (temperaturaActual < temperaturaActivarCalor && !estado) && sensorPresencia == true) {
-					d.setEstado(true); 		// Enciende Dispositivo
-					d.setModoAire("Calor");	// Modo Aire: Calor
-					//Generar evento(dispositivo, "Se Encendio Aire Caliente", metrica)
-				}
-
-				if ( (temperaturaActual > temperaturaActivarFrio && !estado) && sensorPresencia == true) {
-					d.setEstado(true); 		// Enciende Dispositivo
-					d.setModoAire("Frio");	// Modo Aire: Frio
-					//Generar evento(dispositivo, "Se Encendio Aire Caliente", metrica)
-				}
-				
-				if ( (temperaturaActual > temperaturaActivarCalor && temperaturaActual < temperaturaActivarFrio) || sensorPresencia == false ) {
-					d.setEstado(false);			// Apaga Dispositivo
-					d.setModoAire("Apagado");	// Modo Aire: Apagado
-				}
-			}
-			
-			
-		}
-
-	}
+	/*
+	 * public void generarEventosAcondicionarAmbiente() {
+	 * List<MetricaAcondicionarAmbiente> metricas =
+	 * dispositivoAcondicionarAmbienteRepository.traerMetricasAmbiente();
+	 * 
+	 * DispositivoAcondicionarAmbiente d; //Dispositivo de la metrica
+	 * 
+	 * float temperaturaActual; //Temperatura registrada en dispositivo float
+	 * temperaturaActivarFrio; //Si temperatura actual es mayor a este, modoAire
+	 * cambia a Frio float temperaturaActivarCalor; //Si temperatura actual es menor
+	 * a este, modoAire cambia a Calor boolean sensorPresencia; //Metrica registra
+	 * si hay persona o no boolean estado; //Dispositivo si esta Encendido (true) o
+	 * Apagado(false) String modoAire; //Nos indica la siguientes 3 leyendas: //
+	 * Apagado - Frio - Calor
+	 * 
+	 * 
+	 * for (MetricaAcondicionarAmbiente m : metricas) { if(m.getDispositivo()
+	 * instanceof DispositivoAcondicionarAmbiente) { d =
+	 * (DispositivoAcondicionarAmbiente)m.getDispositivo(); temperaturaActual =
+	 * m.getTemperaturaActual(); temperaturaActivarFrio =
+	 * d.getTemperaturaActivarFrio(); temperaturaActivarCalor =
+	 * d.getTemperaturaActivarCalor(); sensorPresencia = m.isSensorPresencia();
+	 * estado = d.isEstado();
+	 * 
+	 * if ( (temperaturaActual < temperaturaActivarCalor && !estado) &&
+	 * sensorPresencia == true) { d.setEstado(true); // Enciende Dispositivo
+	 * d.setModoAire("Calor"); // Modo Aire: Calor //Generar evento(dispositivo,
+	 * "Se Encendio Aire Caliente", metrica) }
+	 * 
+	 * if ( (temperaturaActual > temperaturaActivarFrio && !estado) &&
+	 * sensorPresencia == true) { d.setEstado(true); // Enciende Dispositivo
+	 * d.setModoAire("Frio"); // Modo Aire: Frio //Generar evento(dispositivo,
+	 * "Se Encendio Aire Caliente", metrica) }
+	 * 
+	 * if ( (temperaturaActual > temperaturaActivarCalor && temperaturaActual <
+	 * temperaturaActivarFrio) || sensorPresencia == false ) { d.setEstado(false);
+	 * // Apaga Dispositivo d.setModoAire("Apagado"); // Modo Aire: Apagado } }
+	 * 
+	 * 
+	 * }
+	 * 
+	 * }
+	 */
+	
+	
 	
 }

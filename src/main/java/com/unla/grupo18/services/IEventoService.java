@@ -2,6 +2,7 @@ package com.unla.grupo18.services;
 
 import java.util.List;
 
+import com.unla.grupo18.entities.Dispositivo;
 import com.unla.grupo18.entities.Evento;
 import com.unla.grupo18.models.EventoModel;
 
@@ -12,5 +13,7 @@ public interface IEventoService {
 	public EventoModel insertOrUpdate(EventoModel eventoModel);
 	
 	public Evento findById (int idEvento);
+	
+	public List<Evento> getEventosPorDispositivo(Dispositivo dispositivo);
 
 }
