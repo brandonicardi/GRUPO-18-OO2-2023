@@ -1,6 +1,7 @@
 package com.unla.grupo18.services.implementation;
 
 import java.time.LocalDate;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -63,7 +64,7 @@ public class DispositivoEstacionamientoService {
 	//Actualizar un registro existente
 	    public DispositivoEstacionamiento updateDispositivo(DispositivoEstacionamiento dispositivo) {
 	     
-	    	 DispositivoAlumbrado dispositivoExistente = this.getDispositivoById(dispositivo.getIdDispositivo());
+	    	 DispositivoEstacionamiento dispositivoExistente = this.getDispositivoById(dispositivo.getIdDispositivo());
 	      
 
 	        // Actualizar los campos del sensor existente con los nuevos valores

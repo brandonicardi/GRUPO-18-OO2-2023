@@ -20,7 +20,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-
+@NoArgsConstructor
 @Table(name = "dispositivo_estacionamiento")
 
 @PrimaryKeyJoinColumn(referencedColumnName = "idDispositivo")
@@ -32,7 +32,7 @@ public class DispositivoEstacionamiento extends Dispositivo{
 	private boolean estado;
 	
 
-	public  DispositivoEstacionamiento () {}
+//	public  DispositivoEstacionamiento () {}
 
 
 	public DispositivoEstacionamiento(String nombreDispositivo, LocalDateTime fechaCreacion,
@@ -44,14 +44,6 @@ public class DispositivoEstacionamiento extends Dispositivo{
 
 
 	
-	
-
-<<<<<<< HEAD
-
-
-
-=======
->>>>>>> 58fd6bff0398b72a723f35958626aef00524de9b
 	
 
 
