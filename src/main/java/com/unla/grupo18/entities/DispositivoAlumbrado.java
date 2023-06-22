@@ -19,48 +19,38 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
 @Getter
 @Setter
+@Entity
+@Table(name = "dispositivo_alumbrado")
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "dispositivo_alumbrado")
-@PrimaryKeyJoinColumn(referencedColumnName="idDispositivo") 
-public class DispositivoAlumbrado extends Dispositivo {	
-
-	@Column(name="horadeencendido")
-	@CreationTimestamp
+@PrimaryKeyJoinColumn(referencedColumnName = "idDispositivo")
+public class DispositivoAlumbrado extends Dispositivo {
+	
+	@Column(name = "horadeencendido")
 	private LocalTime horadeEncendido;
 	
-	@Column(name="horadeapagado")
-	@CreationTimestamp
+	@Column(name = "horadeapagado")
 	private LocalTime horadeApagado;
 	
-	@Column(name="estado")
+	@Column(name = "estado")
 	protected boolean estado;
 	
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "aula_id")
-    private Aula aula;
-
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "aula_id")
+	private Aula aula;
+	
 	public DispositivoAlumbrado(String nombreDispositivo, LocalDateTime fechaCreacion, LocalDateTime fechaModificacion,
-			LocalDateTime fechaBaja, boolean isBaja, Edificio edificio, LocalTime horadeEncendido, LocalTime horadeApagado,
-			boolean estado, Aula aula) {
-		super(nombreDispositivo, fechaCreacion, fechaModificacion, fechaBaja, isBaja, edificio);
-		this.horadeEncendido = horadeEncendido;
-		this.horadeApagado = horadeApagado;
-		this.estado = false;
-		this.aula = aula;
+	        LocalDateTime fechaBaja, boolean isBaja, Edificio edificio, LocalTime horadeEncendido, LocalTime horadeApagado,
+	        boolean estado, Aula aula) {
+	    super(nombreDispositivo, fechaCreacion, fechaModificacion, fechaBaja, isBaja, edificio);
+	    this.horadeEncendido = horadeEncendido;
+	    this.horadeApagado = horadeApagado;
+	    this.estado = false;
+	    this.aula = aula;
 	}
-	
-	//@OneToMany(mappedBy = "alumbrado", cascade = CascadeType.ALL, orphanRemoval = true)
-    //private List<MetricasDispAlumbrado> mediciones = new ArrayList<>();
 
-    
-
-	
-	
-	
 	
 }
 

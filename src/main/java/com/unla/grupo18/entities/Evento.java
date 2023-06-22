@@ -13,7 +13,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,29 +21,34 @@ import lombok.Setter;
 @Entity
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
 public class Evento {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idEvento;
-	
-	@ManyToOne
-	@JoinColumn(name = "idDispositivo", nullable=false)
-	@JsonBackReference
-	private Dispositivo dispositivo;
-	
-	@Column(name="descripcion")
-	private String descripcionEvento;
-	
-	@Column(name="fechahora")
-	private LocalDateTime fechahoraEvento;
-	
-	@OneToOne
-	@JoinColumn(name= "idMetrica")
-	private Metrica metrica;
-	
-	
-	
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int idEvento;
+
+    @ManyToOne
+    @JoinColumn(name = "id_dispositivo", nullable = false)
+    @JsonBackReference
+    private Dispositivo dispositivo;
+
+    @Column(name = "descripcion")
+    private String descripcionEvento;
+
+    @Column(name = "fechahora")
+    private LocalDateTime fechahoraEvento;
+
+    @OneToOne
+    @JoinColumn(name = "idMetrica")
+    private Metrica metrica;
+
+    public Evento(Dispositivo dispositivo, String descripcionEvento, LocalDateTime fechahoraEvento, Metrica metrica) {
+        this.dispositivo = dispositivo;
+        this.descripcionEvento = descripcionEvento;
+        this.fechahoraEvento = fechahoraEvento;
+        this.metrica = metrica;
+    }
+
+    // Getters y setters
 }

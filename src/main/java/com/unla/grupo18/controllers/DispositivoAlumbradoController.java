@@ -1,10 +1,12 @@
 package com.unla.grupo18.controllers;
 
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -60,13 +62,17 @@ public class DispositivoAlumbradoController {
 	@PostMapping("/alumbrado/nuevoDispositivoAlumbrado")
 	public ModelAndView nuevoDispositivoAlumbrado(
 			@Valid @ModelAttribute("dispositivoAlumbrado") DispositivoAlumbrado dispositivo,
-			@RequestParam("edificioId") int edificioId, @RequestParam("aulaId") int aulaId) {
+			@RequestParam("edificioId") int edificioId, @RequestParam("aulaId") int aulaId,
+			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime horadeEncendido,
+			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime horadeApagado) {
 		Edificio edificio = edificioService.findById(edificioId);
 		Aula aula = aulaService.findById(aulaId);
 
 		ModelAndView mV = new ModelAndView();
 		dispositivo.setEdificio(edificio);
 		dispositivo.setAula(aula);
+		dispositivo.setHoradeEncendido(horadeEncendido);
+		dispositivo.setHoradeApagado(horadeApagado);
 		dispositivoAlumbradoService.saveDispositivo(dispositivo);
 		mV.setViewName(ViewRouteHelper.NUEVO_DISP_ALUMBRADO);
 		mV.addObject("dispositivoAlumbrado", dispositivo);

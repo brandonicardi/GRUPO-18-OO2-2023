@@ -92,6 +92,9 @@ public class DispositivoRegadorService {
 	}
 	
 	//Actualizar el estado del dispositivo y generar los eventos
+	/**
+	 * 
+
 	public void generarEventos() {
 		List<MetricaRegador> metricas = this.traerMetricas();
 		DispositivoRegador d; //Dispositivo de la metrica
@@ -121,10 +124,11 @@ public class DispositivoRegadorService {
 			}
 		
 		}
+			 
 		
 	}
 	
-	
+	*/
 	
 	
 	
