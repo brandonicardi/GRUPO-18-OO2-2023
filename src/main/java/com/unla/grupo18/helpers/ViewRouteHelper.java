@@ -28,7 +28,11 @@ public class ViewRouteHelper {
 	// Vistas de Estacionamiento
 	public final static String MENU_DISP_Estacionamiento = "dispositivo/estacionamiento";
 	public final static String nuevoDispositivo = "dispositivo/estacionamiento/formularioEsta";
-	public final static String Mostrar_Esta = "dispositivo/estacionamiento/mostrarEsta";
+	public final static String eliminar = "dispositivo/estacionamiento/eliminar";
+	public final static String Mostrar_Estacionamientos = "dispositivo/estacionamiento/mostrarEstacionamiento";
+	public final static String MODIFICAR_DISP_Form_Estacionamiento = "dispositivo/estacionamiento/modificarForm";
+	public final static String MODIFICAR_DISP_ESTACIONAMIENTO = "dispositivo/estacionamiento/modificarDispositivo";
+
 	
 	// Vistas de Cuidado de Espacio Verde
 	public final static String MENU_DISP_REGADOR = "dispositivo/regador";
@@ -51,4 +55,8 @@ public class ViewRouteHelper {
 	public final static String ELIMINAR_AMBIENTE = "dispositivo/acondicionar/eliminarDispositivoAcondicionar";
 	public final static String EVENTO_AMBIENTE = "dispositivo/acondicionar/eventos";
 
+	
+	
+	
+	
 }
