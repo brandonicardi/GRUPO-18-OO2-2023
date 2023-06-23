@@ -24,7 +24,7 @@ public class DispositivoAcondicionarAmbienteModel extends DispositivoModel{
 	private float temperaturaActivarCalor;
 	// private boolean sensorPresencia; Se testea en Metrica, corregir en entities - modelo - 
 	private boolean estado; 
-	private String modoAire;
+	
 	
 	
 	@Override
@@ -32,7 +32,7 @@ public class DispositivoAcondicionarAmbienteModel extends DispositivoModel{
 		return "DispositivoAcondicionarAmbienteModel [aula=" + aula + ", temperaturaActual=" + temperaturaActual
 				+ ", temperaturaActivarFrio=" + temperaturaActivarFrio + ", temperaturaActivarCalor="
 				+ temperaturaActivarCalor + /*", sensorPresencia=" + sensorPresencia + */", estado=" + estado
-				+ ", modoAire=" + modoAire + "]";
+				+ "]";
 	}
 	
 	

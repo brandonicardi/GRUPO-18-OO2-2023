@@ -9,6 +9,10 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -29,10 +33,18 @@ public class DispositivoAcondicionarAmbiente extends Dispositivo {
 		
 	//(Para comparar con temperatura actual, siendo este mayor, debe enfriar)
 	@Column(name="temperaturaActivarFrio")
+	//@DecimalMin(value = "20", message = "El valor minimo permitido es 20 por cuestiones del dispositivo")
+	//@DecimalMax(value = "50", message = "El valor máximo permitido es 50 por cuestiones del dispositivo")
+	@Min(20)
+	@Max(50)
 	private float temperaturaActivarFrio;
 	
 	// (Para comparar con temperatura actual, siendo este menor, debe calefaccionar)
 	@Column(name="temperaturaActivarCalor")
+    //@DecimalMin(value = "-10", message = "El valor máximo permitido es -10 por cuestiones del dispositivo")
+	//@DecimalMax(value = "50", message = "El valor máximo permitido es -50 por cuestiones del dispositivo")
+	@Min(-10)
+	@Max(50)
 	private float temperaturaActivarCalor;
 	/*
 	// (Por defecto false - Si hay personas en el lugar) --> Lo testeamos en metrica Ambiente (entities - model )
@@ -42,13 +54,7 @@ public class DispositivoAcondicionarAmbiente extends Dispositivo {
 	// (Por defecto false, indica si el aire está encendido o no)
 	@Column(name="estado")
 	private boolean estado; // 
-	
-	// (Por defecto Apagado) 
-	// (Nos indica la siguientes 3 leyendas: // Apagado - Frio - Calor)
-	// (Alternata su valor si se activo frio o calor o nunca encendio)
-	@Column(name="modoAire")
-	private String modoAire; 
-	
+		
 	// ==================  CONSTRUCTOR  ==================
 	public DispositivoAcondicionarAmbiente(String nombreDispositivo, LocalDateTime fechaCreacion,
 			LocalDateTime fechaModificacion, LocalDateTime fechaBaja, boolean isBaja, Edificio edificio,
@@ -60,7 +66,7 @@ public class DispositivoAcondicionarAmbiente extends Dispositivo {
 		this.temperaturaActivarCalor = temperaturaActivarCalor;
 		//this.sensorPresencia = false;
 		this.estado = false;
-		this.modoAire = "apagado";
+		
 	}
 
 	@Override
@@ -69,9 +75,7 @@ public class DispositivoAcondicionarAmbiente extends Dispositivo {
 				"\ntemperaturaActivarFrio=" + temperaturaActivarFrio + 
 				"\ntemperaturaActivarCalor="+ temperaturaActivarCalor + 
 				/*"\nsensorPresencia=" + sensorPresencia +*/ 
-				"\nestado=" + estado + 
-				"\nmodoAire=" + modoAire+
-				"\n";
+				"\nestado=" + estado + "\n";
 	}
 
 	// ==================  to String ==================
