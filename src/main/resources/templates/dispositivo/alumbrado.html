@@ -47,10 +47,15 @@
 </style>
 
 <body>
+	<!-- Agregar el mensaje aquí -->
+	<div th:if="${mensaje}" class="alert alert-success mt-4" role="alert">
+		<strong th:text="${mensaje}"></strong>
+	</div>
+
 	<div class="wrapper">
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 			<div class="container px-5">
-				<a class="navbar-brand" href="">UNLa - GRUPO 18</a>
+				<a class="navbar-brand" th:href="@{/index}">UNLa - GRUPO 18</a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
 					data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
 					aria-expanded="false" aria-label="Toggle navigation">
@@ -59,7 +64,7 @@
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 						<li class="nav-item">
-							<a class="nav-link" href="javascript:history.back()">VOLVER ATRÁS</a>
+							<a class="nav-link" href="/index">VOLVER ATRÁS</a>
 						</li>
 					</ul>
 				</div>
@@ -100,6 +105,14 @@
 								<div class="d-flex align-items-center">
 									<i class="bi bi-gear-fill me-3"></i>
 									<h5 class="mb-0">Gestionar dispositivos activos</h5>
+								</div>
+							</a>
+						</li>
+						<li class="list-item">
+							<a th:href="@{/dispositivo/alumbrado/reactivar}">
+								<div class="d-flex align-items-center">
+									<i class="bi bi-exclamation-triangle-fill"></i>
+									<h5 class="mb-0">Gestionar dispositivos dados de baja - inactivos</h5>
 								</div>
 							</a>
 						</li>

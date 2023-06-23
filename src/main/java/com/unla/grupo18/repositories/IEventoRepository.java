@@ -15,14 +15,16 @@ import com.unla.grupo18.entities.MetricaAlumbrado;
 public interface IEventoRepository extends JpaRepository <Evento, Serializable> {
 
 	// Trae x descripcion
-	public abstract Evento findByDescripcionEvento(String descripcionEvento);
+	Evento findByDescripcionEvento(String descripcionEvento);
 	// Trae x ID
-	public abstract Evento findByidEvento(int idEvento);
+	Evento findByidEvento(int idEvento);
 	// Trae por fecha hora evento
-	public abstract Evento findByFechahoraEvento(LocalDateTime fechahoraEvento);
+	Evento findByFechahoraEvento(LocalDateTime fechahoraEvento);
 	
-	public abstract List<Evento> findByDispositivo(Dispositivo dispositivo);
+	List<Evento> findByDispositivo(Dispositivo dispositivo);
 	
 	Evento findByDispositivoAndMetrica(Dispositivo dispositivo, MetricaAlumbrado metricaAlumbrado);
+	
+	List<Evento> findByDescripcionEventoContainingIgnoreCase(String descripcionEvento);
 	
 }

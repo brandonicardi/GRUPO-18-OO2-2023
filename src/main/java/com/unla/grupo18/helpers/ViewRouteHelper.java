@@ -7,6 +7,7 @@ public class ViewRouteHelper {
 
 	// USER
 	public final static String USER_LOGIN = "usuario/login";
+	
 
 	/**** Redirects ****/
 	public final static String ROUTE = "/index";
@@ -24,6 +25,7 @@ public class ViewRouteHelper {
 	public final static String METRICAS_ALUMBRADO = "dispositivo/alumbrado/metricas";
 	public final static String NO_EXISTEN_EVENTOS = "dispositivo/alumbrado/noExistenEventos";
 	public final static String DISP_ALUMBRADO_MODIFICADO = "dispositivo/alumbrado/alumbradoModificado";
+	public final static String REACTIVAR_DISP_ALUMBRADO = "dispositivo/alumbrado/reactivarDispositivo";
 
 	
 	// Vistas de Estacionamiento

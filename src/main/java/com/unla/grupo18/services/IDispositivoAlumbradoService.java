@@ -32,4 +32,5 @@ public interface IDispositivoAlumbradoService {
 	// pre: Sin argumentos
 	//post: Retorna una lista completa de metricas del dispositivo Acondicionar ambiente x HQL
 	public List<MetricaAlumbrado> traerMetricas();
+	
 }

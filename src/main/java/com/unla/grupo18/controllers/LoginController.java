@@ -5,7 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.unla.grupo18.helpers.ViewRouteHelper;
 
@@ -26,8 +26,8 @@ public class LoginController {
 	// Si se cierra la sesion el usuario vuelve al login index
 	@GetMapping("/logout")
 	public String logout(RedirectAttributes redirectAttrs) {
-		redirectAttrs.addFlashAttribute("mensaje", "Sesión cerrada con exito!").addFlashAttribute("clase", "success");
-		return ViewRouteHelper.USER_LOGIN;
+	    redirectAttrs.addFlashAttribute("message", "Sesión cerrada con éxito!");
+	    return "redirect:/login";
 	}
 
 	// Si el inicio de sesion es correcto el usuario es direccionado al index.

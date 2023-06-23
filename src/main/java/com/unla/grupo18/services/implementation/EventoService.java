@@ -120,6 +120,11 @@ public class EventoService implements IEventoService {
 	public Evento getEventoByDispositivoAndMetrica(Dispositivo dispositivo, MetricaAlumbrado metricaAlumbrado) {
 		return eventoRepository.findByDispositivoAndMetrica(dispositivo, metricaAlumbrado);
 	}
+	
+	public List<Evento> buscarPorDescripcion(String descripcionEvento) {
+	    return eventoRepository.findByDescripcionEventoContainingIgnoreCase(descripcionEvento);
+	}
+	
 
 	public void actualizarEventosAlumbradoDesdeMetricas(DispositivoAlumbrado dispositivoAlumbrado) {
 		List<MetricaAlumbrado> metricas = metricaAlumbradoService.getMetricasByDispositivo(dispositivoAlumbrado);
