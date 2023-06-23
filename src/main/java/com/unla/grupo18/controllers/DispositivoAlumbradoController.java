@@ -1,22 +1,29 @@
 package com.unla.grupo18.controllers;
 
-import java.time.LocalTime;
+//Java
 import java.util.List;
 import java.util.Set;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
+//OTROS
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+
+//Annotation
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+//Model and View
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.unla.grupo18.entities.Aula;
 import com.unla.grupo18.entities.DispositivoAlumbrado;
@@ -32,7 +39,8 @@ import jakarta.validation.Valid;
 @RequestMapping("/dispositivo")
 public class DispositivoAlumbradoController {
 
-	@Autowired
+	@Autowired	// <-- Nos permite usar sus metodos sin instanciar la clase
+	@Qualifier("dispositivoAlumbradoService")
 	private DispositivoAlumbradoService dispositivoAlumbradoService;
 
 	@Autowired
@@ -44,7 +52,6 @@ public class DispositivoAlumbradoController {
 	@GetMapping("/alumbrado")
 	public String dispositivoAlumbradoInteligente(Model model) {
 		model.addAttribute("dispositivoAlumbrado", new DispositivoAlumbrado());
-		model.addAttribute("edificios", edificioService.obtenerTodosLosEdificios());
 		return ViewRouteHelper.MENU_DISP_ALUMBRADO;
 	}
 
@@ -66,12 +73,13 @@ public class DispositivoAlumbradoController {
 		Edificio edificio = edificioService.findById(edificioId);
 		Aula aula = aulaService.findById(aulaId);
 
-		ModelAndView mV = new ModelAndView();
+		
 		dispositivo.setEdificio(edificio);
 		dispositivo.setAula(aula);
 		dispositivo.setHoradeEncendido(horadeEncendido);
 		dispositivo.setHoradeApagado(horadeApagado);
-		dispositivoAlumbradoService.saveDispositivo(dispositivo);
+		dispositivoAlumbradoService.insertOrUpdateDisp(dispositivo);
+		ModelAndView mV = new ModelAndView();
 		mV.setViewName(ViewRouteHelper.NUEVO_DISP_ALUMBRADO);
 		mV.addObject("dispositivoAlumbrado", dispositivo);
 		return mV;
@@ -99,7 +107,7 @@ public class DispositivoAlumbradoController {
 	@GetMapping("/alumbrado/eliminar/{id}")
 	public ModelAndView eliminarDispositivoAlumbrado(@PathVariable int id) {
 		ModelAndView mV = new ModelAndView();
-		DispositivoAlumbrado dispositivo = dispositivoAlumbradoService.getDispositivoById(id);
+		DispositivoAlumbrado dispositivo = dispositivoAlumbradoService.findById(id);
 		dispositivoAlumbradoService.deleteDispositivo(id);
 		mV.setViewName(ViewRouteHelper.ELIMINAR_DISP_ALUMBRADO); // Cambia la vista de retorno según corresponda
 		mV.addObject("dispositivoAlumbrado", dispositivo);
@@ -117,31 +125,54 @@ public class DispositivoAlumbradoController {
 		return ViewRouteHelper.MODIFICAR_DISP_ALUMBRADO;
 	}
 
-	// MODIFICAR - Formulario
-	@GetMapping("/alumbrado/modificar/{id}")
-	public String modificarDispositivoAlumbrado(@PathVariable int id, Model model) {
-		DispositivoAlumbrado dispositivo = dispositivoAlumbradoService.getDispositivoById(id);
-		model.addAttribute("dispositivoAlumbrado", dispositivo);
-		return ViewRouteHelper.MODIFICAR_DISP_ALUMBRADO_FORM;
-	}
-	
-	// Guardar modificacion
-	@PostMapping("/alumbrado/modificar/{id}/guardar")
-	public ModelAndView saveDispositivoAlumbrado(@PathVariable int id,
-			@ModelAttribute("dispositivo") DispositivoAlumbrado dispositivo) {
-		// Guardar los cambios en el dispositivo en la base de datos
-		dispositivo.setIdDispositivo(id);
-		dispositivo.setFechaModificacion(dispositivoAlumbradoService.getDispositivoById(id).getFechaModificacion());
-		dispositivo.setMetricas(dispositivoAlumbradoService.getDispositivoById(id).getMetricas());
-		dispositivoAlumbradoService.saveDispositivo(dispositivo);
+	@GetMapping("/alumbrado/modificar/{idDispositivo}")
+	public String modificarDispositivoAlumbrado(@PathVariable int idDispositivo, Model model) {
 
+		// Trae unico Dispositivo x ID
+		DispositivoAlumbrado dispositivo = dispositivoAlumbradoService.findById(idDispositivo);
+
+		// Convertimos a modelo el dispositivo, el edificio y las aulas
+		model.addAttribute("dispositivoAlumbrado", dispositivo);
+		model.addAttribute("edificios", edificioService.obtenerTodosLosEdificios());
+		model.addAttribute("aulas", aulaService.obtenerTodasLasAulas());
+
+		return ViewRouteHelper.MODIFICAR_DISP_ALUMBRADO_FORM;
+
+	}
+
+	@PostMapping("/alumbrado/modificar/{idDispositivo}")
+	public ModelAndView modificarDispositivoAlumbrado(@PathVariable int idDispositivo,
+	        @ModelAttribute("dispositivoAlumbrado") DispositivoAlumbrado dispositivo, @RequestParam("edificioId") int edificioId,
+	        @RequestParam("aulaId") int aulaId,
+	        @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime horadeEncendido,
+	        @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime horadeApagado) {
+
+	    // Paso 1: Establecer el ID del dispositivo
+	    dispositivo.setIdDispositivo(idDispositivo);
+
+	    // Paso 2: Establecer la fecha de modificación del dispositivo
+	    dispositivo.setFechaModificacion(LocalDateTime.now());
+
+	    // Paso 3: Obtener el edificio y el aula por sus respectivos IDs
+	    Edificio edificio = edificioService.findById(edificioId);
+	    Aula aula = aulaService.findById(aulaId);
+
+	    // Paso 4: Establecer el edificio y el aula en el dispositivo
+	    dispositivo.setEdificio(edificio);
+	    dispositivo.setAula(aula);
+	    dispositivo.setMetricas(dispositivoAlumbradoService.findById(idDispositivo).getMetricas());
+	    
+	    // Paso 5: Aplicar la actualización del dispositivo en la base de datos
+	    dispositivoAlumbradoService.insertOrUpdateDisp(dispositivo);
+
+	    // Paso 6: Crear una instancia de ModelAndView para redireccionar a una vista y mostrar el objeto actualizado
 		ModelAndView mV = new ModelAndView();
-		mV.setViewName(ViewRouteHelper.NUEVO_DISP_ALUMBRADO);
+		mV.setViewName(ViewRouteHelper.DISP_ALUMBRADO_MODIFICADO);
 		mV.addObject("dispositivoAlumbrado", dispositivo);
 		return mV;
 	}
 
-	// Lista plana
+	// Lista
 	@GetMapping("/alumbrado/lista")
 	public String listaDeDispositivoAlumbrado(Model model) {
 		List<DispositivoAlumbrado> dispositivos = dispositivoAlumbradoService.getAllActiveDispositivos();

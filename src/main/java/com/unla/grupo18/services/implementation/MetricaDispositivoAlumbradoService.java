@@ -41,25 +41,4 @@ public class MetricaDispositivoAlumbradoService {
 				fechaFin);
 	}
 
-	// Actualizar un registro existente
-	public MetricaAlumbrado updateMetrica(MetricaAlumbrado metrica) {
-		if (metrica.getIdMetrica() == 0) {
-			throw new IllegalArgumentException("La métrica debe tener un ID válido para ser actualizada");
-		}
-
-		// Verificar si la métrica existe en la base de datos
-		MetricaAlumbrado existente = metricaAlumbradoRepository.findById(metrica.getIdMetrica()).orElse(null);
-		if (existente == null) {
-			throw new IllegalArgumentException("No se encontró la métrica con ID: " + metrica.getIdMetrica());
-		}
-
-		// Actualizar los campos de la métrica existente con los nuevos valores
-		existente.setSensorPresencia(metrica.isSensorPresencia());
-		existente.setFechaDeteccion(metrica.getFechaDeteccion());
-		existente.setHoraDeteccion(metrica.getHoraDeteccion());
-		existente.setFechaHoraMetrica(metrica.getFechaHoraMetrica());
-
-		// Guardar la métrica actualizada en la base de datos
-		return metricaAlumbradoRepository.save(existente);
-	}
 }

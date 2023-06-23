@@ -23,6 +23,7 @@ public class ViewRouteHelper {
 	public final static String EVENTOS_ALUMBRADO = "dispositivo/alumbrado/eventos";
 	public final static String METRICAS_ALUMBRADO = "dispositivo/alumbrado/metricas";
 	public final static String NO_EXISTEN_EVENTOS = "dispositivo/alumbrado/noExistenEventos";
+	public final static String DISP_ALUMBRADO_MODIFICADO = "dispositivo/alumbrado/alumbradoModificado";
 
 	
 	// Vistas de Estacionamiento

@@ -1,12 +1,17 @@
 package com.unla.grupo18.services.implementation;
 
 import java.time.LocalDateTime;
+import org.modelmapper.ModelMapper;
+
 import java.time.LocalTime;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
 import com.unla.grupo18.entities.DispositivoAlumbrado;
+import com.unla.grupo18.entities.MetricaAcondicionarAmbiente;
+import com.unla.grupo18.entities.MetricaAlumbrado;
+import com.unla.grupo18.models.DispositivoAlumbradoModel;
 import com.unla.grupo18.repositories.IDispositivoAlumbradoRepository;
 
 @Service
@@ -14,36 +19,27 @@ public class DispositivoAlumbradoService {
 
 	private final IDispositivoAlumbradoRepository dispositivoAlumbradoRepository;
 	
+	private ModelMapper modelMapper = new ModelMapper();
+
 	
     public DispositivoAlumbradoService(IDispositivoAlumbradoRepository dispositivoAlumbradoRepository) {
         this.dispositivoAlumbradoRepository = dispositivoAlumbradoRepository;
     }
 
-    public DispositivoAlumbrado saveDispositivo(DispositivoAlumbrado dispositivo) {
-        return dispositivoAlumbradoRepository.save(dispositivo);
+    public DispositivoAlumbradoModel insertOrUpdateDisp(DispositivoAlumbrado dispositivo) {
+    	DispositivoAlumbrado dispositivoNuevo = dispositivoAlumbradoRepository.save(dispositivo);
+        return modelMapper.map(dispositivoNuevo, DispositivoAlumbradoModel.class);
     }
     
-    
-    public DispositivoAlumbrado updateDispositivo(DispositivoAlumbrado dispositivo) {
-        if (dispositivo.getIdDispositivo() == 0) {
-            throw new IllegalArgumentException("El dispositivo debe tener un ID válido para ser modificado");
-        }
+//	================== Traemos todos los Dispositivos del tipo ALUMBRADO ==================
+	public List<DispositivoAlumbrado> getAll(){
+		return dispositivoAlumbradoRepository.findAll();
+	}
 
-        DispositivoAlumbrado dispositivoExistente = this.getDispositivoById(dispositivo.getIdDispositivo());
-        if (dispositivoExistente == null) {
-            throw new IllegalArgumentException("No se encontró el dispositivo de alumbrado con ID: " + dispositivo.getIdDispositivo());
-        }
-
-        dispositivoExistente.setNombreDispositivo(dispositivo.getNombreDispositivo());
-        dispositivoExistente.setFechaModificacion(LocalDateTime.now());
-        
-        // Guardar el sensor actualizado en la base de datos
-        return dispositivoAlumbradoRepository.save(dispositivoExistente);
-    }
-
-    public DispositivoAlumbrado getDispositivoById(Integer dispositivoId) {
-        return dispositivoAlumbradoRepository.findById(dispositivoId).orElse(null);
-    }
+	//	================== Traer Dispositivo por ID ==================
+	public DispositivoAlumbrado findById(int idDispositivo) {
+		return dispositivoAlumbradoRepository.findByidDispositivo(idDispositivo);
+	}
 
     public List<DispositivoAlumbrado> getAllDispositivos() {
         return dispositivoAlumbradoRepository.findAll();
@@ -54,9 +50,15 @@ public class DispositivoAlumbradoService {
     }
 
     public void deleteDispositivo(Integer dispositivoId) {
-    	DispositivoAlumbrado dispositivo = this.getDispositivoById(dispositivoId);
+    	DispositivoAlumbrado dispositivo = this.findById(dispositivoId);
     	dispositivo.setBaja(true);
     	dispositivo.setFechaBaja(LocalDateTime.now());
-    	this.saveDispositivo(dispositivo);
+    	this.insertOrUpdateDisp(dispositivo);
     }
+    
+	//	================== Retorna Lista de Metricas ==================
+	public List<MetricaAlumbrado> traerMetricas(){
+		return dispositivoAlumbradoRepository.traerMetricasAlumbrado();
+	}
+	
 }

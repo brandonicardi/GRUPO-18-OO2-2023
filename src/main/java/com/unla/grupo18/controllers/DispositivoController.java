@@ -14,17 +14,17 @@ import com.unla.grupo18.helpers.ViewRouteHelper;
 @RequestMapping("/")
 public class DispositivoController {
 
-	private final DispositivoAlumbradoService dispositivoService;
-
-	public DispositivoController(DispositivoAlumbradoService dispositivoService) {
-		this.dispositivoService = dispositivoService;
-	}
-
-	@GetMapping("/dispositivo")
-	public String deviceList(Model model) {
-		List<DispositivoAlumbrado> dispositivos = dispositivoService.getAllActiveDispositivos();
-		model.addAttribute("dispositivos", dispositivos);
-		return ViewRouteHelper.LISTA_DISP_ALUMBRADO;
-	}
+	/*
+	 * private final DispositivoAlumbradoService dispositivoService;
+	 * 
+	 * public DispositivoController(DispositivoAlumbradoService dispositivoService)
+	 * { this.dispositivoService = dispositivoService; }
+	 * 
+	 * @GetMapping("/dispositivo") public String deviceList(Model model) {
+	 * List<DispositivoAlumbrado> dispositivos =
+	 * dispositivoService.getAllActiveDispositivos();
+	 * model.addAttribute("dispositivos", dispositivos); return
+	 * ViewRouteHelper.LISTA_DISP_ALUMBRADO; }
+	 */
 
 }

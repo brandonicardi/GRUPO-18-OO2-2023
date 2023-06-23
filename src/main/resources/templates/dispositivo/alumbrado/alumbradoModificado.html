@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
 	<meta charset="utf-8" />
@@ -12,7 +12,7 @@
 	<!-- Bootstrap icons-->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
 	<!-- Core theme CSS (includes Bootstrap)-->
-	<link href="../../css/styles.css" rel="stylesheet" />
+	<link href="../../../../css/styles.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -45,39 +45,36 @@
 			<div class="container px-lg-5">
 				<!-- Page Features-->
 				<div class="row gx-lg-5">
-					<h1>Dar de baja un dispositivo de Alumbrado inteligente</h1>
-					<ul>
-						<li th:each="dispositivo : ${dispositivos}">
-							<a href="#"
-								th:onclick="'javascript:confirmarEliminacion(' + ${dispositivo.idDispositivo} + ')'">
-								<span th:text="${dispositivo.nombreDispositivo}"></span>
-							</a>
-						</li>
-					</ul>
+					<h1>Datos del dispositivo</h1>
+					<p>
+						Nombre: <span th:text="${dispositivoAlumbrado.nombreDispositivo}" />
+					</p>
+					<p>
+						Edificio: <span th:text="${dispositivoAlumbrado.edificio.nombre}" />
+					</p>
+					<p>
+						Aula: <span th:text="${dispositivoAlumbrado.aula.numero}" />
+					</p>
+					<p>
+						Hora de encendido: <span th:text="${dispositivoAlumbrado.horadeEncendido}" />
+					</p>
+					<p>
+						Hora de apagado: <span th:text="${dispositivoAlumbrado.horadeApagado}" />
+					</p>
+
 				</div>
+
 			</div>
 		</section>
-	</div>
-
-
-
-	<!-- Bootstrap core JS-->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-	<!-- Core theme JS-->
-	<script src="js/scripts.js"></script><!-- Script -->
-	<script th:inline="javascript">
-		function confirmarEliminacion(deviceId) {
-			if (confirm('¿Estás seguro de que deseas dar de baja este dispositivo?')) {
-				fetch('/dispositivo/alumbrado/eliminar/' + deviceId, {method: 'GET'})
-					.then(function (response) {
-						window.location.href = '/dispositivo/alumbrado';
-					})
-					.catch(function (error) {
-						console.error(error);
-					});
-			}
-		}
-	</script>
+		<!-- Botón para volver a opciones -->
+		<div class="text-center mt-4">
+			<a class="btn btn-primary" th:href="@{/dispositivo/alumbrado}">Volver a opciones</a>
+		</div>
+		
+		<!-- Bootstrap core JS-->
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+		<!-- Core theme JS-->
+		<script src="js/scripts.js"></script>
 </body>
 
 </html>
