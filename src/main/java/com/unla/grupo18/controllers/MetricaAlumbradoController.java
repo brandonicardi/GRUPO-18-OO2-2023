@@ -44,74 +44,14 @@ public class MetricaAlumbradoController {
 		return ViewRouteHelper.METRICAS_ALUMBRADO;
 	}
 
-	/*
-	 * @GetMapping("/actualizar/{id}") public String
-	 * actualizarEventosDelDispositivo(@PathVariable int id, Model model) {
-	 * DispositivoAlumbrado dispositivoAlumbrado = dispositivoService.findById(id);
-	 * List<MetricaAlumbrado> metricas =
-	 * metricaService.getMetricasByDispositivo(dispositivoAlumbrado);
-	 * 
-	 * for (MetricaAlumbrado metrica : metricas) { if
-	 * (!dispositivoAlumbrado.isEstado()) { LocalTime horaEncendido =
-	 * dispositivoAlumbrado.getHoradeEncendido(); LocalTime horaApagado =
-	 * dispositivoAlumbrado.getHoradeApagado();
-	 * 
-	 * if (metrica.isSensorPresencia() &&
-	 * metrica.getHoraDeteccion().isAfter(horaEncendido) &&
-	 * metrica.getHoraDeteccion().isBefore(horaApagado)) {
-	 * dispositivoAlumbrado.setEstado(true); Evento eventoPrenderLaLuz = new
-	 * Evento(dispositivoAlumbrado, "Se prendió la luz",
-	 * metrica.getFechaHoraMetrica(), metrica);
-	 * eventoService.saveEvento(eventoPrenderLaLuz); } } else { if
-	 * (!metrica.isSensorPresencia()) { dispositivoAlumbrado.setEstado(false);
-	 * Evento eventoApagarLaLuz = new Evento(dispositivoAlumbrado,
-	 * "Se apagó la luz", metrica.getFechaHoraMetrica(), metrica);
-	 * eventoService.saveEvento(eventoApagarLaLuz); } } }
-	 * 
-	 * dispositivoService.insertOrUpdateDisp(dispositivoAlumbrado);
-	 * 
-	 * model.addAttribute("dispositivoAlumbrado", dispositivoAlumbrado);
-	 * model.addAttribute("eventos",
-	 * eventoService.getEventosPorDispositivo(dispositivoAlumbrado)); return
-	 * ViewRouteHelper.EVENTOS_ALUMBRADO; }
-	 */
 	@PostMapping("/actualizar/{id}")
 	public String actualizarEventosDelDispositivo(@PathVariable int id, Model model) {
 	    DispositivoAlumbrado dispositivoAlumbrado = dispositivoService.findById(id);
-	    List<MetricaAlumbrado> metricas = metricaService.getMetricasByDispositivo(dispositivoAlumbrado);
-
-	    for (MetricaAlumbrado metrica : metricas) {
-	        Evento existingEvento = eventoService.getEventoByDispositivoAndMetrica(dispositivoAlumbrado, metrica);
-
-	        if (existingEvento == null) {
-	            if (!dispositivoAlumbrado.isEstado()) {
-	                LocalTime horaEncendido = dispositivoAlumbrado.getHoradeEncendido();
-	                LocalTime horaApagado = dispositivoAlumbrado.getHoradeApagado();
-
-	                if (metrica.isSensorPresencia() && metrica.getHoraDeteccion().isAfter(horaEncendido)
-	                        && metrica.getHoraDeteccion().isBefore(horaApagado)) {
-	                    dispositivoAlumbrado.setEstado(true);
-	                    Evento eventoPrenderLaLuz = new Evento(dispositivoAlumbrado, "Se prendió la luz",
-	                            metrica.getFechaHoraMetrica(), metrica);
-	                    eventoService.saveEvento(eventoPrenderLaLuz);
-	                }
-	            } else {
-	                if (!metrica.isSensorPresencia()) {
-	                    dispositivoAlumbrado.setEstado(false);
-	                    Evento eventoApagarLaLuz = new Evento(dispositivoAlumbrado, "Se apagó la luz",
-	                            metrica.getFechaHoraMetrica(), metrica);
-	                    eventoService.saveEvento(eventoApagarLaLuz);
-	                }
-	            }
-	        }
-	    }
-
+	    eventoService.actualizarEventosAlumbradoDesdeMetricas(dispositivoAlumbrado);
 	    dispositivoService.insertOrUpdateDisp(dispositivoAlumbrado);
-
 	    model.addAttribute("dispositivoAlumbrado", dispositivoAlumbrado);
 	    model.addAttribute("eventos", eventoService.getEventosPorDispositivo(dispositivoAlumbrado));
 	    return ViewRouteHelper.EVENTOS_ALUMBRADO;
 	}
 
-	
 }

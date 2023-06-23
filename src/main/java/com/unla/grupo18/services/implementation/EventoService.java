@@ -1,5 +1,6 @@
 package com.unla.grupo18.services.implementation;
 
+import java.time.LocalTime;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.unla.grupo18.entities.Dispositivo;
 import com.unla.grupo18.entities.DispositivoAcondicionarAmbiente;
+import com.unla.grupo18.entities.DispositivoAlumbrado;
 import com.unla.grupo18.entities.Evento;
 import com.unla.grupo18.entities.MetricaAcondicionarAmbiente;
 import com.unla.grupo18.entities.MetricaAlumbrado;
@@ -18,9 +20,9 @@ import com.unla.grupo18.repositories.IEventoRepository;
 import com.unla.grupo18.services.IEventoService;
 
 @Service("eventoServicio")
-public class EventoService implements IEventoService{
+public class EventoService implements IEventoService {
 
-	@Qualifier("eventoRepositorio")
+	@Qualifier("eventoRepositoriy")
 	private final IEventoRepository eventoRepository;
 
 	// Llamamos el repositorio de Acondicioanr Ambiente
@@ -28,15 +30,18 @@ public class EventoService implements IEventoService{
 	@Qualifier("DispositivoAcondicionarAmbienteRepository")
 	private IDispositivoAcondicionarAmbienteRepository dispositivoAcondicionarAmbienteRepository;
 
+	private final MetricaDispositivoAlumbradoService metricaAlumbradoService;
+
 	private ModelMapper modelMapper = new ModelMapper();
 
-	EventoService(IEventoRepository eventoRepository) {
+	EventoService(IEventoRepository eventoRepository, MetricaDispositivoAlumbradoService metricaAlumbradoService) {
 		this.eventoRepository = eventoRepository;
+		this.metricaAlumbradoService = metricaAlumbradoService;
 	}
 
-	// Trae Lista de Eventos 
+	// Trae Lista de Eventos
 	@Override
-	public List<Evento> getAll(){
+	public List<Evento> getAll() {
 		return eventoRepository.findAll();
 	}
 
@@ -52,18 +57,18 @@ public class EventoService implements IEventoService{
 	public Evento findById(int id) {
 		return eventoRepository.findByidEvento(id);
 	}
-	
-	public List<Evento> getEventosPorDispositivo(Dispositivo dispositivo){
+
+	public List<Evento> getEventosPorDispositivo(Dispositivo dispositivo) {
 		return eventoRepository.findByDispositivo(dispositivo);
 	}
-	
-    public Evento saveEvento(Evento evento) {
-        return eventoRepository.save(evento);
-    }
 
-	// TESTEO 
+	public Evento saveEvento(Evento evento) {
+		return eventoRepository.save(evento);
+	}
+
+	// TESTEO
 	//
-	//Actualizar el estado del dispositivo y generar los eventos
+	// Actualizar el estado del dispositivo y generar los eventos
 	/*
 	 * public void generarEventosAcondicionarAmbiente() {
 	 * List<MetricaAcondicionarAmbiente> metricas =
@@ -107,14 +112,43 @@ public class EventoService implements IEventoService{
 	 * 
 	 * }
 	 */
-	
-    public List<Evento> findByDispositivo(Dispositivo dispositivo) {
-        return eventoRepository.findByDispositivo(dispositivo);
-    }
-    
-    public Evento getEventoByDispositivoAndMetrica(Dispositivo dispositivo, MetricaAlumbrado metricaAlumbrado) {
-        return eventoRepository.findByDispositivoAndMetrica(dispositivo, metricaAlumbrado);
-    }
-	
-	
+
+	public List<Evento> findByDispositivo(Dispositivo dispositivo) {
+		return eventoRepository.findByDispositivo(dispositivo);
+	}
+
+	public Evento getEventoByDispositivoAndMetrica(Dispositivo dispositivo, MetricaAlumbrado metricaAlumbrado) {
+		return eventoRepository.findByDispositivoAndMetrica(dispositivo, metricaAlumbrado);
+	}
+
+	public void actualizarEventosAlumbradoDesdeMetricas(DispositivoAlumbrado dispositivoAlumbrado) {
+		List<MetricaAlumbrado> metricas = metricaAlumbradoService.getMetricasByDispositivo(dispositivoAlumbrado);
+
+		for (MetricaAlumbrado metrica : metricas) {
+			Evento existingEvento = getEventoByDispositivoAndMetrica(dispositivoAlumbrado, metrica);
+
+			if (existingEvento == null) {
+				if (!dispositivoAlumbrado.isEstado()) {
+					LocalTime horaEncendido = dispositivoAlumbrado.getHoradeEncendido();
+					LocalTime horaApagado = dispositivoAlumbrado.getHoradeApagado();
+
+					if (metrica.isSensorPresencia() && metrica.getHoraDeteccion().isAfter(horaEncendido)
+							&& metrica.getHoraDeteccion().isBefore(horaApagado)) {
+						dispositivoAlumbrado.setEstado(true);
+						Evento eventoPrenderLaLuz = new Evento(dispositivoAlumbrado, "Se prendió la luz",
+								metrica.getFechaHoraMetrica(), metrica);
+						saveEvento(eventoPrenderLaLuz);
+					}
+				} else {
+					if (!metrica.isSensorPresencia()) {
+						dispositivoAlumbrado.setEstado(false);
+						Evento eventoApagarLaLuz = new Evento(dispositivoAlumbrado, "Se apagó la luz",
+								metrica.getFechaHoraMetrica(), metrica);
+						saveEvento(eventoApagarLaLuz);
+					}
+				}
+			}
+		}
+	}
+
 }
