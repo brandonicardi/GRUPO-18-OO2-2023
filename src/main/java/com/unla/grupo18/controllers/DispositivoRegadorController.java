@@ -1,6 +1,8 @@
 package com.unla.grupo18.controllers;
 
+import java.time.LocalDateTime;
 import java.util.List;
+
 
 
 
@@ -15,7 +17,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
+import com.unla.grupo18.entities.Aula;
+import com.unla.grupo18.entities.DispositivoAcondicionarAmbiente;
+import com.unla.grupo18.entities.DispositivoAlumbrado;
 import com.unla.grupo18.entities.Edificio;
 import com.unla.grupo18.helpers.ViewRouteHelper;
 import com.unla.grupo18.models.DispositivoRegadorModel;
@@ -37,9 +43,10 @@ public class DispositivoRegadorController {
 	//Menu
 	@GetMapping("")
 	public String dispositivoEspacioVerde (Model model) {
-		model.addAttribute("dispositivoRegador", new DispositivoRegadorModel());
-		model.addAttribute("edificios", edificioService.obtenerTodosLosEdificios());
-		
+		return ViewRouteHelper.MENU_DISP_REGADOR;
+	}
+	@GetMapping("/")
+	public String dispositivoEspacioVerde2 (Model model) {
 		return ViewRouteHelper.MENU_DISP_REGADOR;
 	}
 	
@@ -101,7 +108,48 @@ public class DispositivoRegadorController {
 	public String modificarDispositivoRegador(@PathVariable int id, Model model) {
 		DispositivoRegadorModel dispositivo = dispositivoRegadorService.getDispositivoById(id);
 		model.addAttribute("dispositivoRegador", dispositivo);
+		model.addAttribute("edificios", edificioService.obtenerTodosLosEdificios()); 
 		
 		return ViewRouteHelper.MODIFICAR_DISP_REGADOR_FORM;
 	}
+	
+	@PostMapping("modificar/{idDispositivo}/guardar")
+	public RedirectView guardarDispositivoAcondicionar(@PathVariable int idDispositivo,
+			@ModelAttribute("dispositivo") DispositivoRegadorModel dispositivo,
+			@RequestParam("edificio.id") int edificioId) {
+		
+		//dispositivo.setIdDispositivo(idDispositivo);
+		dispositivo.setFechaModificacion(LocalDateTime.now());
+		
+		Edificio edificio = edificioService.findById(edificioId);
+		dispositivo.setEdificio(edificio);
+
+		dispositivoRegadorService.insertOrUpdate(dispositivo);
+
+		return new RedirectView("../..");
+	}
+
+	//Delete (baja logica)
+	@GetMapping("/eliminar")
+	public String eliminarDispositivoRegador(Model model) {
+		List<DispositivoRegadorModel> dispositivos = dispositivoRegadorService.getAllActive();
+		if (dispositivos.size() == 0) {
+			return ViewRouteHelper.NO_EXISTE_DISPOSITIVO_REGADOR;
+		}
+		model.addAttribute("dispositivos", dispositivos);
+		return ViewRouteHelper.ELIMINAR_DISP_REGADOR;
+	}
+	
+	@GetMapping("/eliminar/{id}")
+	public String eliminarDispositivoRegador(@PathVariable int id) {
+		System.out.println("Inicioo");
+		//ModelAndView mV = new ModelAndView();
+		DispositivoRegadorModel dispositivo = dispositivoRegadorService.getDispositivoById(id);
+		dispositivoRegadorService.delete(id);
+		//mV.setViewName(ViewRouteHelper.MENU_DISP_REGADOR);
+		//mV.addObject("dispositivoRegador", dispositivo);
+		System.out.println(("Fiin"));
+		return ViewRouteHelper.MENU_DISP_REGADOR;
+	}
+
 }

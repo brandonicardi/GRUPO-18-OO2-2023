@@ -12,4 +12,5 @@ import lombok.Setter;
 public class DispositivoRegadorModel extends DispositivoModel {
 	private float humedadActual;
 	private boolean estaPrendido;
+	private String zona;
 }

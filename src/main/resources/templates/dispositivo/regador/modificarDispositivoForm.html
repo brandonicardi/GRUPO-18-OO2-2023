@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
 	<meta charset="utf-8" />
@@ -12,29 +12,32 @@
 	<!-- Bootstrap icons-->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
 	<!-- Core theme CSS (includes Bootstrap)-->
-	<link href="../../css/styles.css" rel="stylesheet" />
+	<link href="../../../css/styles.css" rel="stylesheet" />
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
 	<div class="wrapper">
 		<!-- Responsive navbar-->
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-			<div class="container px-lg-5">
-				<a class="navbar-brand" th:href="@{/}">Inicio</a>
-				<button class="navbar-toggler" type="button"
-					data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-					aria-controls="navbarSupportedContent" aria-expanded="false"
-					aria-label="Toggle navigation">
+			<div class="container px-5">
+				<a class="navbar-brand" href="">UNLa - GRUPO 18</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+					data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+					aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
-					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-						<li class="nav-item"><a class="nav-link"
-							th:href="@{/dispositivo/regador}">Volver a
-								opciones</a></li>
-					</ul>
 					<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-						<li class="nav-item"><a class="nav-link" th:href="@{/logout}">Logout</a></li>
+						<li class="nav-item">
+							<a class="nav-link" href="/index">INICIO</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="/logout">CERRAR SESIÓN</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="javascript:history.back()">VOLVER ATRÁS</a>
+						</li>
 					</ul>
 				</div>
 			</div>
@@ -49,15 +52,29 @@
 				<div class="row gx-lg-5">
 					<h1>Formulario de Edicion</h1>
 					<form action="#"
-						
+						th:action="@{/dispositivo/regador/modificar/{idDispositivo}/guardar(idDispositivo=*{idDispositivo})}"
 						th:object="${dispositivoRegador}" method="post">
-						<p>
-							Nombre: <input type="text" th:field="*{nombreDispositivo}" />
-						</p>
-						<p>
-							Edificio: <input type="text" th:field="*{edificio}" />
-						</p>
+						
+						<div class="mb-3">
+								<label class="form-label" for="nombre">Nombre:</label>
+								<input type="text" class="form-control" id="nombre" th:field="*{nombreDispositivo}" />
+						</div>
 
+						<div class="mb-3">
+							<label class="form-label" for="edificioId">Edificio:</label>
+							<select class="form-select" id="edificioId" name="edificio.id"
+								<option value="">Seleccionar Edificio</option>
+								<option th:each="edificio : ${edificios}" th:value="${edificio.id}"
+									th:text="${edificio.nombre}"></option>
+							</select>
+						</div>
+						
+						<div class="mb-3">
+								<label class="form-label" for="nombre">Zona:</label>
+								<input type="text" class="form-control" id="zona" th:field="*{zona}" />
+						</div>
+						
+						<input type="hidden" id="edificioIdInput" name="edificioId" />
 						<input type="submit" value="Guardar" />
 					</form>
 				</div>

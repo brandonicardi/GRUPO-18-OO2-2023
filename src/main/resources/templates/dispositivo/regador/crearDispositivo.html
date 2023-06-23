@@ -13,35 +13,69 @@
 	<link href="../../css/styles.css" rel="stylesheet" />
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+	<style>
+		.form-label {
+			margin-bottom: 0.5rem;
+		}
+	</style>
 </head>
 
 <body>
 	<div class="wrapper">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<div class="container px-5">
+				<a class="navbar-brand" href="">UNLa - GRUPO 18</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+					data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+					aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+						<li class="nav-item">
+							<a class="nav-link" href="/index">INICIO</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="/logout">CERRAR SESIÓN</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="javascript:history.back()">VOLVER ATRÁS</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		
 		<!-- Page Content -->
 		<section class="pt-4 content">
 			<div class="container px-lg-5">
-				<div class="row gx-lg-5">
-					<h1>Formulario de Alta</h1>
+				<div class="col-lg-12">
+					<h1 class="mb-4">Formulario de Alta</h1>
 					<form th:action="@{nuevoDispositivoRegador}" th:object="${dispositivoRegador}" method="post">
-						<p>
-							Nombre: <input type="text" id="nombre" th:field="*{nombreDispositivo}"/>
-						</p>
+		
+						<div class="mb-3">
+								<label class="form-label" for="nombre">Nombre:</label>
+								<input type="text" class="form-control" id="nombre" th:field="*{nombreDispositivo}" />
+						</div>
 
-						<label for="edificioId">Edificio:</label>
-						<select id="edificioId" name="edificio.id">
-							<option value="">Seleccionar Edificio</option>
-							<option th:each="edificio : ${edificios}" th:value="${edificio.id}"
-								th:text="${edificio.nombre}"></option>
-						</select>
+						<div class="mb-3">
+							<label class="form-label" for="edificioId">Edificio:</label>
+							<select class="form-select" id="edificioId" name="edificio.id"
+								<option value="">Seleccionar Edificio</option>
+								<option th:each="edificio : ${edificios}" th:value="${edificio.id}"
+									th:text="${edificio.nombre}"></option>
+							</select>
+						</div>
+						
+						<div class="mb-3">
+								<label class="form-label" for="nombre">Zona:</label>
+								<input type="text" class="form-control" id="zona" th:field="*{zona}" />
+						</div>
+					
 
-						<!-- label for="aulaId">Seleccionar Aula:</label>
-						<select id="aulaId" name="aulaId">
-							<option value="">Seleccionar Aula</option>
-							<option th:each="aula : ${aulas}" th:value="${aula.idAula}" th:text="${aula.numero}">
-							</option>
-						</select -->
+					
 						<input type="hidden" id="edificioIdInput" name="edificioId" />
-						<input type="submit" id="btnSubmit" value="Guardar" />
+						<button type="submit" class="btn btn-primary">Guardar</button>
 					</form>
 				</div>
 			</div>

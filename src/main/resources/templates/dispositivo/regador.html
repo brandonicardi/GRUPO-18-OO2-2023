@@ -14,21 +14,97 @@
 	<!-- Core theme CSS (includes Bootstrap)-->
 	<link href="../../css/styles.css" rel="stylesheet" />
 </head>
+<style>
+	.section-title {
+		font-size: 1.4rem;
+		font-weight: bold;
+		margin-bottom: 1.5rem;
+	}
 
+	.list-item {
+		padding: 1rem 0;
+		border-bottom: 1px solid #dee2e6;
+	}
+
+	.list-item:last-child {
+		border-bottom: none;
+	}
+
+	.list-item a {
+		color: #212529;
+		text-decoration: none;
+		display: block;
+	}
+
+	.list-item a:hover {
+		color: #0d6efd;
+	}
+
+	.list-item i {
+		font-size: 1.2rem;
+		margin-right: 0.5rem;
+	}
+</style>
 <body>
     <div class="wrapper">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<div class="container px-5">
+				<a class="navbar-brand" href="/index">UNLa - GRUPO 18</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+					data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+					aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+						<li class="nav-item">
+							<a class="nav-link" href="javascript:history.back()">VOLVER ATRÁS</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		
         <!-- Page Content-->
         <section class="pt-4 content">
             <div class="container px-lg-5">
                 <!-- Page Features-->
                 <div class="row gx-lg-5">
-                    <h2 class="fs-4 fw-bold">Opciones del Dispositivo de CUIDADO DE ESPACIO VERDE</h2>
+                    <h2 class="section-title">Opciones del Dispositivo de CUIDADO DE ESPACIO VERDE</h2>
                     <ul class="list-unstyled">
-                        <li><a th:href="@{/dispositivo/regador/crear}"><h5>Dar de alta un nuevo dispositivo</h5></a></li>
-                        <li><a th:href="@{/dispositivo/regador/modificar}"><h5>Modificar un dispositivo existente</h5></a></li>
-                        <li><a th:href="@{/dispositivo/regador/eliminar}"><h5>Dar de baja un dispositivo existente</h5></a></li>
-                        <li><a th:href="@{/dispositivo/regador/lista}"><h5>Gestionar dispositivos</h5></a></li>
-                    </ul>
+						<li class="list-item">
+							<a th:href="@{/dispositivo/regador/crear}">
+								<div class="d-flex align-items-center">
+									<i class="bi bi-plus-circle-fill me-3"></i>
+									<h5 class="mb-0">Dar de alta un nuevo dispositivo</h5>
+								</div>
+							</a>
+						</li>
+						<li class="list-item">
+							<a th:href="@{/dispositivo/regador/modificar}">
+								<div class="d-flex align-items-center">
+									<i class="bi bi-pencil-fill me-3"></i>
+									<h5 class="mb-0">Modificar un dispositivo existente</h5>
+								</div>
+							</a>
+						</li>
+						<li class="list-item">
+							<a th:href="@{/dispositivo/regador/eliminar}">
+								<div class="d-flex align-items-center">
+									<i class="bi bi-trash-fill me-3"></i>
+									<h5 class="mb-0">Dar de baja un dispositivo existente</h5>
+								</div>
+							</a>
+						</li>
+						<li class="list-item">
+							<a th:href="@{/dispositivo/regador/lista}">
+								<div class="d-flex align-items-center">
+									<i class="bi bi-gear-fill me-3"></i>
+									<h5 class="mb-0">Gestionar dispositivos</h5>
+								</div>
+							</a>
+						</li>
+					</ul>
                 </div>
             </div>
         </section>

@@ -36,6 +36,9 @@ public class DispositivoRegador extends Dispositivo {
 	@Column(name="estaPrendido")
 	private boolean estaPrendido;
 	
+	@Column(name="zona")
+	private String zona;
+	
 	public DispositivoRegador(int idDispositivo, String nombreDispositivo, LocalDateTime fechaCreacion,
 			LocalDateTime fechaModificacion, LocalDateTime fechaBaja, boolean isBaja, float humedadActual,
 			float humedadPrenderRegador) {
@@ -44,5 +47,7 @@ public class DispositivoRegador extends Dispositivo {
 		this.humedadPrenderRegador = humedadPrenderRegador;
 		this.estaPrendido = false; 
 	}
+	
+	
 	
 }

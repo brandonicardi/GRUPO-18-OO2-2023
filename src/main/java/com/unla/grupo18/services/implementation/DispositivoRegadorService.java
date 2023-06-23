@@ -1,6 +1,8 @@
 package com.unla.grupo18.services.implementation;
 
+import java.time.LocalDateTime;
 import java.util.List;
+
 
 
 
@@ -10,27 +12,27 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.ModelMap;
+
 
 import com.unla.grupo18.entities.DispositivoRegador;
 import com.unla.grupo18.entities.MetricaRegador;
 import com.unla.grupo18.models.DispositivoRegadorModel;
 import com.unla.grupo18.repositories.IDispositivoRegadorRepository;
+import com.unla.grupo18.services.IDispositivoRegadorService;
 
 
-@Service
-public class DispositivoRegadorService {
+@Service("dispositivoRegadorService")
+public class DispositivoRegadorService implements IDispositivoRegadorService{
 	@Autowired
 	@Qualifier("dispositivoRegadorRepository")
 	private IDispositivoRegadorRepository dispositivoRegadorRepository;
 
 	private ModelMapper modelMapper = new ModelMapper();
 
-	public DispositivoRegadorService(IDispositivoRegadorRepository dispositivoRegadorRepository) {
+	/*public DispositivoRegadorService(IDispositivoRegadorRepository dispositivoRegadorRepository) {
 		this.dispositivoRegadorRepository = dispositivoRegadorRepository;
-	}
+	}*/
 	
 	//Alta o modificacion
 	public DispositivoRegadorModel insertOrUpdate(DispositivoRegadorModel dispositivoModel) {
@@ -44,6 +46,7 @@ public class DispositivoRegadorService {
 			DispositivoRegador dispositivo = dispositivoRegadorRepository.findById(id).orElse(null);
 			dispositivo.setEstaPrendido(false);
 			dispositivo.setBaja(true);
+			dispositivo.setFechaBaja(LocalDateTime.now());
 			dispositivoRegadorRepository.save(dispositivo);
 	}
 	
@@ -90,7 +93,7 @@ public class DispositivoRegadorService {
 	public List<MetricaRegador> traerMetricas(){
 		return dispositivoRegadorRepository.traerMetricas();
 	}
-	/*
+	
 	//Actualizar el estado del dispositivo y generar los eventos
 	/**
 	 * 
@@ -126,9 +129,9 @@ public class DispositivoRegadorService {
 		}
 			 
 		
-	}*/
+	}
 	
-	
+	*/
 	
 	
 	

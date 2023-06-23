@@ -1,6 +1,6 @@
 package com.unla.grupo18.models;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import com.unla.grupo18.entities.Edificio;
 
@@ -18,9 +18,9 @@ public class DispositivoModel {
     
     protected int idDispositivo;
     protected String nombreDispositivo;
-    protected LocalDate fechaCreacion;
-    protected LocalDate fechaModificacion;
-    protected LocalDate fechaBaja;
+    protected LocalDateTime fechaCreacion;
+    protected LocalDateTime fechaModificacion;
+    protected LocalDateTime fechaBaja;
     protected boolean isBaja;
     protected Edificio edificio;
     
