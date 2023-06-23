@@ -11,6 +11,7 @@ import com.unla.grupo18.entities.Dispositivo;
 import com.unla.grupo18.entities.DispositivoAcondicionarAmbiente;
 import com.unla.grupo18.entities.Evento;
 import com.unla.grupo18.entities.MetricaAcondicionarAmbiente;
+import com.unla.grupo18.entities.MetricaAlumbrado;
 import com.unla.grupo18.models.EventoModel;
 import com.unla.grupo18.repositories.IDispositivoAcondicionarAmbienteRepository;
 import com.unla.grupo18.repositories.IEventoRepository;
@@ -107,6 +108,13 @@ public class EventoService implements IEventoService{
 	 * }
 	 */
 	
+    public List<Evento> findByDispositivo(Dispositivo dispositivo) {
+        return eventoRepository.findByDispositivo(dispositivo);
+    }
+    
+    public Evento getEventoByDispositivoAndMetrica(Dispositivo dispositivo, MetricaAlumbrado metricaAlumbrado) {
+        return eventoRepository.findByDispositivoAndMetrica(dispositivo, metricaAlumbrado);
+    }
 	
 	
 }

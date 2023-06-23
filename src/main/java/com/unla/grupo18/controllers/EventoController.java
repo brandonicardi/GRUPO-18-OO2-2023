@@ -74,7 +74,7 @@ public class EventoController {
 
 	@GetMapping("/alumbrado/eventos/{id}")
 	public String listaEventos(@PathVariable int id, Model model) {
-		DispositivoAlumbrado dispositivoAlumbrado = dispositivoAlumbradoService.getDispositivoById(id);
+		DispositivoAlumbrado dispositivoAlumbrado = dispositivoAlumbradoService.findById(id);
 		List<Evento> eventos = eventoService.getEventosPorDispositivo(dispositivoAlumbrado);
 		model.addAttribute("dispositivoAlumbrado", dispositivoAlumbrado);
 		model.addAttribute("eventos", eventos);

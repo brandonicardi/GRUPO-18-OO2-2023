@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -54,14 +55,25 @@
 					<p>
 						Aula: <span th:text="${dispositivoAlumbrado.aula.numero}" />
 					</p>
-
+					<p>
+						Hora de encendido: <span th:text="${dispositivoAlumbrado.horadeEncendido}" />
+					</p>
+					<p>
+						Hora de apagado: <span th:text="${dispositivoAlumbrado.horadeApagado}" />
+					</p>
 				</div>
 			</div>
 		</section>
-		<!-- Bootstrap core JS-->
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-		<!-- Core theme JS-->
-		<script src="js/scripts.js"></script>
+
+		<!-- Botón para volver a opciones -->
+		<div class="text-center mt-4">
+			<a class="btn btn-primary" th:href="@{/dispositivo/alumbrado}">Volver a opciones</a>
+		</div>
+	</div>
+	<!-- Bootstrap core JS-->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- Core theme JS-->
+	<script src="js/scripts.js"></script>
 </body>
 
 </html>

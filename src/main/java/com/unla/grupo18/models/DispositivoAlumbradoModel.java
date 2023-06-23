@@ -14,13 +14,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DispositivoAlumbradoModel extends DispositivoModel {
-    
     private Aula aula;
     private LocalTime horaEncendido;
     private LocalTime horaApagado;
-    private boolean detectorPresencia;
-    private boolean accionarCortina;
-    private LocalTime horaActual;
     private boolean estado;
 
 }

@@ -15,5 +15,7 @@ public interface IEventoService {
 	public Evento findById (int idEvento);
 	
 	public List<Evento> getEventosPorDispositivo(Dispositivo dispositivo);
-
+	
+	
+	public List<Evento> findByDispositivo(Dispositivo dispositivo);
 }
