@@ -34,7 +34,7 @@
 		</div>
 	</nav>
 	<div class="container">
-		<h1 class="mt-4">Lista de dispositivos en funcionamiento</h1>
+		<h1 class="mt-4">Dispositivos que pueden ser dados de baja</h1>
 
 		<div th:if="${mensaje}" class="alert alert-success mt-4" role="alert">
 			<strong th:text="${mensaje}"></strong>
@@ -45,6 +45,8 @@
 				<tr>
 					<th>ID</th>
 					<th>Nombre</th>
+					<th>Edificio</th>
+					<th>Aula</th>
 					<th>Acción</th>
 				</tr>
 			</thead>
@@ -52,6 +54,8 @@
 				<tr th:each="dispositivo : ${dispositivos}">
 					<td th:text="${dispositivo.idDispositivo}"></td>
 					<td th:text="${dispositivo.nombreDispositivo}"></td>
+					<td th:text="${dispositivo.edificio.nombre}"></td>
+					<td th:text="${dispositivo.aula.numero}"></td>
 					<td>
 						<form th:action="@{/dispositivo/alumbrado/eliminar/{id}(id=${dispositivo.idDispositivo})}"
 							method="post">

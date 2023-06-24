@@ -34,10 +34,7 @@
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 						<li class="nav-item">
-							<a class="nav-link" href="/index">INICIO</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="/logout">CERRAR SESIÓN</a>
+							<a class="nav-link" th:href="@{/index}">INICIO</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="javascript:history.back()">VOLVER ATRÁS</a>
@@ -52,8 +49,8 @@
 				<!-- Page Features-->
 				<div class="row gx-lg-5 justify-content-center">
 					<div class="col-12 text-center">
-						<div class="alert alert-info" role="alert">
-							<h1>No hay dispositivos de alumbrado inteligente para mostrar.</h1>
+						<div class="alert alert-danger" role="alert">
+							<h1>No existen dispositivos de alumbrado inteligente para mostrar.</h1>
 						</div>
 					</div>
 				</div>

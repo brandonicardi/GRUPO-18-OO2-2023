@@ -45,6 +45,7 @@
 				<tr>
 					<th>ID</th>
 					<th>Nombre</th>
+					<th>Estado</th>
 					<th>Acción</th>
 				</tr>
 			</thead>
@@ -52,6 +53,10 @@
 				<tr th:each="dispositivo : ${dispositivos}">
 					<td th:text="${dispositivo.idDispositivo}"></td>
 					<td th:text="${dispositivo.nombreDispositivo}"></td>
+					<td>
+						<span th:if="${dispositivo.isBaja}">DADO DE BAJA/INACTIVO</span>
+						<span th:if="${!dispositivo.isBaja}" th:text="${dispositivo.isBaja}"></span>
+					</td>
 					<td>
 						<form th:action="@{/dispositivo/alumbrado/reactivar/{id}(id=${dispositivo.idDispositivo})}"
 							method="post">

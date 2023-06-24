@@ -24,6 +24,7 @@ public class ViewRouteHelper {
 	public final static String EVENTOS_ALUMBRADO = "dispositivo/alumbrado/eventos";
 	public final static String METRICAS_ALUMBRADO = "dispositivo/alumbrado/metricas";
 	public final static String NO_EXISTEN_EVENTOS = "dispositivo/alumbrado/noExistenEventos";
+	public final static String NO_EXISTEN_METRICAS = "dispositivo/alumbrado/noExistenMetricas";
 	public final static String DISP_ALUMBRADO_MODIFICADO = "dispositivo/alumbrado/alumbradoModificado";
 	public final static String REACTIVAR_DISP_ALUMBRADO = "dispositivo/alumbrado/reactivarDispositivo";
 

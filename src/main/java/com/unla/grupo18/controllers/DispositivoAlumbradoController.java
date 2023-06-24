@@ -211,7 +211,7 @@ public class DispositivoAlumbradoController {
 	}
 	
 	@PostMapping("/alumbrado/reactivar/{id}")
-	@PreAuthorize("hasAuthority('ROL_ADMIN')")
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	public ModelAndView reactivarDispositivoAlumbrado(@PathVariable int id) {
 	    ModelAndView mV = new ModelAndView();
 	    DispositivoAlumbrado dispositivo = dispositivoAlumbradoService.findById(id);
