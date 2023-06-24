@@ -35,16 +35,16 @@ public class DispositivoAcondicionarAmbiente extends Dispositivo {
 	@Column(name="temperaturaActivarFrio")
 	//@DecimalMin(value = "20", message = "El valor minimo permitido es 20 por cuestiones del dispositivo")
 	//@DecimalMax(value = "50", message = "El valor máximo permitido es 50 por cuestiones del dispositivo")
-	@Min(20)
-	@Max(50)
+	//@Min(20)
+	//@Max(50)
 	private float temperaturaActivarFrio;
 	
 	// (Para comparar con temperatura actual, siendo este menor, debe calefaccionar)
 	@Column(name="temperaturaActivarCalor")
     //@DecimalMin(value = "-10", message = "El valor máximo permitido es -10 por cuestiones del dispositivo")
 	//@DecimalMax(value = "50", message = "El valor máximo permitido es -50 por cuestiones del dispositivo")
-	@Min(-10)
-	@Max(50)
+	//@Min(-10)
+	//@Max(50)
 	private float temperaturaActivarCalor;
 	/*
 	// (Por defecto false - Si hay personas en el lugar) --> Lo testeamos en metrica Ambiente (entities - model )

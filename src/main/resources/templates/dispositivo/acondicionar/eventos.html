@@ -46,7 +46,6 @@
 									<th>Fecha/Hora de Evento</th>
 									<th>Temperatura Actual</th>
 									<th>Funcionamiento</th>
-									<th>Modo Aire: </th>
 									
 									
 									<!-- Columna para los botones -->
@@ -61,9 +60,7 @@
 									<td th:text="${MetricaAcondicionarAmbiente.dispositivo.aula.numero}"></td>
 									<td th:text="${MetricaAcondicionarAmbiente.evento.fechahoraEvento}"></td>
 									<td th:text="${MetricaAcondicionarAmbiente.evento.temperaturaActual}"></td>
-									<td th:text="${MetricaAcondicionarAmbiente.dispositivo.estado}"></td>
-									<td th:text="${MetricaAcondicionarAmbiente.dispositivo.modoAire}"></td>
-								
+									<td th:text="${MetricaAcondicionarAmbiente.dispositivo.estado}"></td>								
 								</tr>
 							</tbody>
 						</table>

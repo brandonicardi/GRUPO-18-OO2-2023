@@ -75,90 +75,31 @@ public class DispositivoAcondicionarAmbienteController {
 		return ViewRouteHelper.CREAR_AMBIENTE;
 	}
 
-	// >>
-	/*
+	// >> 
 	@PostMapping("/acondicionar/nuevoDispositivoAcondicionar")
-	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public ModelAndView nuevoDispositivoAcondicionar(MethodArgumentNotValidException ex ,@Valid @ModelAttribute("dispositivoAmbiente") DispositivoAcondicionarAmbiente dispositivo, @RequestParam("edificioId") int edificioId, @RequestParam("aulaId") int aulaId, BindingResult result) {
-		BindingResult bindingResult = ex.getBindingResult();
+	public ModelAndView nuevoDispositivoAcondicionar(@Valid @ModelAttribute("dispositivoAmbiente") DispositivoAcondicionarAmbiente dispositivo, @RequestParam("edificioId") int edificioId, @RequestParam("aulaId") int aulaId) {
+
+		// Instanciamos Edificio y Aula, buscandolos de la BD por su respectivo ID
+		Edificio edificio = edificioService.findById(edificioId);
+		Aula aula = aulaService.findById(aulaId);
+
+		// Seteamos Edificio y Aula
+		
+		dispositivo.setEdificio(edificio);
+		dispositivo.setAula(aula);
+
+		// Guarda en BD el Dispositivo con sus nuevos parametros
+		dispositivoService.insertOrUpdate(dispositivo);
+
 		ModelAndView mV = new ModelAndView();
-		
-		String errorMessage = bindingResult.getFieldError().getDefaultMessage();
-		model.dispositivo.addAttribute("errorMessage", errorMessage);
 
-        
-		if (result.hasErrors()) {
-            // Se encontraron errores de validación, manejarlos aquí
-			mV.setViewName(ViewRouteHelper.PRUEBA);
-			
-        }else {
-        	
-        	// Instanciamos Edificio y Aula, buscandolos de la BD por su respectivo ID
-    		Edificio edificio = edificioService.findById(edificioId);
-    		Aula aula = aulaService.findById(aulaId);
-    		
-    		// Seteamos Edificio y Aula
-    		dispositivo.setEdificio(edificio);
-    		dispositivo.setAula(aula);
-
-    		// Guarda en BD el Dispositivo con sus nuevos parametros
-    		dispositivoService.insertOrUpdate(dispositivo);
-
-    		
-
-    		// Redireccionamos y mostramos los datos del nuevo Dispositivo creado
-    		mV.setViewName(ViewRouteHelper.NUEVO_AMBIENTE);
-    		mV.addObject("dispositivoAcondicionar", dispositivo);
-    	
-        }
-		
+		// Redireccionamos y mostramos los datos del nuevo Dispositivo creado
+		mV.setViewName(ViewRouteHelper.NUEVO_AMBIENTE);
+		mV.addObject("dispositivoAcondicionar", dispositivo);
 
 		return mV;
-	}
-	*/
+	}	
 
-	// Mismo controller q el anterior, pero se testean validaciones
-	@PostMapping("/acondicionar/nuevoDispositivoAcondicionar")
-	public ModelAndView nuevoDispositivoAcondicionar(@Valid @ModelAttribute("dispositivoAmbiente") DispositivoAcondicionarAmbiente dispositivo,
-	                                                 @RequestParam("edificioId") int edificioId,
-	                                                 @RequestParam("aulaId") int aulaId,
-	                                                 BindingResult result) {
-	    ModelAndView mV = new ModelAndView();
-	    
-	    if (result.hasErrors()) {
-	        // Se encontraron errores de validación, manejarlos aquí
-	        mV.setViewName(ViewRouteHelper.PRUEBA);
-	        return mV;
-	    }
-	    
-	    try {
-	        // Instanciamos Edificio y Aula, buscándolos en la BD por su respectivo ID
-	        Edificio edificio = edificioService.findById(edificioId);
-	        Aula aula = aulaService.findById(aulaId);
-	        
-	        // Seteamos Edificio y Aula
-	        dispositivo.setEdificio(edificio);
-	        dispositivo.setAula(aula);
-	        
-	        // Guardamos en la BD el Dispositivo con sus nuevos parámetros
-	        dispositivoService.insertOrUpdate(dispositivo);
-	        
-	        // Redireccionamos y mostramos los datos del nuevo Dispositivo creado
-	        mV.setViewName(ViewRouteHelper.NUEVO_AMBIENTE);
-	        mV.addObject("dispositivoAcondicionar", dispositivo);
-	    } catch (Exception ex) {
-	        // Se produjo un error durante el procesamiento del formulario
-	        String errorMessage = "Ocurrió un error al procesar el formulario";
-	        
-	        // Redireccionamos a la vista de error y mostramos el mensaje de error
-	        mV.setViewName(ViewRouteHelper.PRUEBA);
-	        mV.addObject("errorMessage", errorMessage);
-	    }
-	    
-	    return mV;
-	}
-
-	
 	// >> Metodo para controlar la generacion de aulas dentro del http, se re utiliza en la vista 
 	// Se trae Edificio x id desde la BD, se le agregan sus respectivas Aulas.
 	@GetMapping("/acondicionar/cargarAulas")

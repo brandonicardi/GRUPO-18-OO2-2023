@@ -1,5 +1,6 @@
 package com.unla.grupo18.services.implementation;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -11,32 +12,43 @@ import org.springframework.stereotype.Service;
 import com.unla.grupo18.entities.Dispositivo;
 import com.unla.grupo18.entities.DispositivoAcondicionarAmbiente;
 import com.unla.grupo18.entities.DispositivoAlumbrado;
+import com.unla.grupo18.entities.DispositivoEstacionamiento;
 import com.unla.grupo18.entities.Evento;
 import com.unla.grupo18.entities.MetricaAcondicionarAmbiente;
 import com.unla.grupo18.entities.MetricaAlumbrado;
+import com.unla.grupo18.entities.MetricaEstacionamiento;
 import com.unla.grupo18.models.EventoModel;
 import com.unla.grupo18.repositories.IDispositivoAcondicionarAmbienteRepository;
+import com.unla.grupo18.repositories.IDispositivoEstacionamientoRepository;
 import com.unla.grupo18.repositories.IEventoRepository;
 import com.unla.grupo18.services.IEventoService;
 
 @Service("eventoServicio")
 public class EventoService implements IEventoService {
 
-	@Qualifier("eventoRepositoriy")
+	@Qualifier("eventoRepository")
 	private final IEventoRepository eventoRepository;
 
-	// Llamamos el repositorio de Acondicioanr Ambiente
+	// --------------------------Llamamos el repositorio de Acondicioanr Ambiente-----------------------
 	@Autowired
 	@Qualifier("DispositivoAcondicionarAmbienteRepository")
 	private IDispositivoAcondicionarAmbienteRepository dispositivoAcondicionarAmbienteRepository;
 
+	//---------------------------- Llamamos el repositorio de Estacionamiento---------------
+		@Autowired
+		@Qualifier("dispositivoEstacionamientoRepository")
+		private IDispositivoEstacionamientoRepository dispositivoEstacionamientoRepository;
+//------------------------------------------------------------------------------------------------------
+		private final MetricaDispositivoEstacionamientoService metricaEstacionamientoService;
 	private final MetricaDispositivoAlumbradoService metricaAlumbradoService;
 
 	private ModelMapper modelMapper = new ModelMapper();
 
-	EventoService(IEventoRepository eventoRepository, MetricaDispositivoAlumbradoService metricaAlumbradoService) {
+	EventoService(IEventoRepository eventoRepository, MetricaDispositivoAlumbradoService metricaAlumbradoService, MetricaDispositivoEstacionamientoService metricaEstacionamientoService) {
 		this.eventoRepository = eventoRepository;
 		this.metricaAlumbradoService = metricaAlumbradoService;
+		this.metricaEstacionamientoService=metricaEstacionamientoService;
+		
 	}
 
 	// Trae Lista de Eventos
@@ -120,7 +132,53 @@ public class EventoService implements IEventoService {
 	public Evento getEventoByDispositivoAndMetrica(Dispositivo dispositivo, MetricaAlumbrado metricaAlumbrado) {
 		return eventoRepository.findByDispositivoAndMetrica(dispositivo, metricaAlumbrado);
 	}
+	//ESTACIONAMIENTO
+	public Evento getEventoByDispositivoAndMetrica(Dispositivo dispositivo, MetricaEstacionamiento metricaEstacionamiento) {
+		return eventoRepository.findByDispositivoAndMetrica(dispositivo, metricaEstacionamiento);
+	}
+	
+	public List<Evento> buscarPorDescripcion(String descripcionEvento) {
+	    return eventoRepository.findByDescripcionEventoContainingIgnoreCase(descripcionEvento);
+	}
+	//----------------------------------ESTACIONAMIENTO-----------------------------------------
+	
+	public void actualizarEventosEstacionamientoDesdeMetricas(DispositivoEstacionamiento dispositivoEstacionamiento) {
+		List<MetricaEstacionamiento> metricas = metricaEstacionamientoService.getMetricasByDispositivo(dispositivoEstacionamiento);
 
+		for (MetricaEstacionamiento metrica : metricas) {
+			Evento existenteEvento = getEventoByDispositivoAndMetrica(dispositivoEstacionamiento, metrica);
+
+			if (existenteEvento == null) {
+				if (dispositivoEstacionamiento.isEstado()==true) {
+					LocalDateTime horaEncendido = dispositivoEstacionamiento.getFechaCreacion();
+					
+						Evento eventoActivo = new Evento(dispositivoEstacionamiento, "ESTACIONAMIENTO ACTIVO",
+								metrica.getFechaHoraMetrica(), metrica);
+						saveEvento(eventoActivo);
+					}
+				} else {
+					if (dispositivoEstacionamiento.isEstado()==false) {
+						LocalDateTime horaOcupado = dispositivoEstacionamiento.getFechaCreacion();
+						
+							Evento eventoOcupado = new Evento(dispositivoEstacionamiento, "ESTACIONAMIENTO OCUPADO",
+									metrica.getFechaHoraMetrica(), metrica);
+							saveEvento(eventoOcupado);
+						}
+				}
+			}
+		}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//----------------------------------ALUMBRADO-----------------------------------------
 	public void actualizarEventosAlumbradoDesdeMetricas(DispositivoAlumbrado dispositivoAlumbrado) {
 		List<MetricaAlumbrado> metricas = metricaAlumbradoService.getMetricasByDispositivo(dispositivoAlumbrado);
 

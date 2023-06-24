@@ -45,7 +45,6 @@
 									<th>Aula</th>
 									<th>Activa Frio en: </th>
 									<th>Activa Calor en: </th>
-									<th>Modo Aire: </th>
 									<th>Estado</th>
 									<th class="col-md-3">Acciones</th>
 									<!-- Columna para los botones -->
@@ -60,7 +59,6 @@
 									<td th:text="${dispositivoAcondicionar.aula}"></td>
 									<td th:text="${dispositivoAcondicionar.temperaturaActivarFrio}"></td>
 									<td th:text="${dispositivoAcondicionar.temperaturaActivarCalor}"></td>
-									<td th:text="${dispositivoAcondicionar.modoAire}"></td>
 									<td>
 										<span th:if="${!dispositivoAcondicionar.isBaja}">Activo</span>
 										<span th:if="${dispositivoAcondicionar.isBaja}">Inactivo</span>
