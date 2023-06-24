@@ -72,8 +72,7 @@ public class EventoController {
 		model.addAttribute("metricas", metricas);
 		return ViewRouteHelper.EVENTO_AMBIENTE;
 	}
-	
-	
+
 	// ==================== ESTOS METODOS SON PARA EL DISPOSITIVO ALUMBRADO ====================
 
 	@GetMapping("/alumbrado/eventos/{id}")
@@ -87,28 +86,29 @@ public class EventoController {
 		}
 		return ViewRouteHelper.EVENTOS_ALUMBRADO;
 	}
-	
+
 	@GetMapping("/alumbrado/eventos/{id}/buscar")
-	public String buscarEventos(@PathVariable int id, @RequestParam("descripcionEvento") String descripcionEvento, Model model) {
-	    DispositivoAlumbrado dispositivoAlumbrado = dispositivoAlumbradoService.findById(id);
-	    List<Evento> eventos = eventoService.buscarPorDescripcion(descripcionEvento);
-	    model.addAttribute("dispositivoAlumbrado", dispositivoAlumbrado);
-	    model.addAttribute("eventos", eventos);
-	    if (eventos.isEmpty()) {
-	        return ViewRouteHelper.NO_EXISTEN_EVENTOS;
-	    }
-	    return ViewRouteHelper.EVENTOS_ALUMBRADO;
-	}
-	
-	@PostMapping("/alumbrado/eventos/{id}/buscar")
-	public ModelAndView buscarEventos(@PathVariable int id, @RequestParam("descripcionEvento") String descripcionEvento) {
-	    ModelAndView mav = new ModelAndView(ViewRouteHelper.EVENTOS_ALUMBRADO);
-	    DispositivoAlumbrado dispositivoAlumbrado = dispositivoAlumbradoService.findById(id);
-	    List<Evento> eventos = eventoService.buscarPorDescripcion(descripcionEvento);
-	    mav.addObject("dispositivoAlumbrado", dispositivoAlumbrado);
-	    mav.addObject("eventos", eventos);
-	    return mav;
+	public String buscarEventos(@PathVariable int id, @RequestParam("descripcionEvento") String descripcionEvento,
+			Model model) {
+		DispositivoAlumbrado dispositivoAlumbrado = dispositivoAlumbradoService.findById(id);
+		List<Evento> eventos = eventoService.buscarPorDescripcion(descripcionEvento);
+		model.addAttribute("dispositivoAlumbrado", dispositivoAlumbrado);
+		model.addAttribute("eventos", eventos);
+		if (eventos.isEmpty()) {
+			return ViewRouteHelper.NO_EXISTEN_EVENTOS;
+		}
+		return ViewRouteHelper.EVENTOS_ALUMBRADO;
 	}
 
+	@PostMapping("/alumbrado/eventos/{id}/buscar")
+	public ModelAndView buscarEventos(@PathVariable int id,
+			@RequestParam("descripcionEvento") String descripcionEvento) {
+		ModelAndView mav = new ModelAndView(ViewRouteHelper.EVENTOS_ALUMBRADO);
+		DispositivoAlumbrado dispositivoAlumbrado = dispositivoAlumbradoService.findById(id);
+		List<Evento> eventos = eventoService.buscarPorDescripcion(descripcionEvento);
+		mav.addObject("dispositivoAlumbrado", dispositivoAlumbrado);
+		mav.addObject("eventos", eventos);
+		return mav;
+	}
 
 }

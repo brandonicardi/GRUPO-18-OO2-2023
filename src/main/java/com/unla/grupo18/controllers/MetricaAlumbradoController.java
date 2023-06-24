@@ -40,7 +40,9 @@ public class MetricaAlumbradoController {
 		List<MetricaAlumbrado> metricas = metricaService.getMetricasByDispositivo(dispositivo);
 		model.addAttribute("dispositivoAlumbrado", dispositivo);
 		model.addAttribute("metricaDispositivoAlumbrado", metricas);
-
+		if (metricas.size() == 0) {
+			return ViewRouteHelper.NO_EXISTEN_METRICAS;
+		}
 		return ViewRouteHelper.METRICAS_ALUMBRADO;
 	}
 

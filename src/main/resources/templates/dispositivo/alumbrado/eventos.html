@@ -42,7 +42,7 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-8">
-                        <h1 class="text-center">Lista de Eventos</h1>
+                        <h2 class="text-center" th:text="'Lista de eventos del dispositivo: ' + ${dispositivoAlumbrado.nombreDispositivo}"></h2>
                         <!-- Barra de búsqueda -->
                         <div class="d-flex justify-content-center mt-4">
                             <form th:action="@{/dispositivo/alumbrado/eventos/{id}/buscar(id=${dispositivoAlumbrado.idDispositivo})}" method="post">
@@ -61,7 +61,6 @@
                                 <thead>
                                     <tr>
                                         <th>ID del evento</th>
-                                        <th>Dispositivo Alumbrado</th>
                                         <th>Descripción</th>
                                         <th>Dia</th>
                                         <th>Hora</th>
@@ -72,7 +71,6 @@
                                     <!-- Itera sobre los eventos y muestra cada uno en una fila -->
                                     <tr th:each="evento : ${eventos}">
                                         <td th:text="${evento.idEvento}"></td>
-                                        <td th:text="${evento.dispositivo.nombreDispositivo}"></td>
                                         <td th:text="${evento.descripcionEvento}"></td>
                                         <td th:text="${evento.metrica.fechaDeteccion}"></td>
                                         <td th:text="${evento.metrica.horaDeteccion}"></td>
