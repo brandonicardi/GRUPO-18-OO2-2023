@@ -1,6 +1,7 @@
 package com.unla.grupo18.entities;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -14,7 +15,7 @@ import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,8 +37,8 @@ public abstract class Metrica {
     @CreationTimestamp
     private LocalDateTime fechaHoraMetrica;
 
-    @OneToOne(mappedBy = "metrica")
-    private Evento evento;
+    @OneToMany(mappedBy = "metrica")
+    private List<Evento> eventos;
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idDispositivo", nullable = false)

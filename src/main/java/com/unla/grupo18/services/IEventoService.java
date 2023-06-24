@@ -1,5 +1,6 @@
 package com.unla.grupo18.services;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import com.unla.grupo18.entities.Dispositivo;
@@ -19,5 +20,7 @@ public interface IEventoService {
 	public List<Evento> findByDispositivo(Dispositivo dispositivo);
 	
 	public List<Evento> buscarPorDescripcion(String descripcionEvento);
+
+	public List<Evento> buscarPorFechaMetrica(LocalDate fechaMetrica);
 	
 }

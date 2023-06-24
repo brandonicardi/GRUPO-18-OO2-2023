@@ -30,7 +30,7 @@ public class DispositivoAlumbradoService {
         System.out.println("Dispositivo antes del mapeo: " + dispositivo);
         DispositivoAlumbrado dispositivoNuevo = dispositivoAlumbradoRepository.save(dispositivo);
         DispositivoAlumbradoModel dispositivoModel = modelMapper.map(dispositivoNuevo, DispositivoAlumbradoModel.class);
-        System.out.println("Dispositivo mapeado: " + dispositivoModel);
+        System.out.println("Dispositivo despues del mapeo: " + dispositivo);
         return dispositivoModel;
     }
     
