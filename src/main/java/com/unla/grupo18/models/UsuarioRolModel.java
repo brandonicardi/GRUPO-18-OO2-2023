@@ -9,4 +9,6 @@ public class UsuarioRolModel {
 	private int id;
 	private String rol;
 	private boolean enabled;
+	
+
 }

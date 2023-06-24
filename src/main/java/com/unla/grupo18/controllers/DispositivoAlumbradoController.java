@@ -8,6 +8,7 @@ import java.time.LocalTime;
 
 //OTROS
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
@@ -57,6 +58,7 @@ public class DispositivoAlumbradoController {
 
 	// CREAR
 	@GetMapping("/alumbrado/crear")
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	public String crearDispositivoAlumbrado(Model model) {
 		model.addAttribute("dispositivoAlumbrado", new DispositivoAlumbrado());
 		model.addAttribute("edificios", edificioService.obtenerTodosLosEdificios());
@@ -65,6 +67,7 @@ public class DispositivoAlumbradoController {
 	}
 
 	@PostMapping("/alumbrado/nuevoDispositivoAlumbrado")
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	public ModelAndView nuevoDispositivoAlumbrado(
 			@Valid @ModelAttribute("dispositivoAlumbrado") DispositivoAlumbrado dispositivo,
 			@RequestParam("edificioId") int edificioId, @RequestParam("aulaId") int aulaId,
@@ -86,6 +89,7 @@ public class DispositivoAlumbradoController {
 	}
 
 	@GetMapping("/alumbrado/cargarAulas")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_AUDITOR')")
 	public ResponseEntity<Set<Aula>> cargarAulas(@RequestParam("edificioId") int edificioId) {
 		Edificio edificio = edificioService.getEdificioById(edificioId);
 		Set<Aula> aulas = edificio.getAulas();
@@ -94,6 +98,7 @@ public class DispositivoAlumbradoController {
 
 	// ELIMINAR
 	@GetMapping("/alumbrado/eliminar")
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	public String eliminarDispositivoAlumbrado(Model model) {
 		List<DispositivoAlumbrado> dispositivos = dispositivoAlumbradoService.getAllActiveDispositivos();
 		if (dispositivos.size() == 0) {
@@ -104,6 +109,7 @@ public class DispositivoAlumbradoController {
 	}
 
 	@PostMapping("/alumbrado/eliminar/{id}")
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	public ModelAndView eliminarDispositivoAlumbrado(@PathVariable int id) {
 	    ModelAndView mV = new ModelAndView();
 	    DispositivoAlumbrado dispositivo = dispositivoAlumbradoService.findById(id);
@@ -120,6 +126,7 @@ public class DispositivoAlumbradoController {
 
 	// MODIFICAR
 	@GetMapping("/alumbrado/modificar")
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	public String modificarDispositivoAlumbrado(Model model) {
 		List<DispositivoAlumbrado> dispositivos = dispositivoAlumbradoService.getAllActiveDispositivos();
 		if (dispositivos.size() == 0) {
@@ -130,6 +137,7 @@ public class DispositivoAlumbradoController {
 	}
 
 	@GetMapping("/alumbrado/modificar/{idDispositivo}")
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	public String modificarDispositivoAlumbrado(@PathVariable int idDispositivo, Model model) {
 
 		// Trae unico Dispositivo x ID
@@ -145,6 +153,7 @@ public class DispositivoAlumbradoController {
 	}
 
 	@PostMapping("/alumbrado/modificar/{idDispositivo}")
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	public ModelAndView modificarDispositivoAlumbrado(@PathVariable int idDispositivo,
 	        @ModelAttribute("dispositivoAlumbrado") DispositivoAlumbrado dispositivo, @RequestParam("edificioId") int edificioId,
 	        @RequestParam("aulaId") int aulaId,
@@ -178,6 +187,7 @@ public class DispositivoAlumbradoController {
 
 	// Lista
 	@GetMapping("/alumbrado/lista")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_AUDITOR')")
 	public String listaDeDispositivoAlumbrado(Model model) {
 		List<DispositivoAlumbrado> dispositivos = dispositivoAlumbradoService.getAllActiveDispositivos();
 		if (dispositivos.size() == 0) {
@@ -190,6 +200,7 @@ public class DispositivoAlumbradoController {
 	
 	// REACTIVAR UN DISPOSITIVO DADO DE BAJA
 	@GetMapping("/alumbrado/reactivar")
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	public String reactivarDispositivoAlumbrado(Model model) {
 		List<DispositivoAlumbrado> dispositivos = dispositivoAlumbradoService.getAllInactiveDispositivos();
 		if (dispositivos.size() == 0) {
@@ -200,6 +211,7 @@ public class DispositivoAlumbradoController {
 	}
 	
 	@PostMapping("/alumbrado/reactivar/{id}")
+	@PreAuthorize("hasAuthority('ROL_ADMIN')")
 	public ModelAndView reactivarDispositivoAlumbrado(@PathVariable int id) {
 	    ModelAndView mV = new ModelAndView();
 	    DispositivoAlumbrado dispositivo = dispositivoAlumbradoService.findById(id);

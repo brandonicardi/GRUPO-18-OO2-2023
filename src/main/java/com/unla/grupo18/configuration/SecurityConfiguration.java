@@ -11,7 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-import com.unla.grupo18.services.implementation.UsuarioService;
+import com.unla.grupo18.services.implementation.UserService;
 
 @Configuration
 @EnableWebSecurity
@@ -19,24 +19,36 @@ import com.unla.grupo18.services.implementation.UsuarioService;
 public class SecurityConfiguration {
 
 	@Autowired
-	@Qualifier("usuarioService")
-	private UsuarioService usuarioService;
+	@Qualifier("userService")
+	private UserService userService;
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(usuarioService).passwordEncoder(new BCryptPasswordEncoder());
+		auth.userDetailsService(userService).passwordEncoder(new BCryptPasswordEncoder());
 	}
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests()
-                .requestMatchers("/css/*", "/imgs/*", "/js/*", "/vendor/bootstrap/css/*", "/vendor/jquery/*",
-                        "/vendor/bootstrap/js/*")
-                .permitAll().anyRequest().authenticated().and().formLogin(login -> login.loginPage("/login")
-                .loginProcessingUrl("/loginprocess").usernameParameter("username").passwordParameter("password")
-                .defaultSuccessUrl("/loginsuccess").permitAll()).logout(logout -> logout.logoutUrl("/logout")
-                .logoutSuccessUrl("/logout").permitAll());
-		return http.build();
+	    http
+	        .authorizeRequests()
+	            .requestMatchers("/css/**", "/imgs/**", "/js/**", "/vendor/bootstrap/css/**", "/vendor/jquery/**",
+	                    "/vendor/bootstrap/js/**")
+	                .permitAll()
+	            .anyRequest().authenticated()
+	        .and()
+	        .formLogin()
+	            .loginPage("/login")
+	            .loginProcessingUrl("/loginprocess")
+	            .usernameParameter("username")
+	            .passwordParameter("password")
+	            .defaultSuccessUrl("/loginsuccess")
+	            .permitAll()
+	        .and()
+	        .logout()
+	            .logoutUrl("/logout")
+	            .logoutSuccessUrl("/logout")
+	            .permitAll();
+	    
+	    return http.build();
 	}
-
 }
