@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 	<meta name="description" content="" />
 	<meta name="author" content="" />
-	<title>DISPOSITIVO DE ALUMBRADO INTELIGENTE</title>
+	<title>DISPOSITIVO ESTACIONAMIENTO</title>
 	<!-- Favicon-->
 	<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 	<!-- Bootstrap icons-->
@@ -18,7 +19,7 @@
 	<div class="wrapper">
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 			<div class="container px-5">
-				<a class="navbar-brand" th:href="@{/index}">UNLa - GRUPO 18</a>
+				<a class="navbar-brand" href="">UNLa - GRUPO 18</a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
 					data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
 					aria-expanded="false" aria-label="Toggle navigation">
@@ -30,41 +31,46 @@
 							<a class="nav-link" href="/index">INICIO</a>
 						</li>
 						<li class="nav-item">
+							<a class="nav-link" href="/logout">CERRAR SESIÓN</a>
+						</li>
+						<li class="nav-item">
 							<a class="nav-link" href="javascript:history.back()">VOLVER ATRÁS</a>
 						</li>
 					</ul>
 				</div>
 			</div>
 		</nav>
+		<!-- Page Content-->
 		<section class="pt-4 content">
 			<div class="container px-lg-5">
 				<!-- Page Features-->
 				<div class="row gx-lg-5">
-					<h1>Listado de Métricas</h1>
+					<h1>Lista de Eventos</h1>
 					<div class="table-responsive">
 						<table class="table">
 							<thead>
 								<tr>
-									<th>ID</th>
-									<th>Sensor de presencia</th>
-									<th>Fecha y hora de la métrica</th>
-									<th>Hora de detección</th>
+									<th>ID del evento</th>
+									<th>Dispositivo Estacionamiento</th>
+									<th>Descripción</th>
+									<th>Dia</th>
+									<th>Hora</th>
+									<th>Métrica Asociada</th>
 								</tr>
 							</thead>
 							<tbody>
-								<!-- Itera sobre las métricas y muestra cada una en una fila -->
-								<tr th:each="metrica : ${metricaDispositivoAlumbrado}">
-									<td th:text="${metrica.idMetrica}"></td>
-									<td th:text="${metrica.sensorPresencia}"></td>
-									<td th:text="${metrica.fechaDeteccion}"></td>
-									<td th:text="${metrica.horaDeteccion}"></td>
+								<!-- Itera sobre los eventos y muestra cada uno en una fila -->
+								<tr th:each="evento : ${eventos}">
+									<td th:text="${evento.idEvento}"></td>
+									<td th:text="${evento.dispositivo.nombreDispositivo}"></td>
+									<td th:text="${evento.descripcionEvento}"></td>
+									<td th:text="${evento.metrica.fechaDeteccion}"></td>
+									<td th:text="${evento.metrica.horaDeteccion}"></td>
+									<td th:text="${evento.metrica.idMetrica}"></td>
 								</tr>
 							</tbody>
 						</table>
 					</div>
-					<form th:action="@{/dispositivo/alumbrado/actualizar/{id}(id=${dispositivoAlumbrado.idDispositivo})}" method="post">
-						<button type="submit" class="btn btn-primary">Actualizar eventos</button>
-					</form>
 				</div>
 			</div>
 		</section>
@@ -74,4 +80,5 @@
 	<!-- Core theme JS-->
 	<script src="js/scripts.js"></script>
 </body>
+
 </html>

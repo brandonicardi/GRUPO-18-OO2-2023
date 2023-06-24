@@ -27,8 +27,11 @@ public class DispositivoAlumbradoService {
     }
 
     public DispositivoAlumbradoModel insertOrUpdateDisp(DispositivoAlumbrado dispositivo) {
-    	DispositivoAlumbrado dispositivoNuevo = dispositivoAlumbradoRepository.save(dispositivo);
-        return modelMapper.map(dispositivoNuevo, DispositivoAlumbradoModel.class);
+        System.out.println("Dispositivo antes del mapeo: " + dispositivo);
+        DispositivoAlumbrado dispositivoNuevo = dispositivoAlumbradoRepository.save(dispositivo);
+        DispositivoAlumbradoModel dispositivoModel = modelMapper.map(dispositivoNuevo, DispositivoAlumbradoModel.class);
+        System.out.println("Dispositivo mapeado: " + dispositivoModel);
+        return dispositivoModel;
     }
     
 //	================== Traemos todos los Dispositivos del tipo ALUMBRADO ==================
@@ -48,11 +51,22 @@ public class DispositivoAlumbradoService {
     public List<DispositivoAlumbrado> getAllActiveDispositivos() {
         return dispositivoAlumbradoRepository.findByTipoAndActivoIsTrue();
     }
+    
+    public List<DispositivoAlumbrado> getAllInactiveDispositivos() {
+        return dispositivoAlumbradoRepository.findByTipoAndInactivoIsTrue();
+    }
 
     public void deleteDispositivo(Integer dispositivoId) {
     	DispositivoAlumbrado dispositivo = this.findById(dispositivoId);
     	dispositivo.setBaja(true);
     	dispositivo.setFechaBaja(LocalDateTime.now());
+    	this.insertOrUpdateDisp(dispositivo);
+    }
+    
+    public void reactivarDispositivo(Integer dispositivoId) {
+    	DispositivoAlumbrado dispositivo = this.findById(dispositivoId);
+    	dispositivo.setBaja(false);
+    	dispositivo.setFechaBaja(null);
     	this.insertOrUpdateDisp(dispositivo);
     }
     

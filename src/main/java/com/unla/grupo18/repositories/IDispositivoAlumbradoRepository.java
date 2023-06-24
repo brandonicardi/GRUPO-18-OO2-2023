@@ -17,6 +17,9 @@ public interface IDispositivoAlumbradoRepository extends JpaRepository<Dispositi
 	@Query("SELECT d FROM DispositivoAlumbrado d WHERE d.isBaja = false")
 	List<DispositivoAlumbrado> findByTipoAndActivoIsTrue();
 	
+	@Query("SELECT d FROM DispositivoAlumbrado d WHERE d.isBaja = true")
+	List<DispositivoAlumbrado> findByTipoAndInactivoIsTrue();
+
 	// Traer todos los dispositivos
 	public abstract List<DispositivoAlumbrado> findAll();
 

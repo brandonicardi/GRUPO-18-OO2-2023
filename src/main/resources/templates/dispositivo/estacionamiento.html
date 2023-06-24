@@ -2,42 +2,103 @@
 <html lang="en">
 
 <head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-	<meta name="description" content="" />
-	<meta name="author" content="" />
-	<title>DISPOSITIVO Estacionamiento</title>
-	<!-- Favicon-->
-	<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-	<!-- Bootstrap icons-->
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
-	<!-- Core theme CSS (includes Bootstrap)-->
-	<link href="../../css/styles.css" rel="stylesheet" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>DISPOSITIVO Estacionamiento</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="../../../css/styles.css" rel="stylesheet" />
+    <style>
+        /* Estilos personalizados para el menú */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-image: url("https://static.vecteezy.com/system/resources/previews/005/539/330/non_2x/automotive-transportation-car-with-parking-symbol-logo-icon-illustration-vector.jpg");
+            background-size: cover;
+        }
+
+        .content {
+            flex: 1;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding-top: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .menu-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .menu-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .menu-item {
+            margin-bottom: 10px;
+        }
+
+        .menu-link {
+            display: block;
+            padding: 10px;
+            background-color: #ffffff;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #212529;
+            transition: background-color 0.3s ease;
+        }
+
+        .menu-link:hover {
+            background-color: #f8f9fa;
+        }
+    </style>
 </head>
 
 <body>
     <div class="wrapper">
         <!-- Page Content-->
         <section class="pt-4 content">
-            <div class="container px-lg-5">
+            <div class="container">
                 <!-- Page Features-->
-                <div class="row gx-lg-5">
-                    <h2 class="fs-4 fw-bold">Opciones del Dispositivo de Estacionamiento </h2>
-                    <ul class="list-unstyled">
-                        <li><a th:href="@{/dispositivo/estacionamiento/formularioEsta}"><h5>Dar de alta un nuevo dispositivo</h5></a></li>
-                        <li><a th:href="@{/dispositivo/estacionamiento/modificarForm}"><h5>Modificar un dispositivo existente</h5></a></li>
-                        <li><a th:href="@{/dispositivo/estacionamiento/eliminar}"><h5>Dar de baja un dispositivo existente</h5></a></li>
-                        <li><a th:href="@{/dispositivo/estacionamiento/mostrarDispo}"><h5>Gestionar cantidad de dispositivos activos</h5></a></li>
-                        <li><a th:href="@{/dispositivo/estacionamiento/mostrarDispo}"><h5>Ver Dispositivo</h5></a></li>
+                <div class="row">
+                    <h2 class="fs-4 fw-bold menu-title">Opciones del Dispositivo de Estacionamiento</h2>
+                    <ul class="menu-list">
+                        <li class="menu-item"><a class="menu-link" href="/dispositivo/estacionamiento/formularioEsta">Dar de alta un nuevo dispositivo</a></li>
+                        <li class="menu-item"><a class="menu-link" href="/dispositivo/estacionamiento/modificarForm">Modificar un dispositivo existente</a></li>
+                        <li class="menu-item"><a class="menu-link" href="/dispositivo/estacionamiento/eliminar">Dar de baja un dispositivo existente</a></li>
+                        <li class="menu-item"><a class="menu-link" href="/dispositivo/estacionamiento/mostrarEstacionamiento">Ver Dispositivo</a></li>
                     </ul>
                 </div>
             </div>
         </section>
 
-    <!-- Bootstrap core JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Core theme JS-->
-    <script src="../../js/scripts.js"></script>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="../../../js/scripts.js"></script>
+    </div>
 </body>
 
 </html>
+
+

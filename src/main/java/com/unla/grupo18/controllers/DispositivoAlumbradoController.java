@@ -100,18 +100,22 @@ public class DispositivoAlumbradoController {
 			return ViewRouteHelper.NO_EXISTE_DISPOSITIVO;
 		}
 		model.addAttribute("dispositivos", dispositivos);
-
 		return ViewRouteHelper.ELIMINAR_DISP_ALUMBRADO;
 	}
 
-	@GetMapping("/alumbrado/eliminar/{id}")
+	@PostMapping("/alumbrado/eliminar/{id}")
 	public ModelAndView eliminarDispositivoAlumbrado(@PathVariable int id) {
-		ModelAndView mV = new ModelAndView();
-		DispositivoAlumbrado dispositivo = dispositivoAlumbradoService.findById(id);
-		dispositivoAlumbradoService.deleteDispositivo(id);
-		mV.setViewName(ViewRouteHelper.ELIMINAR_DISP_ALUMBRADO); // Cambia la vista de retorno según corresponda
-		mV.addObject("dispositivoAlumbrado", dispositivo);
-		return mV;
+	    ModelAndView mV = new ModelAndView();
+	    DispositivoAlumbrado dispositivo = dispositivoAlumbradoService.findById(id);
+	    dispositivoAlumbradoService.deleteDispositivo(id);
+	    mV.setViewName(ViewRouteHelper.ELIMINAR_DISP_ALUMBRADO); // Cambia la vista de retorno según corresponda
+	    mV.addObject("dispositivoAlumbrado", dispositivo);
+	    mV.addObject("mensaje", "El dispositivo se dio de baja correctamente");
+	    
+	    // Obtener la lista actualizada de dispositivos
+	    List<DispositivoAlumbrado> dispositivos = dispositivoAlumbradoService.getAllActiveDispositivos();
+	    mV.addObject("dispositivos", dispositivos);
+	    return mV;
 	}
 
 	// MODIFICAR
@@ -182,5 +186,34 @@ public class DispositivoAlumbradoController {
 		model.addAttribute("dispositivos", dispositivos); // Pasar la lista al modelo
 		return ViewRouteHelper.LISTA_DISP_ALUMBRADO;
 	}
+	
+	
+	// REACTIVAR UN DISPOSITIVO DADO DE BAJA
+	@GetMapping("/alumbrado/reactivar")
+	public String reactivarDispositivoAlumbrado(Model model) {
+		List<DispositivoAlumbrado> dispositivos = dispositivoAlumbradoService.getAllInactiveDispositivos();
+		if (dispositivos.size() == 0) {
+			return ViewRouteHelper.NO_EXISTE_DISPOSITIVO;
+		}
+		model.addAttribute("dispositivos", dispositivos);
+		return ViewRouteHelper.REACTIVAR_DISP_ALUMBRADO;
+	}
+	
+	@PostMapping("/alumbrado/reactivar/{id}")
+	public ModelAndView reactivarDispositivoAlumbrado(@PathVariable int id) {
+	    ModelAndView mV = new ModelAndView();
+	    DispositivoAlumbrado dispositivo = dispositivoAlumbradoService.findById(id);
+	    dispositivoAlumbradoService.reactivarDispositivo(id);
+	    mV.setViewName(ViewRouteHelper.REACTIVAR_DISP_ALUMBRADO); // Cambia la vista de retorno según corresponda
+	    mV.addObject("dispositivoAlumbrado", dispositivo);
+	    mV.addObject("mensaje", "El dispositivo se reactivo correctamente.");
+	    
+	    // Obtener la lista actualizada de dispositivos
+	    List<DispositivoAlumbrado> dispositivos = dispositivoAlumbradoService.getAllInactiveDispositivos();
+	    mV.addObject("dispositivos", dispositivos);
+	    return mV;
+	}
+	
+	
 
 }
