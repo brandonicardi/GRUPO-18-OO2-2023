@@ -53,8 +53,7 @@
 									<th>ID del evento</th>
 									<th>Dispositivo Estacionamiento</th>
 									<th>Descripción</th>
-									<th>Dia</th>
-									<th>Hora</th>
+									
 									<th>Métrica Asociada</th>
 								</tr>
 							</thead>
@@ -64,8 +63,7 @@
 									<td th:text="${evento.idEvento}"></td>
 									<td th:text="${evento.dispositivo.nombreDispositivo}"></td>
 									<td th:text="${evento.descripcionEvento}"></td>
-									<td th:text="${evento.metrica.fechaDeteccion}"></td>
-									<td th:text="${evento.metrica.horaDeteccion}"></td>
+									
 									<td th:text="${evento.metrica.idMetrica}"></td>
 								</tr>
 							</tbody>

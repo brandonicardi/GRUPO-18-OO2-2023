@@ -70,8 +70,9 @@
 										<th>Nombre</th>
 										<th>Edificio</th>
 										
-										<th>Estado</th>
-										<th>Acciones</th>
+										<th>Estado De Estacionamiento</th>
+										<th>Creacion</th>
+										<!--th>Acciones</th-->
 									</tr>
 								</thead>
 								<tbody>
@@ -79,12 +80,14 @@
 									<tr th:each="dispositivo : ${dispositivos}">
 										<td th:text="${dispositivo.idDispositivo}"></td>
 										<td th:text="${dispositivo.nombreDispositivo}"></td>
-										<td th:text="${dispositivo.edificio.nombre}"></td>
 										
-										<td>
+										<td th:text="${dispositivo.edificio.nombre}"></td>
+										<td th:text="${dispositivo.estado}"></td>
+											<td th:text="${dispositivo.fechaCreacion}"></td>
+										<!--td>
 											<span th:if="${!dispositivo.isBaja}">En funcionamiento</span>
 											<span th:if="${dispositivo.isBaja}" th:text="${dispositivo.isBaja}"></span>
-										</td>
+										</td-->
 										<td>
 											<div class="btn-group" role="group">
 												<a type="button" class="btn btn-primary btn-sm me-2"

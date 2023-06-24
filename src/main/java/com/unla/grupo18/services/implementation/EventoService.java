@@ -149,7 +149,7 @@ public class EventoService implements IEventoService {
 			Evento existenteEvento = getEventoByDispositivoAndMetrica(dispositivoEstacionamiento, metrica);
 
 			if (existenteEvento == null) {
-				if (dispositivoEstacionamiento.isEstado()==true) {
+				if (dispositivoEstacionamiento.isEstado()==false) {
 					LocalDateTime horaEncendido = dispositivoEstacionamiento.getFechaCreacion();
 					
 						Evento eventoActivo = new Evento(dispositivoEstacionamiento, "ESTACIONAMIENTO ACTIVO",
@@ -157,7 +157,7 @@ public class EventoService implements IEventoService {
 						saveEvento(eventoActivo);
 					}
 				} else {
-					if (dispositivoEstacionamiento.isEstado()==false) {
+					if (dispositivoEstacionamiento.isEstado()==true) {
 						LocalDateTime horaOcupado = dispositivoEstacionamiento.getFechaCreacion();
 						
 							Evento eventoOcupado = new Evento(dispositivoEstacionamiento, "ESTACIONAMIENTO OCUPADO",

@@ -30,9 +30,8 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Sensor de presencia</th>
-                                    <th>Fecha y hora de la métrica</th>
-                                    <th>Hora de detección</th>
+                                   
+                                  
                                     <th>Acción</th>
                                 </tr>
                             </thead>
@@ -40,9 +39,9 @@
                                 <!-- Itera sobre las métricas y muestra cada una en una fila -->
                                 <tr th:each="metrica : ${metricaDispositivoEstacionamiento}">
                                     <td th:text="${metrica.idMetrica}"></td>
-                                    <td th:text="${metrica.sensorPresencia}"></td>
+                                   
                                     <td th:text="${metrica.fechaHoraMetrica}"></td>
-                                    <td th:text="${metrica.horaActual}"></td>
+                                  
                                     <td>
                                       //  <a th:href="@{/dispositivo/estacionamiento/actualizar/{id}(id=${metrica.idMetrica})}">Actualizar evento</a>
                                     </td>

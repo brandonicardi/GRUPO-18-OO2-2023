@@ -26,7 +26,6 @@ import com.unla.grupo18.services.implementation.EdificioService;
 
 import jakarta.validation.Valid;
 
-
 @Controller
 @RequestMapping("/dispositivo")
 public class DispositivoEstacionamientoController {
@@ -36,36 +35,30 @@ public class DispositivoEstacionamientoController {
 	@Autowired
 	private EdificioService edificioService;
 
-	//FORMULARIO DE ENVIO DE DATOS PARA QUE EL POST PUEDA IMPACTAR EN LA BD
+	// FORMULARIO DE ENVIO DE DATOS PARA QUE EL POST PUEDA IMPACTAR EN LA BD
 	@GetMapping("/estacionamiento/formularioEsta")
 	public ModelAndView formularioEsta() {
 		ModelAndView mo = new ModelAndView(ViewRouteHelper.nuevoDispositivo);
 		mo.addObject("dispositivoEstacionamiento", new DispositivoEstacionamiento());
 		List<Edificio> edificios = edificioService.obtenerTodosLosEdificios();
 		mo.addObject("edificios", edificios);
-		
+
 		return mo;
 	}
 	// CREO NUEVOS DISPOSITIVOS Y IMPACTA EN LA BD
-	
+
 	@PostMapping("/estacionamiento/create")
 	public String nuevoDispositivoEstacionamiento(
-	        @Valid @ModelAttribute("dispositivoEstacionamiento") DispositivoEstacionamiento dispositivo,
-	        @RequestParam(value = "edificioId", required = false) int edificioId) {
-	     
-	        
-	        Edificio edificio = edificioService.findById(edificioId);
-	        dispositivo.setEdificio(edificio);
-	    
+			@Valid @ModelAttribute("dispositivoEstacionamiento") DispositivoEstacionamiento dispositivo,
+			@RequestParam(value = "edificioId", required = false) int edificioId) {
 
-	    dispositivoEstacionamientoService.saveDispositivo(dispositivo);
-	    return "/estacionmaiento/mostrarEstacionamiento/";
+		Edificio edificio = edificioService.findById(edificioId);
+		dispositivo.setEdificio(edificio);
+
+		dispositivoEstacionamientoService.saveDispositivo(dispositivo);
+		return "/estacionmaiento/mostrarEstacionamiento/";
 	}
-	
-	
-	
-	
-	
+
 	// ELIMINAR
 	@GetMapping("/estacionamiento/eliminar")
 	public String eliminarDispositivoAlumbrado(Model model) {
@@ -86,69 +79,43 @@ public class DispositivoEstacionamientoController {
 		mV.addObject("dispositivoEstacionamiento", dispositivo);
 		return mV;
 	}
-	
-	
-	
-	
-	
-	
+
 	@GetMapping("/estacionamiento/modificarForm")
 	public String modificarDispositivoEstacionamiento(Model model) {
-	    List<DispositivoEstacionamiento> dispositivos = dispositivoEstacionamientoService.getAllDispositivos();
+		List<DispositivoEstacionamiento> dispositivos = dispositivoEstacionamientoService.getAllDispositivos();
 
-	    if (dispositivos.isEmpty()) {
-	        return ViewRouteHelper.NO_EXISTE_DISPOSITIVO_ESTACIONAMIENTO;
-	    }
-	    ModelAndView mo = new ModelAndView(ViewRouteHelper.MODIFICAR_DISP_ESTACIONAMIENTO);
-	    //List<Edificio> edificios = edificioService.obtenerTodosLosEdificios();
-		//mo.addObject("edificios", edificios);
-	    model.addAttribute("dispositivos", dispositivos); // Agregar el objeto "dispositivo" al modelo
+		if (dispositivos.isEmpty()) {
+			return ViewRouteHelper.NO_EXISTE_DISPOSITIVO_ESTACIONAMIENTO;
+		}
+		ModelAndView mo = new ModelAndView(ViewRouteHelper.MODIFICAR_DISP_ESTACIONAMIENTO);
+		// List<Edificio> edificios = edificioService.obtenerTodosLosEdificios();
+		// mo.addObject("edificios", edificios);
+		model.addAttribute("dispositivos", dispositivos); // Agregar el objeto "dispositivo" al modelo
 
-	    return ViewRouteHelper.MODIFICAR_DISP_ESTACIONAMIENTO;
+		return ViewRouteHelper.MODIFICAR_DISP_ESTACIONAMIENTO;
 	}
-	
-	
-	
-	
 
 	@GetMapping("/estacionamiento/modificarForm/{id}")
 	public String modificarDispositivoEstacionamiento(@PathVariable int idDispositivo, Model model) {
-	    DispositivoEstacionamiento dispositivos = dispositivoEstacionamientoService.getDispositivoById(idDispositivo);
-	    model.addAttribute("dispositivos", dispositivos);
-	
-	    
-	    
-	    return ViewRouteHelper.MODIFICAR_DISP_Form_Estacionamiento;
+		DispositivoEstacionamiento dispositivos = dispositivoEstacionamientoService.getDispositivoById(idDispositivo);
+		model.addAttribute("dispositivos", dispositivos);
+
+		return ViewRouteHelper.MODIFICAR_DISP_Form_Estacionamiento;
 	}
 
-
-
-	
-	
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 //MUESTRO TODOS LOS ESTACIONAMIENTOS TRAYENDO DESDE LA BD
 	@GetMapping("/estacionamiento/mostrarEstacionamiento")
-    public String mostrarDispositivoEstacionamientos(Model model) {
-        List<DispositivoEstacionamiento> dispositivos =dispositivoEstacionamientoService.getAllActiveDispositivos();
-        model.addAttribute("dispositivos", dispositivos);
-        return ViewRouteHelper.Mostrar_Estacionamientos;
-    }
+	public String mostrarDispositivoEstacionamientos(Model model) {
+		List<DispositivoEstacionamiento> dispositivos = dispositivoEstacionamientoService.getAllActiveDispositivos();
+		model.addAttribute("dispositivos", dispositivos);
+		return ViewRouteHelper.Mostrar_Estacionamientos;
+	}
+
 //MENU DE OPCIONES 
 	@GetMapping("/estacionamiento")
 	public String dispositivoEstacionamiento(Model model) {
 		model.addAttribute("dispositivoEstacionamiento", new DispositivoEstacionamiento());
-		
+
 		return ViewRouteHelper.MENU_DISP_Estacionamiento;
 	}
 }
