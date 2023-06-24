@@ -1,4 +1,4 @@
-package com.unla.grupo18.controllers;
+ package com.unla.grupo18.controllers;
 
 // Java
 import java.util.List;
@@ -25,7 +25,6 @@ import org.springframework.web.servlet.ModelAndView;
 // Entities
 import com.unla.grupo18.entities.Aula;
 import com.unla.grupo18.entities.DispositivoAcondicionarAmbiente;
-import com.unla.grupo18.entities.DispositivoAlumbrado;
 import com.unla.grupo18.entities.Edificio;
 import com.unla.grupo18.helpers.ViewRouteHelper;
 import com.unla.grupo18.services.IDispositivoAcondicionarAmbienteService;

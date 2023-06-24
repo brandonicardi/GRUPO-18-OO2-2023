@@ -42,7 +42,7 @@ public class Edificio {
 	private Set<Aula> aulas;
 
 	// CONSTRUCTOR CON ATRIBUTOS 
-	public Edificio(int id, String nombre) {
+	public Edificio(int id, String nombre, Set<Aula> aulas) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
