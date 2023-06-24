@@ -132,5 +132,19 @@ public class EventoController {
 		return ViewRouteHelper.EVENTOS_ESTACIONAMIENTO;
 	}
 
+	// ==================== CONTROLLER PARA DISPOSITIVO ACONDICIONAR AMBIENTE  ====================
+
+
+	@GetMapping("/acondicionar/eventos/{id}")
+	public String listaEventosAmbiente(@PathVariable int id, Model model) {
+		DispositivoAcondicionarAmbiente dispositivoAcondicionar= dispositivoService.findById(id);
+		List<Evento> eventos = eventoService.getEventosPorDispositivo(dispositivoAcondicionar);
+		model.addAttribute("dispositivoAmbiente", dispositivoAcondicionar);
+		model.addAttribute("eventos", eventos);
+		if (eventos.size() == 0) {
+			return ViewRouteHelper.VACIO_EVENTOS_AMBIENTE;
+		}
+		return ViewRouteHelper.EVENTO_AMBIENTE;
+	}
 
 }

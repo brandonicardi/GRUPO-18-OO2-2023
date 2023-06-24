@@ -5,6 +5,9 @@ import com.unla.grupo18.entities.MetricaAcondicionarAmbiente;
 import com.unla.grupo18.models.DispositivoAcondicionarAmbienteModel;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
+@Service("dispositivoAcondicionarAmbienteService")
 public interface IDispositivoAcondicionarAmbienteService {
 
 	// pre: no requiere argumentos
@@ -31,4 +34,6 @@ public interface IDispositivoAcondicionarAmbienteService {
 	// pre: Sin argumentos
 	//post: Retorna una lista completa de metricas del dispositivo Acondicionar ambiente x HQL
 	public List<MetricaAcondicionarAmbiente> traerMetricas();
+	
+	
 }

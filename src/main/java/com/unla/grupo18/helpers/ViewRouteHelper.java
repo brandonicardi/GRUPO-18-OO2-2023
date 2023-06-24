@@ -62,8 +62,9 @@ public class ViewRouteHelper {
 	public final static String ELIMINAR_AMBIENTE = "dispositivo/acondicionar/eliminarDispositivoAcondicionar";
 	public final static String EVENTO_AMBIENTE = "dispositivo/acondicionar/eventos";
 	public final static String PRUEBA = "dispositivo/error/prueba"; // <--- Testeando Vista de error 400 ( validaciones de atributos)
-
-	
+	public final static String VACIO_METRICAS = "dispositivo/acondicionar/vacioMetricas";
+	public final static String VACIO_EVENTOS_AMBIENTE= "dispositivo/acondicionar/vacioEventos";
+	public final static String METRICAS_AMBIENTE =  "dispositivo/acondicionar/metricasAmbiente";
 	
 	
 	

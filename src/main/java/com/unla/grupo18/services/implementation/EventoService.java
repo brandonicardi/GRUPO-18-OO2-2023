@@ -22,6 +22,7 @@ import com.unla.grupo18.repositories.IDispositivoAcondicionarAmbienteRepository;
 import com.unla.grupo18.repositories.IDispositivoEstacionamientoRepository;
 import com.unla.grupo18.repositories.IEventoRepository;
 import com.unla.grupo18.services.IEventoService;
+import com.unla.grupo18.services.IMetricaDispositivoAcondicionarAmbienteService;
 
 @Service("eventoServicio")
 public class EventoService implements IEventoService {
@@ -33,7 +34,8 @@ public class EventoService implements IEventoService {
 	@Autowired
 	@Qualifier("DispositivoAcondicionarAmbienteRepository")
 	private IDispositivoAcondicionarAmbienteRepository dispositivoAcondicionarAmbienteRepository;
-
+	//private IMetricaDispositivoAcondicionarAmbienteService  metricaAcondicionarService;
+	private final MetricaDispositivoAcondicionarAmbiente metricaAcondicionarService;
 	//---------------------------- Llamamos el repositorio de Estacionamiento---------------
 		@Autowired
 		@Qualifier("dispositivoEstacionamientoRepository")
@@ -44,10 +46,11 @@ public class EventoService implements IEventoService {
 
 	private ModelMapper modelMapper = new ModelMapper();
 
-	EventoService(IEventoRepository eventoRepository, MetricaDispositivoAlumbradoService metricaAlumbradoService, MetricaDispositivoEstacionamientoService metricaEstacionamientoService) {
+	EventoService(IEventoRepository eventoRepository, MetricaDispositivoAlumbradoService metricaAlumbradoService, MetricaDispositivoEstacionamientoService metricaEstacionamientoService, MetricaDispositivoAcondicionarAmbiente metricaAcondicionarService) {
 		this.eventoRepository = eventoRepository;
 		this.metricaAlumbradoService = metricaAlumbradoService;
 		this.metricaEstacionamientoService=metricaEstacionamientoService;
+		this.metricaAcondicionarService=metricaAcondicionarService;
 		
 	}
 
@@ -168,9 +171,59 @@ public class EventoService implements IEventoService {
 				}
 			}
 		
+
+		// Obtiene un Evento de >Acondicionar Ambiente< por Dispositivo y Metrica
+	public Evento getEventoByDispositivoAndMetrica(Dispositivo dispositivo, MetricaAcondicionarAmbiente metricaAcondicionar) {
+		return eventoRepository.findByDispositivoAndMetrica(dispositivo, metricaAcondicionar);
+	}
 	
-	
-	
+	//----------------------------------ACONDICIONAR AMBIENTE-----------------------------------------
+	public void actualizarEventosAcondicionarAmbienteDesdeMetricas(DispositivoAcondicionarAmbiente dispositivoAcondicionar) {
+		List<MetricaAcondicionarAmbiente> metricas = metricaAcondicionarService.traerMetricasDeUnDispositivo(dispositivoAcondicionar);
+
+		// Se itera x todas las metricas del dispositivo
+		for (MetricaAcondicionarAmbiente metrica : metricas) {
+			Evento existingEvento = getEventoByDispositivoAndMetrica(dispositivoAcondicionar, metrica); // Se trae desde la BD Evento del dispositivo y metrica correspondiente
+
+			if (existingEvento == null) {	// No posee evento, ingresa al condicional
+
+				if (!dispositivoAcondicionar.isEstado()) { // Si el dispositivo esta encendido....
+
+					float temperaturaActivarFrio = dispositivoAcondicionar.getTemperaturaActivarFrio(); 	// Seteamos el valor de activar Frio del dispositivo creado
+					float temperaturaActivarCalor= dispositivoAcondicionar.getTemperaturaActivarCalor();	// Seteamos el valor de activar Calor del dispositivo creado
+
+					// AGREGAR QUE NO PRENDE CUANDO EL AIRE ESTA DENTRO DE LOS EXTREMOS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 12312412412
+					
+					// Condicional Frio
+					if(metrica.isSensorPresencia() && ( metrica.getTemperaturaActual() > temperaturaActivarFrio ) ) {
+
+						// Indica que hay personas, que la temperatura actual supera el valor maximo seteado en dispositivo
+						// Por lo que debe climatizar el ambiente con aire Frio
+						dispositivoAcondicionar.setEstado(true);	// Dispositivo esta funcionando
+
+						// Instanciamos Evento, se le da descripcion, se setea la hora del evento con el valor de cuando fue generada la metrica
+						Evento eventoAcondicionar = new Evento (dispositivoAcondicionar,"Enfriar ambiente con Aire Acondicionado hasta alcanzar los 24°C", metrica.getFechaHoraMetrica(),metrica);
+
+						this.saveEvento(eventoAcondicionar);	// Se persiste el evento
+
+					}else {
+
+						// Condicional Calor
+						if(metrica.isSensorPresencia() && ( metrica.getTemperaturaActual() < temperaturaActivarCalor ) ) {
+							// Indica que hay personas, que la temperatura actual es menor al valor seteado en dispositivo
+							// Por lo que debe climatizar el ambiente con aire Caliente
+							dispositivoAcondicionar.setEstado(true);	// Dispositivo esta funcionando
+
+							// Instanciamos Evento, se le da descripcion, se setea la hora del evento con el valor de cuando fue generada la metrica
+							Evento eventoCalefaccionar= new Evento (dispositivoAcondicionar,"Encender la calefaccion hasta alcanzar los 24°C", metrica.getFechaHoraMetrica(),metrica);
+
+							this.saveEvento(eventoCalefaccionar);	// Se persiste el evento
+						}
+					}
+				}
+			}
+		}
+	}
 	
 	
 	
