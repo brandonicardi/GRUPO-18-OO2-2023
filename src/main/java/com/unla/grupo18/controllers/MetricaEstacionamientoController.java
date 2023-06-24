@@ -47,14 +47,14 @@ public class MetricaEstacionamientoController {
 		return ViewRouteHelper.METRICAS_ESTACIONAMIENTO;
 	}
 
-	@PostMapping("/actualizar/{id}")
+	@PostMapping("/estacionamiento/actualizar/{id}")
 	public String actualizarEventosDelDispositivoEstacionamiento (@PathVariable int id, Model model) {
 	    DispositivoEstacionamiento dispositivoEstacionamiento = dispositivoService.findByIdEstacionamiento(id);
 	    eventoService.actualizarEventosEstacionamientoDesdeMetricas (dispositivoEstacionamiento);
 	    dispositivoService.insertOrUpdateDisp(dispositivoEstacionamiento );
-	    model.addAttribute("dispositivoAlumbrado", dispositivoEstacionamiento );
+	    model.addAttribute("dispositivoEstacionamiento", dispositivoEstacionamiento );
 	    model.addAttribute("eventos", eventoService.getEventosPorDispositivo(dispositivoEstacionamiento));
-	    return ViewRouteHelper.EVENTOS_ALUMBRADO;
+	    return ViewRouteHelper.EVENTOS_ESTACIONAMIENTO;
 	}
 
 		

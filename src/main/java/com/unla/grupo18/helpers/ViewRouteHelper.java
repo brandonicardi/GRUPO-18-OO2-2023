@@ -34,7 +34,7 @@ public class ViewRouteHelper {
 	public final static String eliminar = "dispositivo/estacionamiento/eliminar";
 	public final static String Mostrar_Estacionamientos = "dispositivo/estacionamiento/mostrarEstacionamiento";
 	public final static String MODIFICAR_DISP_Form_Estacionamiento = "dispositivo/estacionamiento/modificarForm";
-	public final static String MODIFICAR_DISP_ESTACIONAMIENTO = "dispositivo/estacionamiento/modificar";
+	public final static String MODIFICAR_DISP_ESTACIONAMIENTO = "dispositivo/estacionamiento/modificarE";
 	public final static String NO_EXISTE_DISPOSITIVO_ESTACIONAMIENTO = "dispositivo/estacionamiento/noExisteEstacionamiento";
 	public final static String METRICAS_ESTACIONAMIENTO = "dispositivo/estacionamiento/metricas";
 	public final static String EVENTOS_ESTACIONAMIENTO = "dispositivo/estacionamiento/eventos";

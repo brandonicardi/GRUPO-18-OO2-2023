@@ -1,8 +1,12 @@
 package com.unla.grupo18.controllers;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.unla.grupo18.entities.Aula;
 import com.unla.grupo18.entities.DispositivoAlumbrado;
 import com.unla.grupo18.entities.DispositivoEstacionamiento;
 import com.unla.grupo18.entities.Edificio;
@@ -37,6 +42,7 @@ public class DispositivoEstacionamientoController {
 
 	// FORMULARIO DE ENVIO DE DATOS PARA QUE EL POST PUEDA IMPACTAR EN LA BD
 	@GetMapping("/estacionamiento/formularioEsta")
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	public ModelAndView formularioEsta() {
 		ModelAndView mo = new ModelAndView(ViewRouteHelper.nuevoDispositivo);
 		mo.addObject("dispositivoEstacionamiento", new DispositivoEstacionamiento());
@@ -60,7 +66,9 @@ public class DispositivoEstacionamientoController {
 	}
 
 	// ELIMINAR
+	
 	@GetMapping("/estacionamiento/eliminar")
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	public String eliminarDispositivoAlumbrado(Model model) {
 		List<DispositivoEstacionamiento> dispositivos = dispositivoEstacionamientoService.getAllDispositivos();
 		if (dispositivos.size() == 0) {
@@ -71,6 +79,7 @@ public class DispositivoEstacionamientoController {
 	}
 
 	@GetMapping("/estacionamiento/eliminar/{id}")
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	public ModelAndView eliminarDispositivoAlumbrado(@PathVariable int id) {
 		ModelAndView mV = new ModelAndView();
 		DispositivoEstacionamiento dispositivo = dispositivoEstacionamientoService.getDispositivoById(id);
@@ -79,8 +88,9 @@ public class DispositivoEstacionamientoController {
 		mV.addObject("dispositivoEstacionamiento", dispositivo);
 		return mV;
 	}
-
+/*
 	@GetMapping("/estacionamiento/modificarForm")
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	public String modificarDispositivoEstacionamiento(Model model) {
 		List<DispositivoEstacionamiento> dispositivos = dispositivoEstacionamientoService.getAllDispositivos();
 
@@ -96,15 +106,17 @@ public class DispositivoEstacionamientoController {
 	}
 
 	@GetMapping("/estacionamiento/modificarForm/{id}")
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	public String modificarDispositivoEstacionamiento(@PathVariable int idDispositivo, Model model) {
 		DispositivoEstacionamiento dispositivos = dispositivoEstacionamientoService.getDispositivoById(idDispositivo);
 		model.addAttribute("dispositivos", dispositivos);
 
 		return ViewRouteHelper.MODIFICAR_DISP_Form_Estacionamiento;
-	}
+	}*/
 
 //MUESTRO TODOS LOS ESTACIONAMIENTOS TRAYENDO DESDE LA BD
 	@GetMapping("/estacionamiento/mostrarEstacionamiento")
+	
 	public String mostrarDispositivoEstacionamientos(Model model) {
 		List<DispositivoEstacionamiento> dispositivos = dispositivoEstacionamientoService.getAllActiveDispositivos();
 		model.addAttribute("dispositivos", dispositivos);
@@ -118,4 +130,66 @@ public class DispositivoEstacionamientoController {
 
 		return ViewRouteHelper.MENU_DISP_Estacionamiento;
 	}
+	
+	
+	//--------------------------
+	// MODIFICAR
+		@GetMapping("/estacionamiento/modificarE")
+		@PreAuthorize("hasAuthority('ROLE_ADMIN')")
+		public String modificarDispositivoEstacionamiento(Model model) {
+			List<DispositivoEstacionamiento> dispositivos = dispositivoEstacionamientoService.getAllActiveDispositivos();
+			if (dispositivos.size() == 0) {
+				return ViewRouteHelper.NO_EXISTE_DISPOSITIVO;
+			}
+			model.addAttribute("dispositivos", dispositivos); // Pasar la lista al modelo
+			return ViewRouteHelper.MODIFICAR_DISP_ESTACIONAMIENTO;
+		}
+
+		@GetMapping("/estacionamiento/modificarE/{idDispositivo}")
+		@PreAuthorize("hasAuthority('ROLE_ADMIN')")
+		public String modificarDispositivoEstacionamiento(@PathVariable int idDispositivo, Model model) {
+
+			// Trae unico Dispositivo x ID
+			DispositivoEstacionamiento dispositivo = dispositivoEstacionamientoService.findByIdEstacionamiento(idDispositivo);
+
+			// Convertimos a modelo el dispositivo, el edificio y las aulas
+			model.addAttribute("dispositivoEstacionamiento", dispositivo);
+			model.addAttribute("edificios", edificioService.obtenerTodosLosEdificios());
+			
+
+			return ViewRouteHelper.MODIFICAR_DISP_Form_Estacionamiento;
+
+		}
+
+		@PostMapping("/estacionamiento/modificarE/{idDispositivo}")
+		@PreAuthorize("hasAuthority('ROLE_ADMIN')")
+		public ModelAndView modificarDispositivoEstacionamiento(@PathVariable int idDispositivo,
+		        @ModelAttribute("dispositivoEstacionamiento") DispositivoEstacionamiento dispositivo, @RequestParam("edificioId") int edificioId,
+		        @RequestParam("espacio") boolean estado) {
+
+		    // Paso 1: Establecer el ID del dispositivo
+		    dispositivo.setIdDispositivo(idDispositivo);
+
+		    // Paso 2: Establecer la fecha de modificación del dispositivo
+		    dispositivo.setFechaModificacion(LocalDateTime.now());
+		    dispositivo.setEstado(estado);
+
+		    // Paso 3: Obtener el edificio y el aula por sus respectivos IDs
+		    Edificio edificio = edificioService.findById(edificioId);
+		    
+
+		    // Paso 4: Establecer el edificio y el aula en el dispositivo
+		    dispositivo.setEdificio(edificio);
+		   
+		    dispositivo.setMetricas(dispositivoEstacionamientoService.findByIdEstacionamiento(idDispositivo).getMetricas());
+		    
+		    // Paso 5: Aplicar la actualización del dispositivo en la base de datos
+		    dispositivoEstacionamientoService.insertOrUpdateDisp(dispositivo);
+
+		    // Paso 6: Crear una instancia de ModelAndView para redireccionar a una vista y mostrar el objeto actualizado
+			ModelAndView mV = new ModelAndView();
+			mV.setViewName(ViewRouteHelper.MODIFICAR_DISP_ESTACIONAMIENTO);
+			mV.addObject("dispositivoEstacionamiento", dispositivo);
+			return mV;
+		}
 }
