@@ -49,7 +49,11 @@ public class ViewRouteHelper {
 	public final static String MODIFICAR_DISP_REGADOR_FORM = "dispositivo/regador/modificarDispositivoForm";
 	public final static String LISTA_DISP_REGADOR = "dispositivo/regador/listaDispositivos";
 	public final static String NO_EXISTE_DISPOSITIVO_REGADOR = "dispositivo/regador/noExisteDispositivo";
-	
+	public final static String EVENTOS_REGADOR = "dispositivo/regador/eventos";
+	public final static String METRICAS_REGADOR = "dispositivo/regador/metricas";
+	public final static String NO_EXISTEN_EVENTOS_REGADOR = "dispositivo/regador/noExistenEventos";
+	public final static String NO_EXISTEN_METRICAS_REGADOR = "dispositivo/regador/noExistenMetricas";
+
 
 	// Vistas de Acondicionar Ambiente
 	public final static String MENU_ACONDICIONAR = "dispositivo/acondicionar";
@@ -62,8 +66,9 @@ public class ViewRouteHelper {
 	public final static String ELIMINAR_AMBIENTE = "dispositivo/acondicionar/eliminarDispositivoAcondicionar";
 	public final static String EVENTO_AMBIENTE = "dispositivo/acondicionar/eventos";
 	public final static String PRUEBA = "dispositivo/error/prueba"; // <--- Testeando Vista de error 400 ( validaciones de atributos)
-
-	
+	public final static String VACIO_METRICAS = "dispositivo/acondicionar/vacioMetricas";
+	public final static String VACIO_EVENTOS_AMBIENTE= "dispositivo/acondicionar/vacioEventos";
+	public final static String METRICAS_AMBIENTE =  "dispositivo/acondicionar/metricasAmbiente";
 	
 	
 	

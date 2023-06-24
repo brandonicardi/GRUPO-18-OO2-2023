@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -64,15 +65,13 @@ public class DispositivoEstacionamientoService {
 				return false;
 			}
 		}
-	    
-	 public DispositivoEstacionamientoModel insertOrUpdateDisp(DispositivoEstacionamiento dispositivo) {
+	   public DispositivoEstacionamientoModel insertOrUpdateDisp(DispositivoEstacionamiento dispositivo) {
 	        System.out.println("Dispositivo antes del mapeo: " + dispositivo);
 	        DispositivoEstacionamiento dispositivoNuevo = dispositivoEstacionamientoRepository.save(dispositivo);
 	        DispositivoEstacionamientoModel dispositivoModel = modelMapper.map(dispositivoNuevo, DispositivoEstacionamientoModel.class);
 	        System.out.println("Dispositivo mapeado: " + dispositivoModel);
 	        return dispositivoModel;
 	    }
-	 
 	 
 	 
 	 
@@ -83,9 +82,6 @@ public class DispositivoEstacionamientoService {
 			nuevoDispositivo.setFechaBaja(LocalDateTime.now());
 			this.insertOrUpdate(nuevoDispositivo);
 		}
-		
-		
-		
 		
 
 	    

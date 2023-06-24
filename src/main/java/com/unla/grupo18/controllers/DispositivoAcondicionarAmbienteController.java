@@ -6,24 +6,24 @@ import java.util.Set;
 import java.time.LocalDateTime;
 // OTROS
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
+
 // Annotation
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ExceptionHandler;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 // Model and View
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
 // Entities
 import com.unla.grupo18.entities.Aula;
@@ -66,6 +66,7 @@ public class DispositivoAcondicionarAmbienteController {
 	// ==================== CREAR DISPOSITIVO ====================
 	// >> Vista Crear Dispositivo
 	@GetMapping("/acondicionar/crear")
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	public String crearDispositivoAmbiente(Model model) {
 		model.addAttribute("dispositivoAmbiente", new DispositivoAcondicionarAmbiente());
 		model.addAttribute("edificios", edificioService.obtenerTodosLosEdificios()); // Obtener todos los edificios y
@@ -76,6 +77,7 @@ public class DispositivoAcondicionarAmbienteController {
 
 	// >> 
 	@PostMapping("/acondicionar/nuevoDispositivoAcondicionar")
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	public ModelAndView nuevoDispositivoAcondicionar(@Valid @ModelAttribute("dispositivoAmbiente") DispositivoAcondicionarAmbiente dispositivo, @RequestParam("edificioId") int edificioId, @RequestParam("aulaId") int aulaId) {
 
 		// Instanciamos Edificio y Aula, buscandolos de la BD por su respectivo ID
@@ -102,6 +104,7 @@ public class DispositivoAcondicionarAmbienteController {
 	// >> Metodo para controlar la generacion de aulas dentro del http, se re utiliza en la vista 
 	// Se trae Edificio x id desde la BD, se le agregan sus respectivas Aulas.
 	@GetMapping("/acondicionar/cargarAulas")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_AUDITOR')")
 	public ResponseEntity<Set<Aula>> cargarAulas(@RequestParam("edificioId") int edificioId) {
 		Edificio edificio = edificioService.getEdificioById(edificioId);
 		Set<Aula> aulas = edificio.getAulas();
@@ -112,6 +115,7 @@ public class DispositivoAcondicionarAmbienteController {
 	// >> HTML ERROR SI NO HAY DISPOSITIVOS CREADOS
 	// >> DIRECCIONA A VISTA CON LA LISTA DE OBJETOS DESEADA
 	@GetMapping("/acondicionar/lista")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_AUDITOR')")
 	public String listaDeDispositivoAcondicionar(Model model) {
 		List<DispositivoAcondicionarAmbiente> dispositivos = dispositivoService.getAll();
 
@@ -125,6 +129,7 @@ public class DispositivoAcondicionarAmbienteController {
 	// ==================== ACTUALIZAR DISPOSITIVO ==================== 
 	// >> MUESTRA LISTA DE DISP. Y PERMITE ELEGIR CUAL ACTUALIZAR
 	@GetMapping("/acondicionar/actualizar")
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	public String actualizarDispositivoAcondicionarAmbiente(Model model) {
 		// Trae Lista
 		List<DispositivoAcondicionarAmbiente> dispositivos = dispositivoService.getAll();
@@ -141,6 +146,7 @@ public class DispositivoAcondicionarAmbienteController {
 
 	// >> FORMULARIO PARA ACTUALIZAR DISPOSITIVO, SETEA NOMBRE, EDIFICIO Y AULA
 	@GetMapping("/acondicionar/actualizar/{idDispositivo}")
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	public String actualizarDispositivoAcondicionarAmbiente(@PathVariable int idDispositivo, Model model) {
 
 		// Trae unico Dispositivo x ID 
@@ -157,6 +163,7 @@ public class DispositivoAcondicionarAmbienteController {
 
 	// >> GUARDAR DISPOSITIVO AL ACTUALIZAR SUS NUEVOS ATRIBUTOS
 	@PostMapping("/acondicionar/actualizar/{idDispositivo}/guardar")
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	public ModelAndView guardarDispositivoAcondicionar(@PathVariable int idDispositivo, @ModelAttribute("dispositivo") DispositivoAcondicionarAmbiente dispositivo,@RequestParam("edificioId") int edificioId, @RequestParam("aulaId") int aulaId ) {
 
 		// Al dispositivo que nos devuelve la vista, seteamos su respectiva ID
@@ -187,6 +194,7 @@ public class DispositivoAcondicionarAmbienteController {
 
 	// >> MUESTRA LISTA DE DISP. Y PERMITE ELEGIR CUAL ACTUALIZAR
 	@GetMapping("/acondicionar/eliminar")
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	public String eliminarDispositivoAcondicionarAmbiente(Model model) {
 		// Trae Lista
 		List<DispositivoAcondicionarAmbiente> dispositivos = dispositivoService.getAll();
@@ -201,14 +209,18 @@ public class DispositivoAcondicionarAmbienteController {
 		return ViewRouteHelper.ELIMINAR_AMBIENTE;
 	}
 
-	@GetMapping("/acondicionar/eliminar/{idDispositivo}")
+	@RequestMapping(value= "/acondicionar/eliminar/{idDispositivo}" , method = {RequestMethod.GET, RequestMethod.POST})
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	public ModelAndView eliminarDispositivoAcondicionarAmbiente(@PathVariable int idDispositivo) {
 		ModelAndView mV = new ModelAndView();
-		DispositivoAcondicionarAmbiente nuevoDispositivo = dispositivoService.findById(idDispositivo);
-		dispositivoService.borrarDispositivo(idDispositivo);
-		//dispositivoService.insertOrUpdate(nuevoDispositivo);
-		mV.setViewName(ViewRouteHelper.MENU_ACONDICIONAR);
+		DispositivoAcondicionarAmbiente nuevoDispositivo = dispositivoService.findById(idDispositivo); // Traemos Dispositivo por ID
+		dispositivoService.borrarDispositivo(idDispositivo); // Aplicamos baja logica
 		mV.addObject("dispositivoAcondicionar", nuevoDispositivo);
+		mV.setViewName(ViewRouteHelper.ELIMINAR_AMBIENTE);	
+		mV.addObject("mensajeError", "Aplicado cambios en el dispositivo");
+		List<DispositivoAcondicionarAmbiente> dispositivos = dispositivoService.getAll();
+		mV.addObject("dispositivos", dispositivos);
+		
 		return mV;
 	}
 

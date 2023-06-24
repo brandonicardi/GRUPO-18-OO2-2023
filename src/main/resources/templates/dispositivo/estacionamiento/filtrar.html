@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filtrar por Nombre</title>
+</head>
+
+<body>
+    <h1>Filtrar por Nombre</h1>
+
+    <form id="filterForm">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre">
+        <button type="submit">Filtrar</button>
+    </form>
+
+    <div id="filteredResults">
+        <!-- Aquí se mostrarán los resultados filtrados -->
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const filterForm = document.getElementById('filterForm');
+            const filteredResults = document.getElementById('filteredResults');
+
+            filterForm.addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                const nombre = document.getElementById('nombre').value;
+                filterByNombre(nombre);
+            });
+
+            function filterByNombre(nombre) {
+                fetch(`/estacionamiento/mostrarEstacionamiento/filtrar?nombre=${nombre}`)
+                    .then(response => response.text())
+                    .then(data => {
+                        filteredResults.innerHTML = data;
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        filteredResults.innerHTML = 'Error al filtrar los dispositivos.';
+                    });
+            }
+        });
+    </script>
+</body>
+
+</html>
+
+

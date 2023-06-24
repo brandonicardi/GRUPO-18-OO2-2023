@@ -3,7 +3,6 @@
 <div align="center">
     <img src="https://img.shields.io/github/last-commit/brandonicardi/GRUPO-18-OO2-2023" alt="GitHub last commit">
     <img src="https://img.shields.io/github/issues-pr-closed/brandonicardi/GRUPO-18-OO2-2023" alt="GitHub closed pull requests">
-    <img src="https://img.shields.io/tokei/lines/github/brandonicardi/GRUPO-18-OO2-2023" alt="Lines of code">
     <img src="https://img.shields.io/github/repo-size/brandonicardi/GRUPO-18-OO2-2023" alt="GitHub repo size">
 </div>
 
