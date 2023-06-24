@@ -2,6 +2,7 @@ package com.unla.grupo18.controllers;
 
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.unla.grupo18.entities.DispositivoAcondicionarAmbiente;
 import com.unla.grupo18.entities.DispositivoAlumbrado;
 import com.unla.grupo18.entities.DispositivoEstacionamiento;
+import com.unla.grupo18.entities.DispositivoRegador;
 import com.unla.grupo18.entities.Evento;
 import com.unla.grupo18.entities.MetricaAcondicionarAmbiente;
 import com.unla.grupo18.helpers.ViewRouteHelper;
@@ -26,6 +28,7 @@ import com.unla.grupo18.services.IDispositivoAcondicionarAmbienteService;
 import com.unla.grupo18.services.IEventoService;
 import com.unla.grupo18.services.implementation.DispositivoAlumbradoService;
 import com.unla.grupo18.services.implementation.DispositivoEstacionamientoService;
+import com.unla.grupo18.services.implementation.DispositivoRegadorService;
 
 @Controller
 @RequestMapping("/dispositivo")
@@ -51,6 +54,10 @@ public class EventoController {
 	//-----------------------------ESTACIONAMIENTO-----------------------------------------------
 	@Autowired
 	private DispositivoEstacionamientoService dispositivoEstacionamientoService;
+	//----------------------------- DispositivoRegador -----------------------
+	@Autowired
+	private DispositivoRegadorService dispositivoRegadorService;
+	
 	// ==============================================================================================
 
 	// IMPLEMENTAR VIEW ROUTE HELPERS Y SUS DEBIDOS TEMPLATES
@@ -148,6 +155,43 @@ public class EventoController {
 		return ViewRouteHelper.EVENTO_AMBIENTE;
 	}
 	
+	// =============== METODOS PARA DISPOSITIVO REGADOR ====================
+		@GetMapping("/regador/eventos/{id}")
+		public String listaEventosRegador(@PathVariable int id, Model model) {
+			DispositivoRegador dispositivoRegador = dispositivoRegadorService.findDispositivoById(id);
+			List<Evento> eventos = eventoService.getEventosPorDispositivo(dispositivoRegador);
+			model.addAttribute("dispositivoRegador", dispositivoRegador);
+			model.addAttribute("eventos", eventos);
+			if (eventos.size() == 0) {
+				return ViewRouteHelper.NO_EXISTEN_EVENTOS_REGADOR;
+			}
+			return ViewRouteHelper.EVENTOS_REGADOR;
+		}
+
+		
+		@GetMapping("/regador/eventos/{id}/buscar")
+		public String buscarEventosRegador(@PathVariable int id, @RequestParam("descripcionEvento") String descripcionEvento,
+				Model model) {
+			DispositivoRegador dispositivoRegador  = dispositivoRegadorService.findDispositivoById(id);
+			List<Evento> eventos = eventoService.buscarPorDescripcion(descripcionEvento);
+			model.addAttribute("dispositivoRegador ", dispositivoRegador );
+			model.addAttribute("eventos", eventos);
+			if (eventos.isEmpty()) {
+				return ViewRouteHelper.NO_EXISTEN_EVENTOS;
+			}
+			return ViewRouteHelper.EVENTOS_REGADOR;
+		}
+
+		@PostMapping("/regador/eventos/{id}/buscar")
+		public ModelAndView buscarEventosRegador(@PathVariable int id,
+				@RequestParam("descripcionEvento") String descripcionEvento) {
+			ModelAndView mav = new ModelAndView(ViewRouteHelper.EVENTOS_REGADOR);
+			DispositivoRegador  dispositivoRegador  = dispositivoRegadorService.findDispositivoById(id);
+			List<Evento> eventos = eventoService.buscarPorDescripcion(descripcionEvento);
+			mav.addObject("dispositivoRegador ", dispositivoRegador);
+			mav.addObject("eventos", eventos);
+			return mav;
+		}
 
 
 

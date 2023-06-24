@@ -7,7 +7,7 @@ import java.util.List;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,6 +35,7 @@ import jakarta.validation.Valid;
 public class DispositivoRegadorController {
 
 	@Autowired
+	@Qualifier("dispositivoRegadorService")
 	private DispositivoRegadorService dispositivoRegadorService;
 	
 	@Autowired
@@ -118,7 +119,6 @@ public class DispositivoRegadorController {
 			@ModelAttribute("dispositivo") DispositivoRegadorModel dispositivo,
 			@RequestParam("edificio.id") int edificioId) {
 		
-		//dispositivo.setIdDispositivo(idDispositivo);
 		dispositivo.setFechaModificacion(LocalDateTime.now());
 		
 		Edificio edificio = edificioService.findById(edificioId);

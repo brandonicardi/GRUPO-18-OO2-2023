@@ -49,7 +49,11 @@ public class ViewRouteHelper {
 	public final static String MODIFICAR_DISP_REGADOR_FORM = "dispositivo/regador/modificarDispositivoForm";
 	public final static String LISTA_DISP_REGADOR = "dispositivo/regador/listaDispositivos";
 	public final static String NO_EXISTE_DISPOSITIVO_REGADOR = "dispositivo/regador/noExisteDispositivo";
-	
+	public final static String EVENTOS_REGADOR = "dispositivo/regador/eventos";
+	public final static String METRICAS_REGADOR = "dispositivo/regador/metricas";
+	public final static String NO_EXISTEN_EVENTOS_REGADOR = "dispositivo/regador/noExistenEventos";
+	public final static String NO_EXISTEN_METRICAS_REGADOR = "dispositivo/regador/noExistenMetricas";
+
 
 	// Vistas de Acondicionar Ambiente
 	public final static String MENU_ACONDICIONAR = "dispositivo/acondicionar";

@@ -2,6 +2,7 @@ package com.unla.grupo18.services;
 
 import java.util.List;
 
+import com.unla.grupo18.entities.DispositivoRegador;
 import com.unla.grupo18.entities.MetricaRegador;
 import com.unla.grupo18.models.DispositivoRegadorModel;
 
@@ -16,6 +17,8 @@ public interface IDispositivoRegadorService {
 	
 	//Traer
 	public DispositivoRegadorModel getDispositivoById(int id);
+	
+	public DispositivoRegador findDispositivoById(int id);
 	
 	public List<DispositivoRegadorModel> getAll();
 	

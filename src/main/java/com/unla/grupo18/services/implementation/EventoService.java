@@ -13,10 +13,13 @@ import com.unla.grupo18.entities.Dispositivo;
 import com.unla.grupo18.entities.DispositivoAcondicionarAmbiente;
 import com.unla.grupo18.entities.DispositivoAlumbrado;
 import com.unla.grupo18.entities.DispositivoEstacionamiento;
+import com.unla.grupo18.entities.DispositivoRegador;
 import com.unla.grupo18.entities.Evento;
 import com.unla.grupo18.entities.MetricaAcondicionarAmbiente;
 import com.unla.grupo18.entities.MetricaAlumbrado;
 import com.unla.grupo18.entities.MetricaEstacionamiento;
+import com.unla.grupo18.entities.MetricaRegador;
+import com.unla.grupo18.models.DispositivoRegadorModel;
 import com.unla.grupo18.models.EventoModel;
 import com.unla.grupo18.repositories.IDispositivoAcondicionarAmbienteRepository;
 import com.unla.grupo18.repositories.IDispositivoEstacionamientoRepository;
@@ -37,20 +40,22 @@ public class EventoService implements IEventoService {
 	//private IMetricaDispositivoAcondicionarAmbienteService  metricaAcondicionarService;
 	private final MetricaDispositivoAcondicionarAmbiente metricaAcondicionarService;
 	//---------------------------- Llamamos el repositorio de Estacionamiento---------------
-		@Autowired
-		@Qualifier("dispositivoEstacionamientoRepository")
-		private IDispositivoEstacionamientoRepository dispositivoEstacionamientoRepository;
-//------------------------------------------------------------------------------------------------------
-		private final MetricaDispositivoEstacionamientoService metricaEstacionamientoService;
+	@Autowired
+	@Qualifier("dispositivoEstacionamientoRepository")
+	private IDispositivoEstacionamientoRepository dispositivoEstacionamientoRepository;
+	//------------------------------------------------------------------------------------------------------
+	private final MetricaDispositivoEstacionamientoService metricaEstacionamientoService;
 	private final MetricaDispositivoAlumbradoService metricaAlumbradoService;
-
+	private final MetricaRegadorService metricaRegadorService;
+	
 	private ModelMapper modelMapper = new ModelMapper();
 
-	EventoService(IEventoRepository eventoRepository, MetricaDispositivoAlumbradoService metricaAlumbradoService, MetricaDispositivoEstacionamientoService metricaEstacionamientoService, MetricaDispositivoAcondicionarAmbiente metricaAcondicionarService) {
+	public EventoService(IEventoRepository eventoRepository, MetricaDispositivoAlumbradoService metricaAlumbradoService, MetricaDispositivoEstacionamientoService metricaEstacionamientoService, MetricaDispositivoAcondicionarAmbiente metricaAcondicionarService, MetricaRegadorService metricaRegadorService) {
 		this.eventoRepository = eventoRepository;
 		this.metricaAlumbradoService = metricaAlumbradoService;
 		this.metricaEstacionamientoService=metricaEstacionamientoService;
 		this.metricaAcondicionarService=metricaAcondicionarService;
+		this.metricaRegadorService = metricaRegadorService;
 		
 	}
 
@@ -81,52 +86,6 @@ public class EventoService implements IEventoService {
 		return eventoRepository.save(evento);
 	}
 
-	// TESTEO
-	//
-	// Actualizar el estado del dispositivo y generar los eventos
-	/*
-	 * public void generarEventosAcondicionarAmbiente() {
-	 * List<MetricaAcondicionarAmbiente> metricas =
-	 * dispositivoAcondicionarAmbienteRepository.traerMetricasAmbiente();
-	 * 
-	 * DispositivoAcondicionarAmbiente d; //Dispositivo de la metrica
-	 * 
-	 * float temperaturaActual; //Temperatura registrada en dispositivo float
-	 * temperaturaActivarFrio; //Si temperatura actual es mayor a este, modoAire
-	 * cambia a Frio float temperaturaActivarCalor; //Si temperatura actual es menor
-	 * a este, modoAire cambia a Calor boolean sensorPresencia; //Metrica registra
-	 * si hay persona o no boolean estado; //Dispositivo si esta Encendido (true) o
-	 * Apagado(false) String modoAire; //Nos indica la siguientes 3 leyendas: //
-	 * Apagado - Frio - Calor
-	 * 
-	 * 
-	 * for (MetricaAcondicionarAmbiente m : metricas) { if(m.getDispositivo()
-	 * instanceof DispositivoAcondicionarAmbiente) { d =
-	 * (DispositivoAcondicionarAmbiente)m.getDispositivo(); temperaturaActual =
-	 * m.getTemperaturaActual(); temperaturaActivarFrio =
-	 * d.getTemperaturaActivarFrio(); temperaturaActivarCalor =
-	 * d.getTemperaturaActivarCalor(); sensorPresencia = m.isSensorPresencia();
-	 * estado = d.isEstado();
-	 * 
-	 * if ( (temperaturaActual < temperaturaActivarCalor && !estado) &&
-	 * sensorPresencia == true) { d.setEstado(true); // Enciende Dispositivo
-	 * d.setModoAire("Calor"); // Modo Aire: Calor //Generar evento(dispositivo,
-	 * "Se Encendio Aire Caliente", metrica) }
-	 * 
-	 * if ( (temperaturaActual > temperaturaActivarFrio && !estado) &&
-	 * sensorPresencia == true) { d.setEstado(true); // Enciende Dispositivo
-	 * d.setModoAire("Frio"); // Modo Aire: Frio //Generar evento(dispositivo,
-	 * "Se Encendio Aire Caliente", metrica) }
-	 * 
-	 * if ( (temperaturaActual > temperaturaActivarCalor && temperaturaActual <
-	 * temperaturaActivarFrio) || sensorPresencia == false ) { d.setEstado(false);
-	 * // Apaga Dispositivo d.setModoAire("Apagado"); // Modo Aire: Apagado } }
-	 * 
-	 * 
-	 * }
-	 * 
-	 * }
-	 */
 
 	public List<Evento> findByDispositivo(Dispositivo dispositivo) {
 		return eventoRepository.findByDispositivo(dispositivo);
@@ -139,10 +98,15 @@ public class EventoService implements IEventoService {
 	public Evento getEventoByDispositivoAndMetrica(Dispositivo dispositivo, MetricaEstacionamiento metricaEstacionamiento) {
 		return eventoRepository.findByDispositivoAndMetrica(dispositivo, metricaEstacionamiento);
 	}
+	//Regador
+	public Evento getEventoByDispositivoAndMetrica(Dispositivo dispositivo, MetricaRegador metricaRegador) {
+		return eventoRepository.findByDispositivoAndMetrica(dispositivo, metricaRegador);
+	}
 	
 	public List<Evento> buscarPorDescripcion(String descripcionEvento) {
 	    return eventoRepository.findByDescripcionEventoContainingIgnoreCase(descripcionEvento);
 	}
+	
 	//----------------------------------ESTACIONAMIENTO-----------------------------------------
 	
 	public void actualizarEventosEstacionamientoDesdeMetricas(DispositivoEstacionamiento dispositivoEstacionamiento) {
@@ -261,6 +225,43 @@ public class EventoService implements IEventoService {
 				}
 			}
 		}
+	}
+	
+	
+	//----------------------------------REGADOR-----------------------------------------
+	
+	public void actualizarEventosRegadorDesdeMetricas(DispositivoRegador dispositivo) {
+		DispositivoRegadorModel dispositivoModel = modelMapper.map(dispositivo, DispositivoRegadorModel.class);
+		List<MetricaRegador> metricas = metricaRegadorService.getMetricasByDispositivo(dispositivoModel);
+		float humedadMedida; //Humedad registrada en la métrica
+		float humedadActual; //Humedad registrada en dispositivo
+		float humedadPrenderRegador = dispositivo.getHumedadPrenderRegador(); //Si la humedad es menor a esta se prende el regador
+		float humedadApagarRegador = dispositivo.getHumedadApagarRegador(); //Si la humedad es mayor a esta se apaga el regador
+		
+		for (MetricaRegador metrica : metricas) {
+			Evento eventoExistente = this.getEventoByDispositivoAndMetrica(dispositivo, metrica);
+			humedadMedida = metrica.getHumedadMedida();
+
+			if (eventoExistente == null) {
+				if (!dispositivo.isEstaPrendido()) {
+					if (humedadMedida < humedadPrenderRegador) {
+						dispositivo.setEstaPrendido(true);
+						Evento eventoPrenderRegador = new Evento(dispositivo, "Se prendió el regador", metrica.getFechaHoraMetrica(), metrica);
+						this.saveEvento(eventoPrenderRegador);
+					}
+				}
+				
+				if (dispositivo.isEstaPrendido()) {
+					if (humedadMedida > humedadApagarRegador) {
+						dispositivo.setEstaPrendido(false);
+						Evento eventoApagarRegador = new Evento(dispositivo, "Se apagó el regador", metrica.getFechaHoraMetrica(), metrica);
+						this.saveEvento(eventoApagarRegador);
+					}
+				}
+			}
+		}
+		
+		
 	}
 
 }

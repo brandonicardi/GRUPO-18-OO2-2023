@@ -30,9 +30,7 @@ public class DispositivoRegadorService implements IDispositivoRegadorService{
 
 	private ModelMapper modelMapper = new ModelMapper();
 
-	/*public DispositivoRegadorService(IDispositivoRegadorRepository dispositivoRegadorRepository) {
-		this.dispositivoRegadorRepository = dispositivoRegadorRepository;
-	}*/
+
 	
 	//Alta o modificacion
 	public DispositivoRegadorModel insertOrUpdate(DispositivoRegadorModel dispositivoModel) {
@@ -55,6 +53,10 @@ public class DispositivoRegadorService implements IDispositivoRegadorService{
 	public DispositivoRegadorModel getDispositivoById(int id) {
 		DispositivoRegador dispositivo = dispositivoRegadorRepository.findById(id).orElse(null);
 		return modelMapper.map(dispositivo, DispositivoRegadorModel.class);
+	}
+	
+	public DispositivoRegador findDispositivoById(int id) {
+		return dispositivoRegadorRepository.findById(id).orElse(null);
 	}
 	
 	public List<DispositivoRegadorModel> getAll(){
@@ -93,46 +95,7 @@ public class DispositivoRegadorService implements IDispositivoRegadorService{
 	public List<MetricaRegador> traerMetricas(){
 		return dispositivoRegadorRepository.traerMetricas();
 	}
-	
-	//Actualizar el estado del dispositivo y generar los eventos
-	/**
-	 * 
 
-	public void generarEventos() {
-		List<MetricaRegador> metricas = this.traerMetricas();
-		DispositivoRegador d; //Dispositivo de la metrica
-		float humedadMedida; //Humedad registrada en la métrica
-		float humedadActual; //Humedad registrada en dispositivo
-		float humedadPrenderRegador; //Si la humedad es menor a esta se prende el regador
-		float humedadApagarRegador; //Si la humedad es mayor a esta se apaga el regador
-		boolean estaPrendido; //Registra si el regador esta prendido(true) o apagado(false)
-		
-		
-		for (MetricaRegador m : metricas) {
-			d = m.getDispositivo();
-			humedadMedida = m.getHumedadMedida();
-			humedadActual = d.getHumedadActual(); 
-			humedadApagarRegador = d.getHumedadApagarRegador();
-			humedadPrenderRegador = d.getHumedadPrenderRegador();
-			
-			
-			if (humedadMedida < humedadPrenderRegador && !estaPrendido) {
-				d.setEstaPrendido(true);
-				//generar evento(dispositivo, "Se prendio regador", metrica)
-			}
-			
-			if (humedadMedida > humedadApagarRegador && estaPrendido) {
-				d.setEstaPrendido(false);
-				//generar evento(dispositivo, "Se apago regador", metrica)
-			}
-		
-		}
-			 
-		
-	}
-	
-	*/
-	
 	
 	
 }

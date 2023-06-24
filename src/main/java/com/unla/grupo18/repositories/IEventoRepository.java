@@ -12,6 +12,7 @@ import com.unla.grupo18.entities.Evento;
 import com.unla.grupo18.entities.MetricaAcondicionarAmbiente;
 import com.unla.grupo18.entities.MetricaAlumbrado;
 import com.unla.grupo18.entities.MetricaEstacionamiento;
+import com.unla.grupo18.entities.MetricaRegador;
 
 @Repository("eventoRepositorio")
 public interface IEventoRepository extends JpaRepository <Evento, Serializable> {
@@ -29,6 +30,7 @@ public interface IEventoRepository extends JpaRepository <Evento, Serializable> 
 	Evento findByDispositivoAndMetrica(Dispositivo dispositivo, MetricaAlumbrado metricaAlumbrado);
 	Evento findByDispositivoAndMetrica(Dispositivo dispositivo, MetricaEstacionamiento metricaEstacionamiento);
 	Evento findByDispositivoAndMetrica(Dispositivo dispositivo, MetricaAcondicionarAmbiente metrica);
+	Evento findByDispositivoAndMetrica(Dispositivo dispositivo, MetricaRegador metricaRegador);
 	
 	List<Evento> findByDescripcionEventoContainingIgnoreCase(String descripcionEvento);
 	
