@@ -62,7 +62,7 @@ public class DispositivoEstacionamientoController {
 		dispositivo.setEdificio(edificio);
 
 		dispositivoEstacionamientoService.saveDispositivo(dispositivo);
-		return "/estacionmaiento/mostrarEstacionamiento/";
+		return ViewRouteHelper.MENU_DISP_Estacionamiento;
 	}
 
 	// ELIMINAR

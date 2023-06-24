@@ -77,12 +77,9 @@ public class EventoController {
 		return ViewRouteHelper.EVENTO_AMBIENTE;
 	}
 
-<<<<<<< HEAD
-	// ==================== ESTOS METODOS SON PARA EL DISPOSITIVO ALUMBRADO
-	// ====================
-=======
+
 	// ==================== ESTOS METODOS SON PARA EL DISPOSITIVO ALUMBRADO ====================
->>>>>>> 74adaef36fd971b3606f3bf2cf6902ac71ae9601
+
 
 	@GetMapping("/alumbrado/eventos/{id}")
 	public String listaEventos(@PathVariable int id, Model model) {
@@ -119,7 +116,7 @@ public class EventoController {
 		mav.addObject("eventos", eventos);
 		return mav;
 	}
-<<<<<<< HEAD
+
 	// ==================== ESTOS METODOS SON PARA EL DISPOSITIVO ESTACIONAMIENTO
 	// ====================
 
@@ -134,7 +131,6 @@ public class EventoController {
 		}
 		return ViewRouteHelper.EVENTOS_ESTACIONAMIENTO;
 	}
-=======
->>>>>>> 74adaef36fd971b3606f3bf2cf6902ac71ae9601
+
 
 }

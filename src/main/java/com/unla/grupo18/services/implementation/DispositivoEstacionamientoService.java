@@ -64,15 +64,13 @@ public class DispositivoEstacionamientoService {
 				return false;
 			}
 		}
-	    
-	 public DispositivoEstacionamientoModel insertOrUpdateDisp(DispositivoEstacionamiento dispositivo) {
+	   public DispositivoEstacionamientoModel insertOrUpdateDisp(DispositivoEstacionamiento dispositivo) {
 	        System.out.println("Dispositivo antes del mapeo: " + dispositivo);
 	        DispositivoEstacionamiento dispositivoNuevo = dispositivoEstacionamientoRepository.save(dispositivo);
 	        DispositivoEstacionamientoModel dispositivoModel = modelMapper.map(dispositivoNuevo, DispositivoEstacionamientoModel.class);
 	        System.out.println("Dispositivo mapeado: " + dispositivoModel);
 	        return dispositivoModel;
 	    }
-	 
 	 
 	 
 	 

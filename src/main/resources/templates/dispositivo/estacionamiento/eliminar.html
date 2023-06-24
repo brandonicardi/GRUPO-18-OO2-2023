@@ -2,61 +2,135 @@
 <html lang="en">
 
 <head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-	<meta name="description" content="" />
-	<meta name="author" content="" />
-	<title>DISPOSITIVO ESTACIONAMIENTO</title>
-	<!-- Favicon-->
-	<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-	<!-- Bootstrap icons-->
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
-	<!-- Core theme CSS (includes Bootstrap)-->
-	<link href="../../css/styles.css" rel="stylesheet" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>DISPOSITIVO ESTACIONAMIENTO</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" alt="Favicon" />
+    <!-- Bootstrap icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap) -->
+    <link href="../../css/styles.css" rel="stylesheet" />
+    <style>
+        .center-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 30vh;
+        }
+
+        .delete-device:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 
 <body>
-<div class="wrapper">
-	<!-- Page Content-->
-	<section class="pt-4 content">
-		<div class="container px-lg-5">
-			<!-- Page Features-->
-			<div class="row gx-lg-5">
-				<h1>Dar de baja un dispositivo de ESTACIONAMIENTO</h1>
-				<ul>
-					<li th:each="dispositivo : ${dispositivos}" th:if="${dispositivo.isBaja == false}">
-                        
-						<a href="#" th:onclick="'javascript:confirmarEliminacion(' + ${dispositivo.idDispositivo} + ')'">
-							
-                            <span th:text="${dispositivo.nombreDispositivo}"></span>
-                            </a>
-					</li>
-				</ul>
+    <div class="wrapper">
+        <!-- Page Content -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<div class="container px-5">
+				<a class="navbar-brand" th:href="@{/index}">UNLa - GRUPO 18</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+					data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+					aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+						<li class="nav-item">
+							<a class="nav-link" href="/index">INICIO</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="javascript:history.back()">VOLVER ATRÁS</a>
+						</li>
+					</ul>
+				</div>
 			</div>
-		</div>
-	</section>
-</div>
+		</nav>
+        <section class="pt-4 content center-content">
+            <div class="container px-lg-5">
+                <!-- Page Features -->
+                <div class="row gx-lg-5">
+                    <h1 class="text-center">Dar de baja un dispositivo de ESTACIONAMIENTO</h1>
+                    <ul>
+                        <li th:each="dispositivo : ${dispositivos}" th:if="${dispositivo.isBaja == false}">
+                            <a href="#" th:data-device-id="${dispositivo.idDispositivo}" class="delete-device">
+                                <span class="me-2" th:text="${dispositivo.nombreDispositivo}"></span>
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
 
-
-
-	<!-- Bootstrap core JS-->
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-	<!-- Core theme JS-->
-	<script src="js/scripts.js"></script><!-- Script -->
-<script th:inline="javascript">
-    function confirmarEliminacion(deviceId) {
-        if (confirm('¿Estás seguro de que deseas dar de baja este dispositivo?')) {
-            fetch('/dispositivo/estacionamiento/eliminar/' + deviceId, { method: 'GET' })
-                .then(function(response) {
-                    window.location.href = '/dispositivo/estacionamiento';
-                })
-                .catch(function(error) {
-                    console.error(error);
+    <!-- Bootstrap core JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS -->
+    <script src="js/scripts.js"></script>
+    <script th:inline="javascript">
+        document.addEventListener('DOMContentLoaded', function() {
+            var deleteLinks = document.querySelectorAll('.delete-device');
+            deleteLinks.forEach(function(link) {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    var deviceId = this.getAttribute('data-device-id');
+                    showConfirmationModal(deviceId);
                 });
-        }
-    }
-</script>
+            });
+
+            function showConfirmationModal(deviceId) {
+                var modal = document.getElementById('confirmationModal');
+                var confirmButton = document.getElementById('confirmButton');
+
+                confirmButton.addEventListener('click', function() {
+                    deleteDevice(deviceId);
+                });
+
+                modal.showModal();
+            }
+
+            function deleteDevice(deviceId) {
+                var deleteUrl = '/dispositivo/estacionamiento/eliminar/' + deviceId;
+                var modal = document.getElementById('confirmationModal');
+                var successMessage = document.getElementById('successMessage');
+
+                fetch(deleteUrl, { method: 'GET' })
+                    .then(function(response) {
+                        if (response.ok) {
+                            successMessage.style.display = 'block';
+                            modal.close();
+                            // You can choose to remove the deleted device from the list dynamically using JavaScript or reload the page to reflect the changes
+                            // Example to remove the device from the list dynamically:
+                            var deviceElement = document.querySelector('.delete-device[data-device-id="' + deviceId + '"]');
+                            if (deviceElement) {
+                                deviceElement.parentNode.remove();
+                            }
+                        } else {
+                            console.error('Failed to delete device');
+                        }
+                    })
+                    .catch(function(error) {
+                        console.error(error);
+                    });
+            }
+        });
+    </script>
+
+    <!-- Confirmation Modal -->
+    <dialog id="confirmationModal">
+        <p>¿Estás seguro de que deseas dar de baja este dispositivo?</p>
+        <button id="confirmButton">Confirmar</button>
+        <button id="cancelButton">Cancelar</button>
+    </dialog>
+
+    <!-- Success Message -->
+    <div id="successMessage" style="display: none;">
+        <p>El dispositivo ha sido dado de baja correctamente.</p>
+    </div>
 </body>
 
 </html>
+
