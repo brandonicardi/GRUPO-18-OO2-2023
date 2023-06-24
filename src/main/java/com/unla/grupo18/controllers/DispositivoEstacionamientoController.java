@@ -167,29 +167,30 @@ public class DispositivoEstacionamientoController {
 		        @ModelAttribute("dispositivoEstacionamiento") DispositivoEstacionamiento dispositivo, @RequestParam("edificioId") int edificioId,
 		        @RequestParam("espacio") boolean estado) {
 
-		    // Paso 1: Establecer el ID del dispositivo
+		   
 		    dispositivo.setIdDispositivo(idDispositivo);
 
-		    // Paso 2: Establecer la fecha de modificación del dispositivo
+		  
 		    dispositivo.setFechaModificacion(LocalDateTime.now());
 		    dispositivo.setEstado(estado);
 
-		    // Paso 3: Obtener el edificio y el aula por sus respectivos IDs
+		   
 		    Edificio edificio = edificioService.findById(edificioId);
 		    
 
-		    // Paso 4: Establecer el edificio y el aula en el dispositivo
+		    
 		    dispositivo.setEdificio(edificio);
 		   
 		    dispositivo.setMetricas(dispositivoEstacionamientoService.findByIdEstacionamiento(idDispositivo).getMetricas());
 		    
-		    // Paso 5: Aplicar la actualización del dispositivo en la base de datos
+		 
 		    dispositivoEstacionamientoService.insertOrUpdateDisp(dispositivo);
 
-		    // Paso 6: Crear una instancia de ModelAndView para redireccionar a una vista y mostrar el objeto actualizado
+		 
 			ModelAndView mV = new ModelAndView();
 			mV.setViewName(ViewRouteHelper.MODIFICAR_DISP_ESTACIONAMIENTO);
 			mV.addObject("dispositivoEstacionamiento", dispositivo);
 			return mV;
 		}
+		
 }
