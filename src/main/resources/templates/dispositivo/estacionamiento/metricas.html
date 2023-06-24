@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>DISPOSITIVO DE ALUMBRADO INTELIGENTE</title>
+    <title>DISPOSITIVO DE ESTACIONAMIENTO</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Bootstrap CSS-->
@@ -32,7 +32,8 @@
                                     <th>ID</th>
                                    
                                   
-                                    <th>Acción</th>
+                                    <th>FECHA Y HORA</th>
+                                     <th>ESTADO</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -41,9 +42,15 @@
                                     <td th:text="${metrica.idMetrica}"></td>
                                    
                                     <td th:text="${metrica.fechaHoraMetrica}"></td>
+                                         <td th:text="${metrica.estado}"></td>
+                                  
                                   
                                     <td>
-                                      //  <a th:href="@{/dispositivo/estacionamiento/actualizar/{id}(id=${metrica.idMetrica})}">Actualizar evento</a>
+                                       
+                                       <form th:action="@{/dispositivo/estacionamiento/actualizar/{id}(id=${metrica.idMetrica})}" method="post">
+    <button type="submit">Actualizar evento</button>
+</form>
+
                                     </td>
                                 </tr>
                             </tbody>

@@ -2,6 +2,7 @@ package com.unla.grupo18.entities;
 
 import java.time.LocalDateTime;
 
+
 import org.hibernate.annotations.ColumnDefault;
 
 import jakarta.persistence.Column;
@@ -16,7 +17,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
+//@NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "dispositivoRegador")
 @PrimaryKeyJoinColumn(referencedColumnName="idDispositivo")
@@ -26,11 +27,11 @@ public class DispositivoRegador extends Dispositivo {
 	private float humedadActual;
 	
 	@Column(name="humedadPrenderRegador")
-	@ColumnDefault("30")
+	//@ColumnDefault("30.0")
 	private float humedadPrenderRegador;
 	
 	@Column(name="humedadApagarRegador")
-	@ColumnDefault("90")
+	//@ColumnDefault("90")
 	private float humedadApagarRegador;
 	
 	@Column(name="estaPrendido")
@@ -39,15 +40,14 @@ public class DispositivoRegador extends Dispositivo {
 	@Column(name="zona")
 	private String zona;
 	
-	public DispositivoRegador(int idDispositivo, String nombreDispositivo, LocalDateTime fechaCreacion,
-			LocalDateTime fechaModificacion, LocalDateTime fechaBaja, boolean isBaja, float humedadActual,
-			float humedadPrenderRegador) {
-		super(idDispositivo, nombreDispositivo, fechaCreacion, fechaModificacion, fechaBaja, isBaja);
-		this.humedadActual = humedadActual;
-		this.humedadPrenderRegador = humedadPrenderRegador;
-		this.estaPrendido = false; 
-	}
 	
+	public DispositivoRegador() {
+		super();
+		//Agrego los valores predeterminados
+		this.estaPrendido = false;
+		this.humedadPrenderRegador = 30;
+		this.humedadApagarRegador = 90;
+	}
 	
 	
 }

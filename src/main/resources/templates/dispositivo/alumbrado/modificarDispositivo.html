@@ -35,35 +35,48 @@
 	</nav>
 	<div class="container">
 		<h1 class="mt-4">Dispositivos disponibles para modificar:</h1>
-		<div class="table-responsive">
-		<table class="table mt-4">
-			<thead>
-				<tr>
-					<th>ID</th>
-					<th>Nombre</th>
-					<th>Edificio</th>
-					<th>Aula</th>
-					<th>Acción</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="dispositivo : ${dispositivos}">
-					<td th:text="${dispositivo.idDispositivo}"></td>
-					<td th:text="${dispositivo.nombreDispositivo}"></td>
-					<td th:text="${dispositivo.edificio.nombre}"></td>
-					<td th:text="${dispositivo.aula.numero}"></td>
-					<td>
-						<a th:href="@{/dispositivo/alumbrado/modificar/{id}(id=${dispositivo.idDispositivo})}"
-							class="btn btn-primary">
-							Modificar
-						</a>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-	</div>
+		<form
+							th:action="@{/dispositivo/alumbrado/modificar/{idDispositivo}(idDispositivo=*{idDispositivo})}"
+							th:object="${dispositivoAlumbrado}" method="post">
+							<div class="mb-3">
+								<label class="form-label" for="nombre">Nombre:</label>
+								<input type="text" class="form-control" id="nombre" th:field="*{nombreDispositivo}" />
+							</div>
 
+							<div class="mb-3">
+								<label class="form-label" for="edificioId">Edificio:</label>
+								<select class="form-select" id="edificioId" name="edificio.id"
+									th:onchange="cargarAulas()">
+									<option value="">Seleccionar Edificio</option>
+									<option th:each="edificio : ${edificios}" th:value="${edificio.id}"
+										th:text="${edificio.nombre}"></option>
+								</select>
+							</div>
+
+							<div class="mb-3">
+								<label class="form-label" for="aulaId">Seleccionar Aula:</label>
+								<select class="form-select" id="aulaId" name="aulaId">
+									<option value="">Seleccionar Aula</option>
+									<option th:each="aula : ${aulas}" th:value="${aula.idAula}"
+										th:text="${aula.numero}"></option>
+								</select>
+							</div>
+
+							<div class="mb-3">
+								<label class="form-label" for="horadeEncendido">Hora de Encendido:</label>
+								<input type="time" class="form-control" id="horadeEncendido" name="horadeEncendido"
+									pattern="HH:mm" required th:value="${dispositivoAlumbrado.horadeEncendido}" />
+							</div>
+
+							<div class="mb-3">
+								<label class="form-label" for="horadeApagado">Hora de Apagado:</label>
+								<input type="time" class="form-control" id="horadeApagado" name="horadeApagado"
+									pattern="HH:mm" required th:value="${dispositivoAlumbrado.horadeApagado}" />
+							</div>
+
+							<input type="hidden" id="edificioIdInput" name="edificioId" />
+							<button type="submit" class="btn btn-primary">Guardar</button>
+						</form>
 
 	<div class="text-center">
 		<a th:href="@{/dispositivo/alumbrado}" class="btn btn-primary">Volver</a>
