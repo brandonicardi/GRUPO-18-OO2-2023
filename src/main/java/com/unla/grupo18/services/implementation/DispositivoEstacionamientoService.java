@@ -12,6 +12,7 @@ import com.unla.grupo18.entities.DispositivoAcondicionarAmbiente;
 import com.unla.grupo18.entities.DispositivoAlumbrado;
 import com.unla.grupo18.entities.DispositivoEstacionamiento;
 import com.unla.grupo18.models.DispositivoAcondicionarAmbienteModel;
+import com.unla.grupo18.models.DispositivoAlumbradoModel;
 import com.unla.grupo18.models.DispositivoEstacionamientoModel;
 import com.unla.grupo18.repositories.IDispositivoAlumbradoRepository;
 import com.unla.grupo18.repositories.IDispositivoEstacionamientoRepository;
@@ -36,7 +37,10 @@ public class DispositivoEstacionamientoService {
 	        return dispositivoEstacionamientoRepository.findById(dispositivoId).orElse(null);
 	    }
 	
-	
+//		-------------------------- Dispositivo ESTACIONAMIENTO por ID ---------------
+		public DispositivoEstacionamiento findByIdEstacionamiento(int idDispositivo) {
+			return dispositivoEstacionamientoRepository.findByidDispositivo(idDispositivo);
+		}
 	 
 		public DispositivoEstacionamientoModel insertOrUpdate(DispositivoEstacionamiento dispositivo) {
 			DispositivoEstacionamiento dispositivoNuevo = dispositivoEstacionamientoRepository.save(dispositivo);
@@ -61,29 +65,13 @@ public class DispositivoEstacionamientoService {
 			}
 		}
 	    
-	//Actualizar un registro existente
-	    public DispositivoEstacionamiento updateDispositivo(DispositivoEstacionamiento dispositivo) {
-	     
-	    	 DispositivoEstacionamiento dispositivoExistente = this.getDispositivoById(dispositivo.getIdDispositivo());
-	      
-
-	        // Actualizar los campos del sensor existente con los nuevos valores
-	        dispositivoExistente.setNombreDispositivo(dispositivo.getNombreDispositivo());
-	        dispositivoExistente.setEdificio(dispositivo.getEdificio());
-	        dispositivoExistente.setFechaModificacion(LocalDateTime.now());
-	        
-	        // Guardar el sensor actualizado en la base de datos
-	        return dispositivoEstacionamientoRepository.save(dispositivoExistente);
+	 public DispositivoEstacionamientoModel insertOrUpdateDisp(DispositivoEstacionamiento dispositivo) {
+	        System.out.println("Dispositivo antes del mapeo: " + dispositivo);
+	        DispositivoEstacionamiento dispositivoNuevo = dispositivoEstacionamientoRepository.save(dispositivo);
+	        DispositivoEstacionamientoModel dispositivoModel = modelMapper.map(dispositivoNuevo, DispositivoEstacionamientoModel.class);
+	        System.out.println("Dispositivo mapeado: " + dispositivoModel);
+	        return dispositivoModel;
 	    }
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
 	 
 	 
 	 

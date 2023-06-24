@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.unla.grupo18.entities.Dispositivo;
 import com.unla.grupo18.entities.Evento;
 import com.unla.grupo18.entities.MetricaAlumbrado;
+import com.unla.grupo18.entities.MetricaEstacionamiento;
 
 @Repository("eventoRepositorio")
 public interface IEventoRepository extends JpaRepository <Evento, Serializable> {
@@ -24,6 +25,7 @@ public interface IEventoRepository extends JpaRepository <Evento, Serializable> 
 	List<Evento> findByDispositivo(Dispositivo dispositivo);
 	
 	Evento findByDispositivoAndMetrica(Dispositivo dispositivo, MetricaAlumbrado metricaAlumbrado);
+	Evento findByDispositivoAndMetrica(Dispositivo dispositivo, MetricaEstacionamiento metricaEstacionamiento);
 	
 	List<Evento> findByDescripcionEventoContainingIgnoreCase(String descripcionEvento);
 	
