@@ -8,10 +8,12 @@ import java.time.LocalDateTime;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
+import org.springframework.validation.BindingResult;
 // Annotation
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 // Model and View
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 // Entities
 import com.unla.grupo18.entities.Aula;
@@ -78,9 +81,9 @@ public class DispositivoAcondicionarAmbienteController {
 		// Instanciamos Edificio y Aula, buscandolos de la BD por su respectivo ID
 		Edificio edificio = edificioService.findById(edificioId);
 		Aula aula = aulaService.findById(aulaId);
-		
+
 		// Seteamos Edificio y Aula
-		dispositivo.setModoAire("Apagado");
+		
 		dispositivo.setEdificio(edificio);
 		dispositivo.setAula(aula);
 
@@ -94,7 +97,7 @@ public class DispositivoAcondicionarAmbienteController {
 		mV.addObject("dispositivoAcondicionar", dispositivo);
 
 		return mV;
-	}
+	}	
 
 	// >> Metodo para controlar la generacion de aulas dentro del http, se re utiliza en la vista 
 	// Se trae Edificio x id desde la BD, se le agregan sus respectivas Aulas.

@@ -10,7 +10,7 @@
 	<!-- Bootstrap icons -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" />
 	<!-- Core theme CSS (includes Bootstrap) -->
-	<link href="../../css/styles.css" rel="stylesheet" />
+	<link href="../../../css/styles.css" rel="stylesheet" />
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </head>
@@ -44,12 +44,17 @@
 						</p>
 						
 						<p>
-							Activar Frio en Temperatura:<input type="text" id="frio" th:field="*{temperaturaActivarFrio}" />
+							Activar Frio cuando la temperatura supere los : <input type="text" id="frio" th:field="*{temperaturaActivarFrio}"pattern="[0.-9.9]+" required />
+							
 						</p>
-						
+						<p th:if="${#fields.hasErrors('temperaturaActivarFrio')}" th:errors="*{temperaturaActivarFrio}">ERROR DE TEMPERATURA</p>
+							
+						</p>
 						<p>
-							Activar Calor en Temperatura:<input type="text" id="calor" th:field="*{temperaturaActivarCalor}" />
+							<!-- Activar Calor cuando la temperatura sea menor a :<input type="text" id="calor" th:field="*{temperaturaActivarCalor}"  min="0" max="100"  pattern="[0-9]+" required /> -->
+							Activar Calor cuando la temperatura sea menor a <input type="text" id="calor" th:field="*{temperaturaActivarCalor}" pattern="[0.0-9.9]+" required />
 						</p>
+						<p th:if="${#fields.hasErrors('temperaturaActivarCalor')}" th:errors="*{temperaturaActivarCalor}">ERROR DE TEMPERATURA</p>
 
 						<label for="edificioId">Edificio:</label>
 						<select id="edificioId" name="edificio.id" th:onchange="cargarAulas()">
@@ -99,6 +104,9 @@
             inputEdificioId.value = edificioId;
 			}
 		</script>
+		
+
+
 	</div>
 </body>
 
