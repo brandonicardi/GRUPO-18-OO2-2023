@@ -132,6 +132,7 @@ public class EventoController {
 		return ViewRouteHelper.EVENTOS_ESTACIONAMIENTO;
 	}
 
+
 	// ==================== CONTROLLER PARA DISPOSITIVO ACONDICIONAR AMBIENTE  ====================
 
 
@@ -146,5 +147,8 @@ public class EventoController {
 		}
 		return ViewRouteHelper.EVENTO_AMBIENTE;
 	}
+	
+
+
 
 }

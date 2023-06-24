@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -81,9 +82,6 @@ public class DispositivoEstacionamientoService {
 			nuevoDispositivo.setFechaBaja(LocalDateTime.now());
 			this.insertOrUpdate(nuevoDispositivo);
 		}
-		
-		
-		
 		
 
 	    

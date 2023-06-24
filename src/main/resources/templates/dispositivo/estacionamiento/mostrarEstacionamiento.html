@@ -1,17 +1,3 @@
-<!--h1>----Lista de Dispositivo Estacionamiento-------</h1>
-<table>
-    <tbody>
-        <tr th:each="dispositivo : ${dispositivos}">
-            <td> ID: <span th:text="${dispositivo.idDispositivo}"></span></td>
-            <td> /NOMBRE: <span th:text="${dispositivo.nombreDispositivo}"></span></td>
-
-            <td> /fechaCreacion: <span th:text="${dispositivo.fechaCreacion}"></span></td>
-            <td> /Edificio ID: <span th:text="${dispositivo.edificio.id}"></span></td>
-          
-            <td> /ESTADO: <span th:text="${dispositivo.estado}"></span></td>
-        </tr>
-    </tbody>
-</table-->
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -19,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 	<meta name="description" content="" />
 	<meta name="author" content="" />
-	<title>DISPOSITIVO DE ESTACIONAMIENTO INTELIGENTE</title>
+	<title>DISPOSITIVO DE ESTACIONAMIENTO </title>
 	<!-- Favicon-->
 	<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 	<!-- Bootstrap CSS-->
@@ -28,10 +14,33 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
 	<!-- Core theme CSS (includes Bootstrap)-->
 	<link href="../../css/styles.css" rel="stylesheet" />
+	<style>
+            body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-image: url("https://static.vecteezy.com/system/resources/previews/005/539/330/non_2x/automotive-transportation-car-with-parking-symbol-logo-icon-illustration-vector.jpg");
+            background-size: cover;
+        }
+
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+        }
+    </style>
 </head>
 
 <body>
+	
 	<div class="wrapper">
+		
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 			<div class="container px-5">
 				<a class="navbar-brand" href="">UNLa - GRUPO 18</a>
@@ -64,6 +73,7 @@
 						<h1>Lista de dispositivos de ESTACIONAMIENTO</h1>
 						<div class="table-responsive">
 							<table class="table table-striped">
+								<form>
 								<thead>
 									<tr>
 										<th>ID</th>
@@ -84,10 +94,7 @@
 										<td th:text="${dispositivo.edificio.nombre}"></td>
 										<td th:text="${dispositivo.estado}"></td>
 											<td th:text="${dispositivo.fechaCreacion}"></td>
-										<!--td>
-											<span th:if="${!dispositivo.isBaja}">En funcionamiento</span>
-											<span th:if="${dispositivo.isBaja}" th:text="${dispositivo.isBaja}"></span>
-										</td-->
+										
 										<td>
 											<div class="btn-group" role="group">
 												<a type="button" class="btn btn-primary btn-sm me-2"
@@ -104,6 +111,7 @@
 										</td>
 									</tr>
 								</tbody>
+								</form>
 							</table>
 						</div>
 					</div>
@@ -116,5 +124,6 @@
 		<script src="js/scripts.js"></script>
 	</div>
 </body>
+
 
 </html>
