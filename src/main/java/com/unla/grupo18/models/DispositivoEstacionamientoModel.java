@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DispositivoEstacionamientoModel extends DispositivoModel {
-private Set<Integer> listaEspacios;
+private boolean estado;
 
 
 

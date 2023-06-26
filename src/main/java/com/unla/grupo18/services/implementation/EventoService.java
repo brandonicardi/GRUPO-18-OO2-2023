@@ -139,24 +139,20 @@ public class EventoService implements IEventoService {
 		for (MetricaEstacionamiento metrica : metricas) {
 			Evento existenteEvento = getEventoByDispositivoAndMetrica(dispositivoEstacionamiento, metrica);
 
-			if (existenteEvento == null) {
-				if (!dispositivoEstacionamiento.isEstado()) {
-					LocalDateTime horaEncendido = dispositivoEstacionamiento.getFechaCreacion();
+			
+				if (dispositivoEstacionamiento.isEstado()==true) {
+			
 					Evento eventoActivo = new Evento(dispositivoEstacionamiento, "ESTACIONAMIENTO ACTIVO",
 							metrica.getFechaHoraMetrica(), metrica);
 					saveEvento(eventoActivo);
 				}
-			} else {
-				if (dispositivoEstacionamiento.isEstado()) {
-					LocalDateTime horaOcupado = dispositivoEstacionamiento.getFechaCreacion();
+			
+				if (dispositivoEstacionamiento.isEstado()==false) {
+					
 					Evento eventoOcupado = new Evento(dispositivoEstacionamiento, "ESTACIONAMIENTO OCUPADO",
 							metrica.getFechaHoraMetrica(), metrica);
 					saveEvento(eventoOcupado);
-				} else {
-					Evento eventoActivo = new Evento(dispositivoEstacionamiento, "ESTACIONAMIENTO ACTIVO",
-							metrica.getFechaHoraMetrica(), metrica);
-					saveEvento(eventoActivo);
-				}
+				
 			}
 		}
 	}
